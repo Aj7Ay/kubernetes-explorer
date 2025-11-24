@@ -166,7 +166,7 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
                 >
                   <Button 
                     onClick={handleBegin}
-                    className="text-lg px-8 py-4 flex items-center justify-center gap-2 mx-auto animate-pulse"
+                    className="text-lg px-8 py-4 flex items-center justify-center gap-2 mx-auto"
                     style={{ fontFamily: 'Satoshi, system-ui, -apple-system, sans-serif' }}
                   >
                     Let's Begin <ArrowRight />
