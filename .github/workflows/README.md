@@ -8,13 +8,27 @@ This directory contains GitHub Actions workflows for CI/CD.
 **Triggers:** Push to `main` branch or manual dispatch
 
 **What it does:**
-- Builds the application with API keys from GitHub Secrets
+- Builds the application
 - Deploys to GitHub Pages
 - Runs on every push to main
 
-**Required Secrets:**
-- `VITE_GROQ_API_KEY` (optional)
-- `VITE_OPENROUTER_API_KEY` (optional)
+### 2. CodeQL Analysis (`codeql.yml`)
+**Triggers:** Push, PR, or weekly schedule
+
+**What it does:**
+- Scans code for security vulnerabilities
+- Checks code quality
+- Free for public repositories
+- Runs CodeQL analysis
+
+### 3. Code Quality Check (`code-quality.yml`)
+**Triggers:** Push or PR
+
+**What it does:**
+- Runs ESLint
+- Type checks TypeScript
+- Verifies build succeeds
+- Ensures code quality
 
 ### 2. Release (`release.yml`)
 **Triggers:** Push of version tag (e.g., `v1.0.0`)
