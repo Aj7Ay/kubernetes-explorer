@@ -23,6 +23,8 @@ jobs:
           fetch-depth: 0
 
       - name: Update Release Draft
+        # Release-drafter reads config from default branch (main) via GitHub API
+        # Make sure .github/release-drafter.yml exists in your main branch
         uses: release-drafter/release-drafter@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

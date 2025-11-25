@@ -103,19 +103,23 @@ export const Services: React.FC<ServicesProps> = ({ onComplete }) => {
 
            {/* Request Particles */}
            <AnimatePresence>
-               {requests.map(r => (
-                   <motion.div
-                       key={r.id}
-                       initial={{ top: 60, left: '50%', scale: 0 }}
-                       animate={[
-                           { top: 60, left: '50%', scale: 1, opacity: 1 },
-                           { top: 160, left: '50%', scale: 1 },
-                           { top: 280, left: `${(r.targetPod * 33) - 16}%`, scale: 0.5, opacity: 0 }
-                       ]}
-                       transition={{ duration: 1, times: [0, 0.4, 1] }}
-                       className="absolute w-4 h-4 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)] z-20"
-                   />
-               ))}
+               {requests.map(r => {
+                   const targetLeft = `${(r.targetPod * 33) - 16}%`;
+                   return (
+                       <motion.div
+                           key={r.id}
+                           initial={{ top: 60, left: '50%', scale: 0 }}
+                           animate={{
+                               top: [60, 160, 280],
+                               left: ['50%', '50%', targetLeft],
+                               scale: [1, 1, 0.5],
+                               opacity: [1, 1, 0]
+                           }}
+                           transition={{ duration: 1, times: [0, 0.4, 1] }}
+                           className="absolute w-4 h-4 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)] z-20"
+                       />
+                   );
+               })}
            </AnimatePresence>
 
         </div>
