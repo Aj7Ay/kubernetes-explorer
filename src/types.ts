@@ -12,7 +12,7 @@ export interface Level {
   id: LevelId;
   title: string;
   description: string;
-  component: React.ComponentType<any>;
+  component: React.ComponentType<{ onComplete: () => void }>;
 }
 
 export interface GameState {
