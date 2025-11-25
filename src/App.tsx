@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { GameContainer } from './components/GameContainer';
 import { SidePanel } from './components/SidePanel';
+import { Chatbot } from './components/Chatbot';
 import { Intro, Containers, KubernetesIntro, Pods, Nodes, ReplicaSets, Services, Ingress } from './levels';
 import type { LevelId } from './types';
 
@@ -81,6 +82,7 @@ function App() {
       <GameContainer currentLevel={currentLevel} onNavigate={setCurrentLevel}>
         {renderLevel()}
       </GameContainer>
+      <Chatbot />
     </>
   );
 }

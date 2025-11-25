@@ -26,14 +26,14 @@ The Kubernetes Explorer includes an AI-powered chatbot that helps answer questio
 
 ### Setup
 
-1. **Backend API**: The chatbot requires a backend API deployed on Vercel. See the [ghost-api](../ghost-api/README.md) directory for backend setup instructions.
+1. **Backend API**: The chatbot requires a backend API endpoint. Set up your own backend API that handles chat requests.
 
-2. **Environment Variables** (Optional): If you're using a custom backend URL, create a `.env` file:
-   ```
+2. **Environment Variables** (Required): Create a `.env` file with your backend API URL:
+   ```env
    VITE_CHAT_API_URL=https://your-backend-url.vercel.app/api/chat
    ```
 
-3. **Using the Chatbot**: Click the chat icon in the bottom-right corner to open the chatbot. You can switch between Groq and OpenRouter providers using the dropdown in the chat header.
+3. **Using the Chatbot**: Click the chat icon in the bottom-right corner to open the chatbot. The chatbot uses the **Satoshi font** for a modern, clean interface.
 
 Currently, two official plugins are available:
 
