@@ -29,9 +29,6 @@ The Kubernetes Explorer includes an AI-powered chatbot that helps answer questio
 1. **Backend API**: The chatbot requires a backend API endpoint. Set up your own backend API that handles chat requests.
 
 2. **Environment Variables** (Required): Create a `.env` file with your backend API URL:
-   ```env
-   VITE_CHAT_API_URL=https://your-backend-url.vercel.app/api/chat
-   ```
 
 3. **Using the Chatbot**: Click the chat icon in the bottom-right corner to open the chatbot. The chatbot uses the **Satoshi font** for a modern, clean interface.
 

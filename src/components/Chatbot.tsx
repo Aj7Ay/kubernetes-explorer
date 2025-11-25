@@ -110,7 +110,7 @@ const renderMarkdown = (text: string): React.ReactNode => {
   return <>{elements}</>;
 };
 
-// Render inline markdown (bold, italic, code)
+// Render inline markdown (bold)
 const renderInlineMarkdown = (text: string): React.ReactNode => {
   const parts: React.ReactNode[] = [];
   let currentIndex = 0;
