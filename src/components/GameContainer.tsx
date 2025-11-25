@@ -37,9 +37,6 @@ export const GameContainer: React.FC<GameContainerProps> = ({ currentLevel, chil
           <h1 className="text-xl font-bold bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
             K8s Adventure
           </h1>
-          <div className="text-xs text-indigo-400">
-             Level: <span className="text-violet-300 uppercase font-bold">{currentLevel}</span>
-          </div>
       </div>
 
       {/* Main Content Area */}

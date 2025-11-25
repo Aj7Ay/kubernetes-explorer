@@ -1,0 +1,33 @@
+name: Auto Release Notes
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-release-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update Release Draft
+        # Release-drafter reads config from default branch (main) via GitHub API
+        # The config file .github/release-drafter.yml must exist in your main branch
+        # This will fail gracefully if config is not in main yet (e.g., on feature branches)
+        uses: release-drafter/release-drafter@v6
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

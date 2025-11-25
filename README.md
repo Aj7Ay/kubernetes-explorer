@@ -1,6 +1,36 @@
-# React + TypeScript + Vite
+# 🚀 Kubernetes Adventure
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive learning platform for understanding Kubernetes concepts through hands-on visualizations.
+
+[![CodeRabbit](https://img.shields.io/badge/CodeRabbit-AI%20Code%20Review-blue)](https://www.coderabbit.ai)
+[![CodeQL](https://github.com/Aj7Ay/kubernetes-explorer/actions/workflows/codeql.yml/badge.svg)](https://github.com/Aj7Ay/kubernetes-explorer/actions/workflows/codeql.yml)
+
+## 🤖 AI Code Review
+
+This project uses [CodeRabbit](https://www.coderabbit.ai/) for automated AI-powered code reviews. CodeRabbit is **completely free forever** for open-source projects (Pro plan included!) and provides:
+
+- ✅ Automated code reviews on every pull request
+- ✅ Line-by-line feedback with suggestions
+- ✅ Security and quality checks
+- ✅ PR summarization
+
+See [CODERABBIT.md](./CODERABBIT.md) for setup instructions.
+
+## 🛠️ Tech Stack
+
+Built with React + TypeScript + Vite
+
+## 🤖 Chatbot Integration
+
+The Kubernetes Explorer includes an AI-powered chatbot that helps answer questions about Kubernetes concepts. The chatbot uses either OpenRouter or Groq APIs through a secure backend proxy.
+
+### Setup
+
+1. **Backend API**: The chatbot requires a backend API endpoint. Set up your own backend API that handles chat requests.
+
+2. **Environment Variables** (Required): Create a `.env` file with your backend API URL:
+
+3. **Using the Chatbot**: Click the chat icon in the bottom-right corner to open the chatbot. The chatbot uses the **Satoshi font** for a modern, clean interface.
 
 Currently, two official plugins are available:
 

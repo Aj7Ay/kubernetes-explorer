@@ -1,0 +1,43 @@
+# CodeRabbit Configuration
+# This file configures CodeRabbit AI code review behavior
+
+# UI Language (ISO language code)
+# Options: en-US, en-GB, de-DE, fr-FR, es-ES, ja-JP, zh-CN, etc.
+language: 'en-US'
+
+# Review settings
+review:
+  # Request review comments on pull requests
+  request_changes_workflow: true
+  
+  # Review only changed lines or entire file
+  review_only_changed_files: false
+  
+  # Paths to ignore (CodeRabbit automatically detects programming languages)
+  ignore:
+    - "**/*.lock"
+    - "**/node_modules/**"
+    - "**/dist/**"
+    - "**/.git/**"
+    - "**/coverage/**"
+    - "**/*.min.js"
+    - "**/*.bundle.js"
+
+# Suggestions settings
+suggestions:
+  # Enable code suggestions
+  enabled: true
+
+# Chat settings (for Pro plan - free for open source!)
+chat:
+  # Enable chat with CodeRabbit
+  enabled: true
+
+# Summarization settings
+summarization:
+  # Enable PR summarization
+  enabled: true
+  
+  # Include diff summary
+  diff_summary: true
+
