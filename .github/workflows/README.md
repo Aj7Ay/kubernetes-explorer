@@ -30,6 +30,18 @@ This directory contains GitHub Actions workflows for CI/CD.
 - Verifies build succeeds
 - Ensures code quality
 
+### 4. CodeRabbit AI Code Review
+**Triggers:** Automatically on pull requests
+
+**What it does:**
+- AI-powered code reviews
+- Line-by-line feedback
+- Security and quality checks
+- PR summarization
+- **Free for open-source projects!**
+
+**Setup:** See [CODERABBIT.md](../../CODERABBIT.md) for installation instructions.
+
 ### 2. Release (`release.yml`)
 **Triggers:** Push of version tag (e.g., `v1.0.0`)
 

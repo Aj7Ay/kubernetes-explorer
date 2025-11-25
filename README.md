@@ -1,6 +1,24 @@
-# React + TypeScript + Vite
+# 🚀 Kubernetes Adventure
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive learning platform for understanding Kubernetes concepts through hands-on visualizations.
+
+[![CodeRabbit](https://img.shields.io/badge/CodeRabbit-AI%20Code%20Review-blue)](https://www.coderabbit.ai)
+[![CodeQL](https://github.com/Aj7Ay/kubernetes-explorer/actions/workflows/codeql.yml/badge.svg)](https://github.com/Aj7Ay/kubernetes-explorer/actions/workflows/codeql.yml)
+
+## 🤖 AI Code Review
+
+This project uses [CodeRabbit](https://www.coderabbit.ai/) for automated AI-powered code reviews. CodeRabbit is **completely free forever** for open-source projects (Pro plan included!) and provides:
+
+- ✅ Automated code reviews on every pull request
+- ✅ Line-by-line feedback with suggestions
+- ✅ Security and quality checks
+- ✅ PR summarization
+
+See [CODERABBIT.md](./CODERABBIT.md) for setup instructions.
+
+## 🛠️ Tech Stack
+
+Built with React + TypeScript + Vite
 
 Currently, two official plugins are available:
 
