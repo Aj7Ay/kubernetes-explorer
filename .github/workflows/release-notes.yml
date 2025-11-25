@@ -24,8 +24,10 @@ jobs:
 
       - name: Update Release Draft
         # Release-drafter reads config from default branch (main) via GitHub API
-        # Make sure .github/release-drafter.yml exists in your main branch
+        # The config file .github/release-drafter.yml must exist in your main branch
+        # This will fail gracefully if config is not in main yet (e.g., on feature branches)
         uses: release-drafter/release-drafter@v6
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
