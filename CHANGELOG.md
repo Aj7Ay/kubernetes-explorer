@@ -22,6 +22,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Interactive levels for learning K8s concepts
 - Side panel navigation
 
-[Unreleased]: https://github.com/your-username/k8s-adventure/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/your-username/k8s-adventure/releases/tag/v0.1.0
+[Unreleased]: https://github.com/Aj7Ay/k8s-adventure/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/Aj7Ay/k8s-adventure/releases/tag/v0.1.0
 

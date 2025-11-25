@@ -65,12 +65,8 @@ git push origin v1.0.0
 
 ## 🔐 Setting Up Secrets
 
-See [GITHUB_SECRETS_SETUP.md](../GITHUB_SECRETS_SETUP.md) for detailed instructions.
-
 Quick steps:
 1. Go to Repository Settings → Secrets and variables → Actions
-2. Add `VITE_GROQ_API_KEY` and `VITE_OPENROUTER_API_KEY`
-3. Workflows will automatically use them
 
 ## 🚀 Creating Releases
 

@@ -20,6 +20,21 @@ See [CODERABBIT.md](./CODERABBIT.md) for setup instructions.
 
 Built with React + TypeScript + Vite
 
+## 🤖 Chatbot Integration
+
+The Kubernetes Explorer includes an AI-powered chatbot that helps answer questions about Kubernetes concepts. The chatbot uses either OpenRouter or Groq APIs through a secure backend proxy.
+
+### Setup
+
+1. **Backend API**: The chatbot requires a backend API deployed on Vercel. See the [ghost-api](../ghost-api/README.md) directory for backend setup instructions.
+
+2. **Environment Variables** (Optional): If you're using a custom backend URL, create a `.env` file:
+   ```
+   VITE_CHAT_API_URL=https://your-backend-url.vercel.app/api/chat
+   ```
+
+3. **Using the Chatbot**: Click the chat icon in the bottom-right corner to open the chatbot. You can switch between Groq and OpenRouter providers using the dropdown in the chat header.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
