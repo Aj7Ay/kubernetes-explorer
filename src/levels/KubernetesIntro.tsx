@@ -1812,6 +1812,8 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [craneThreadLength, setCraneThreadLength] = useState(18); // Thread length for crane
   const [craneHookY, setCraneHookY] = useState(18); // Hook Y position
+  const [manifestOpacity, setManifestOpacity] = useState(0); // Manifest opacity for fade-out
+  const [cranePodVisible, setCranePodVisible] = useState(false); // Control pod visibility on crane
   const autoStepTimeoutRef = React.useRef<number | null>(null);
 
   const stepDescriptions = [
@@ -1888,25 +1890,36 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
       explainerEl.style.opacity = '1';
     }
     
-    // Handle crane animation based on step
-    if (currentStep === 7) {
-      // Step 7: Lower crane with pod, drop pod on worker, then retract
-      // Phase 1: Lower crane with pod visible (immediate - scheduler places pod)
-      setCraneThreadLength(220);
-      setCraneHookY(220);
-      
-      // Phase 2: After crane lowers completely (2.5s), pod drops and appears on worker
-      // Phase 3: Retract crane thread AFTER pod is placed (3.5s total - ensures thread is visible during retraction)
+    // Handle manifest animation based on step
+    if (currentStep === 1) {
+      // Step 1: Manifest moves from console to API server - make visible
+      setManifestOpacity(1);
+    } else if (currentStep === 2) {
+      // Step 2: Manifest stays at API server, then fades out after 2 seconds
+      setManifestOpacity(1);
       setTimeout(() => {
-        setCraneThreadLength(18);
-        setCraneHookY(18);
-      }, 3500);
-    } else if (currentStep < 7) {
-      // Reset crane position when before step 7 - ensure thread is visible
+        setManifestOpacity(0);
+      }, 2000);
+    } else {
+      // Step 3+: Manifest is gone
+      setManifestOpacity(0);
+    }
+    
+    // Handle crane animation based on step
+    if (currentStep === 5) {
+      // Step 5: Scheduler glows - crane stays retracted
+      setCranePodVisible(false);
       setCraneThreadLength(18);
       setCraneHookY(18);
-    } else if (currentStep > 7) {
-      // Keep crane retracted after step 7 - thread should still be visible
+    } else if (currentStep === 7) {
+      // Step 7: Scheduler places pod - pod appears directly on worker node (no drop animation)
+      // Crane can glow briefly to show scheduler action, but pod appears directly on worker
+      setCranePodVisible(false); // No pod on crane
+      setCraneThreadLength(18);
+      setCraneHookY(18);
+    } else {
+      // Steps before 5 or after 7: Reset crane position
+      setCranePodVisible(false);
       setCraneThreadLength(18);
       setCraneHookY(18);
     }
@@ -2063,6 +2076,19 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Left Side: Animation Area (2/3 width) */}
           <div className="lg:col-span-2">
+            <style>{`
+              @keyframes pulse-glow {
+                0%, 100% {
+                  filter: drop-shadow(0 0 30px #4ade80) drop-shadow(0 0 20px #4ade80) drop-shadow(0 0 10px #4ade80);
+                }
+                50% {
+                  filter: drop-shadow(0 0 40px #4ade80) drop-shadow(0 0 25px #4ade80) drop-shadow(0 0 15px #4ade80);
+                }
+              }
+              .api-bridge-glow {
+                animation: pulse-glow 2s ease-in-out infinite;
+              }
+            `}</style>
             <div className="relative bg-gradient-to-b from-sky-950 via-blue-900 to-slate-950 rounded-[2rem] p-1 border-4 border-blue-500/30 shadow-2xl overflow-hidden h-[700px]">
               {/* Dynamic Ocean Background - Enhanced Water Flow */}
               <div className="absolute inset-0 overflow-hidden">
@@ -2125,8 +2151,8 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                   {/* Deck */}
                   <rect x="80" y="240" width="640" height="20" fill="#3730a3" stroke="#6366f1" rx="5" />
 
-                  {/* CRANE (SCHEDULER) - Positioned ON DECK - Left side (deck top is y=240, rect at y=-35 relative with height=35, so transform y=240 makes rect bottom at y=240-35=205, top at y=240) */}
-                  <g id="comp-scheduler" transform="translate(150, 240)" className={`transition-all duration-300 ${currentStep === 5 ? 'drop-shadow-[0_0_20px_#facc15]' : ''}`}>
+                  {/* CRANE (SCHEDULER) - Positioned ON DECK - Left side */}
+                  <g id="comp-scheduler" transform="translate(150, 240)" className="transition-all duration-300">
                     <rect x="-18" y="-35" width="36" height="35" fill="#854d0e" stroke="#eab308" strokeWidth="2" />
                     <circle cx="0" cy="-35" r="10" fill="#ca8a04" />
                     <g id="crane-arm" style={{ transformOrigin: "0px -35px" }}>
@@ -2157,25 +2183,29 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                             transform={`translate(0, ${craneHookY})`}
                           >
                             <path d="M -6 0 Q 0 8 6 0" stroke="white" strokeWidth="2.5" fill="none" />
-                            {/* Pod on crane hook - animated drop */}
-                            <motion.g 
-                              id="crane-pod" 
-                              transform="translate(-12, 4)"
-                              animate={{
-                                opacity: currentStep === 7 ? 1 : 0,
-                                y: currentStep === 7 ? [0, 0, 0, 0] : 0
-                              }}
-                              transition={{ 
-                                opacity: { duration: 0.3 },
-                                y: { duration: 0 }
-                              }}
-                              style={{ 
-                                pointerEvents: 'none'
-                              }}
-                            >
-                              <rect x="0" y="0" width="24" height="24" rx="5" fill="url(#hullGradient)" stroke="#fff" strokeWidth="1.5" />
-                              <text x="12" y="16" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold">POD</text>
-                            </motion.g>
+                            {/* Pod on crane hook - animated drop - Only visible at step 7 */}
+                            {currentStep === 7 && isStarted && cranePodVisible && (
+                              <motion.g 
+                                id="crane-pod" 
+                                transform="translate(-12, 4)"
+                                initial={{ opacity: 0 }}
+                                animate={{
+                                  opacity: 1,
+                                  y: [0, 0, 0, 0]
+                                }}
+                                exit={{ opacity: 0 }}
+                                transition={{ 
+                                  opacity: { duration: 0.3 },
+                                  y: { duration: 0 }
+                                }}
+                                style={{ 
+                                  pointerEvents: 'none'
+                                }}
+                              >
+                                <rect x="0" y="0" width="24" height="24" rx="5" fill="url(#hullGradient)" stroke="#fff" strokeWidth="1.5" />
+                                <text x="12" y="16" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold">POD</text>
+                              </motion.g>
+                            )}
                           </g>
                         </g>
                       </g>
@@ -2183,22 +2213,38 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                     <text x="0" y="18" textAnchor="middle" fill="#fde047" fontSize="11" fontWeight="bold">SCHEDULER</text>
                   </g>
 
-                  {/* CONTROLLER MANAGER - Positioned ON DECK - Left-center (deck top is y=240, component height=70, so y=240-70=170) */}
-                  <g id="comp-controller" transform="translate(280, 170)" className={`transition-all duration-300 ${currentStep === 4 ? 'drop-shadow-[0_0_20px_#f87171]' : ''}`}>
-                    <rect x="0" y="0" width="75" height="70" rx="5" fill="#7f1d1d" stroke="#f87171" strokeWidth="2" />
-                    <text x="37.5" y="30" textAnchor="middle" fill="#fca5a5" fontSize="11" fontWeight="bold">CONTROLLER</text>
-                    <text x="37.5" y="42" textAnchor="middle" fill="#fca5a5" fontSize="8">MANAGER</text>
-                    <path d="M 22 55 L 30 63 L 55 50" stroke="#fca5a5" strokeWidth="2.5" fill="none" />
+                  {/* CONTROLLER MANAGER - Positioned ON DECK - Left-center */}
+                  <g id="comp-controller" transform="translate(300, 240)" className="transition-all duration-300">
+                    <rect x="0" y="-70" width="75" height="70" rx="5" fill="#7f1d1d" stroke="#f87171" strokeWidth="2" />
+                    <text x="37.5" y="-40" textAnchor="middle" fill="#fca5a5" fontSize="11" fontWeight="bold">CONTROLLER</text>
+                    <text x="37.5" y="-28" textAnchor="middle" fill="#fca5a5" fontSize="8">MANAGER</text>
+                    <path d="M 22 -15 L 30 -7 L 55 -20" stroke="#fca5a5" strokeWidth="2.5" fill="none" />
                   </g>
 
-                  {/* BRIDGE (API SERVER) - Positioned ON DECK - Center (deck top is y=240, component height=110, so y=240-110=130) */}
-                  <g id="comp-api" transform="translate(420, 130)" className={`transition-all duration-300 ${currentStep === 1 || currentStep === 2 ? 'drop-shadow-[0_0_20px_#4ade80]' : ''}`}>
-                    <rect x="0" y="0" width="110" height="110" rx="8" fill="#312e81" stroke="#818cf8" strokeWidth="2" />
-                    <rect x="8" y="15" width="94" height="50" rx="4" fill="#93c5fd" opacity="0.3" />
-                    <text x="55" y="85" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">API BRIDGE</text>
-                    <text x="55" y="100" textAnchor="middle" fill="#a5b4fc" fontSize="9">Port 6443</text>
+                  {/* BRIDGE (API SERVER) - Positioned ON DECK - Right side */}
+                  <g 
+                    id="comp-api" 
+                    transform="translate(600, 240)" 
+                    className="transition-all duration-300"
+                  >
+                    <rect 
+                      x="0" 
+                      y="-110" 
+                      width="110" 
+                      height="110" 
+                      rx="8" 
+                      fill="#312e81"
+                      stroke="#818cf8" 
+                      strokeWidth="2"
+                      style={{
+                        transition: "all 0.5s ease-in-out"
+                      }}
+                    />
+                    <rect x="8" y="-95" width="94" height="50" rx="4" fill="#93c5fd" opacity="0.3" />
+                    <text x="55" y="-25" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">API BRIDGE</text>
+                    <text x="55" y="-10" textAnchor="middle" fill="#a5b4fc" fontSize="9">Port 6443</text>
                     {/* Radar */}
-                    <g transform="translate(55, -15)">
+                    <g transform="translate(55, -125)">
                       <circle cx="0" cy="0" r="4" fill="#ef4444" />
                       <path d="M 0 0 L 25 -8 L 25 8 Z" fill="#ef4444" opacity="0.5">
                         <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="2s" repeatCount="indefinite" />
@@ -2206,20 +2252,32 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                     </g>
                   </g>
 
-                  {/* CARGO HOLD (ETCD) - Positioned ON DECK - Right side (deck top is y=240, component height=70, so y=240-70=170) */}
-                  <g id="comp-etcd" transform="translate(580, 170)" className={`transition-all duration-300 ${currentStep === 3 ? 'drop-shadow-[0_0_20px_#34d399]' : ''}`}>
-                    <rect x="0" y="0" width="80" height="70" rx="5" fill="#064e3b" stroke="#10b981" strokeWidth="2" />
-                    <text x="40" y="35" textAnchor="middle" fill="#6ee7b7" fontSize="12" fontWeight="bold">etcd VAULT</text>
-                    <circle cx="18" cy="55" r="2.5" fill="#34d399"><animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" /></circle>
-                    <circle cx="40" cy="55" r="2.5" fill="#34d399"><animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" begin="0.2s" /></circle>
-                    <circle cx="62" cy="55" r="2.5" fill="#34d399"><animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" begin="0.4s" /></circle>
+                  {/* CARGO HOLD (ETCD) - Positioned ON DECK - Center-right */}
+                  <g id="comp-etcd" transform="translate(450, 240)" className="transition-all duration-300">
+                    <rect 
+                      x="0" 
+                      y="-70" 
+                      width="80" 
+                      height="70" 
+                      rx="5" 
+                      fill="#064e3b" 
+                      stroke="#10b981" 
+                      strokeWidth="2"
+                      style={{
+                        transition: "all 0.5s ease-in-out"
+                      }}
+                    />
+                    <text x="40" y="-35" textAnchor="middle" fill="#6ee7b7" fontSize="12" fontWeight="bold">etcd VAULT</text>
+                    <circle cx="18" cy="-15" r="2.5" fill="#34d399"><animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" /></circle>
+                    <circle cx="40" cy="-15" r="2.5" fill="#34d399"><animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" begin="0.2s" /></circle>
+                    <circle cx="62" cy="-15" r="2.5" fill="#34d399"><animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" begin="0.4s" /></circle>
                   </g>
                 </svg>
               </div>
 
               {/* 4. WORKER BARGE (Single Node - Mini Boat) - Left Side, In Water */}
               <div className="absolute bottom-8 left-8 z-20">
-                <div id="node-1" className={`relative transition-all duration-500 ${currentStep >= 6 ? 'drop-shadow-[0_0_15px_#f97316]' : ''}`}>
+                <div id="node-1" className="relative transition-all duration-500">
                   <svg width="420" height="170" viewBox="0 0 450 180" className="drop-shadow-2xl">
                     <path d="M 30 60 L 420 60 L 390 150 Q 225 170 60 150 Z" fill="#1e293b" stroke="#475569" strokeWidth="4" />
                     {/* Water reflection under worker barge */}
@@ -2231,7 +2289,7 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                   </svg>
                   
                   {/* Kubelet Captain - Positioned ON DECK (deck is at y=50-65 in SVG, convert to absolute: top ~40px from SVG top) */}
-                  <div id="kubelet-1" className={`absolute top-[40px] left-12 bg-orange-600 rounded-lg p-2 border-2 border-orange-400 shadow-lg transition-all duration-300 flex flex-col items-center w-16 ${currentStep === 6 ? 'opacity-100 scale-110 drop-shadow-[0_0_20px_#f97316]' : 'opacity-60'}`} title="Kubelet Captain">
+                  <div id="kubelet-1" className={`absolute top-[40px] left-12 bg-orange-600 rounded-lg p-2 border-2 border-orange-400 shadow-lg transition-all duration-300 flex flex-col items-center w-16 ${currentStep === 6 ? 'opacity-100 scale-110' : 'opacity-60'}`} title="Kubelet Captain">
                     <Server size={20} className="text-white" />
                     <span className="text-[9px] text-white font-bold mt-0.5">Kubelet</span>
                   </div>
@@ -2243,70 +2301,53 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                   </div>
 
                   {/* CRI Engine - Positioned ON DECK */}
-                  <div id="cri-1" className={`absolute top-[40px] left-1/2 -translate-x-1/2 bg-blue-600 rounded-lg p-1.5 border-2 border-blue-400 shadow-lg transition-all duration-300 flex flex-col items-center w-14 ${currentStep === 7 ? 'opacity-100 scale-110 drop-shadow-[0_0_20px_#3b82f6]' : 'opacity-60'}`} title="CRI Engine">
+                  <div id="cri-1" className={`absolute top-[40px] left-1/2 -translate-x-1/2 bg-blue-600 rounded-lg p-1.5 border-2 border-blue-400 shadow-lg transition-all duration-300 flex flex-col items-center w-14 ${currentStep === 7 ? 'opacity-100 scale-110' : 'opacity-60'}`} title="CRI Engine">
                     <Cpu size={18} className="text-white" />
                     <span className="text-[9px] text-white font-bold mt-0.5">CRI</span>
                   </div>
+
+                  {/* Pod on Worker Node Deck - Appears directly when scheduler places it */}
+                  {currentStep >= 7 && isStarted && (
+                    <motion.div
+                      id="final-pod"
+                      className="absolute w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg border border-white shadow-[0_0_12px_rgba(236,72,153,0.5)] flex items-center justify-center z-[100]"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{
+                        opacity: 1,
+                        scale: 1
+                      }}
+                      transition={{
+                        opacity: { duration: 0.3, delay: currentStep === 7 ? 0.5 : 0 }, // Appear shortly after step 7 starts (when scheduler places it)
+                        scale: { duration: 0.3, delay: currentStep === 7 ? 0.5 : 0 }
+                      }}
+                      style={{
+                        left: 'calc(8px + 240px)', // Worker node deck position
+                        top: 'calc(100% - 65px)' // Worker node deck position - moved up
+                      }}
+                    >
+                      <Package size={14} className={`text-white ${currentStep >= 7 ? 'animate-pulse' : ''}`} />
+                    </motion.div>
+                  )}
                 </div>
               </div>
 
-              {/* Pod Drop Animation - Moves from crane hook to worker node */}
-              <motion.div
-                id="drop-pod-animation"
-                className="absolute w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg border border-white shadow-[0_0_12px_rgba(236,72,153,0.5)] flex items-center justify-center z-[60] pointer-events-none"
-                animate={{
-                  opacity: currentStep === 7 ? [0, 0, 1, 1, 0] : 0,
-                  x: currentStep === 7 ? [0, 0, 0, -450, -450] : 0,
-                  y: currentStep === 7 ? [0, 0, 0, 240, 240] : 0,
-                  scale: currentStep === 7 ? [1, 1, 1, 1, 1] : 0
-                }}
-                transition={{
-                  duration: 2.5,
-                  times: [0, 0.8, 0.95, 0.98, 1],
-                  ease: ['linear', 'linear', 'easeOut', 'easeOut']
-                }}
-                style={{
-                  left: 'calc(100% - 570px)', // Start: Crane hook position when lowered
-                  top: 'calc(100% - 380px)', // Start: Crane hook position when lowered
-                }}
-              >
-                <Package size={14} className="text-white" />
-              </motion.div>
 
-              {/* Pod on Worker Node - Appears after drop */}
-              <motion.div
-                id="final-pod"
-                className="absolute w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg border border-white shadow-[0_0_12px_rgba(236,72,153,0.5)] flex items-center justify-center z-[100]"
-                animate={{
-                  opacity: currentStep >= 7 ? 1 : 0,
-                  scale: currentStep >= 7 ? 1 : 0
-                }}
-                transition={{
-                  opacity: { duration: 0.3, delay: currentStep === 7 ? 2.5 : 0 },
-                  scale: { duration: 0.3, delay: currentStep === 7 ? 2.5 : 0 }
-                }}
-                style={{
-                  left: 'calc(8px + 30%)', // Worker node pod position
-                  top: 'calc(100% - 145px)' // Worker node deck position
-                }}
-              >
-                <Package size={14} className={`text-white ${currentStep >= 7 ? 'animate-pulse' : ''}`} />
-              </motion.div>
 
               {/* ANIMATION ELEMENTS */}
               
-              {/* Manifest - animated based on step - Fixed path to API Server */}
+              {/* Manifest - animated based on step - Moves to API Server, stays, then vanishes */}
               <motion.div
                 id="anim-manifest"
                 className="absolute w-7 h-9 bg-yellow-100 rounded border border-yellow-600 flex flex-col gap-1 p-1 items-center justify-center shadow-lg z-50 pointer-events-none"
                 animate={{
-                  opacity: (currentStep >= 1 && currentStep <= 3) ? 1 : 0,
-                  left: currentStep === 1 ? ['24px', 'calc(100% - 308px)'] : currentStep === 2 ? ['calc(100% - 308px)', 'calc(100% - 308px)'] : currentStep === 3 ? ['calc(100% - 308px)', 'calc(100% - 228px)'] : '24px',
-                  top: currentStep === 1 ? ['24px', 'calc(100% - 416px)'] : currentStep === 2 ? ['calc(100% - 416px)', 'calc(100% - 416px)'] : currentStep === 3 ? ['calc(100% - 416px)', 'calc(100% - 396px)'] : '24px'
+                  opacity: manifestOpacity,
+                  left: currentStep === 1 ? ['24px', 'calc(100% - 160px)'] : currentStep === 2 ? 'calc(100% - 160px)' : '24px',
+                  top: currentStep === 1 ? ['24px', 'calc(100% - 380px)'] : currentStep === 2 ? 'calc(100% - 380px)' : '24px'
                 }}
                 transition={{ 
-                  duration: currentStep === 1 ? 1.5 : currentStep === 3 ? 1.5 : 0,
-                  ease: 'easeInOut'
+                  opacity: { duration: currentStep === 2 ? 0.5 : 0 },
+                  left: { duration: currentStep === 1 ? 1.5 : 0, ease: 'easeInOut' },
+                  top: { duration: currentStep === 1 ? 1.5 : 0, ease: 'easeInOut' }
                 }}
               >
                 <div className="w-full h-0.5 bg-slate-300" />
@@ -2518,8 +2559,27 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
     setStep(initialStep);
   }, [initialStep]);
 
-  const nextStep = () => setStep(prev => prev + 1);
-  const prevStep = () => setStep(prev => Math.max(0, prev - 1));
+  // Redirect Step 9 to Step 10 (Step 9 has been removed)
+  React.useEffect(() => {
+    if (step === 9) {
+      setStep(10);
+    }
+  }, [step]);
+
+  const nextStep = () => {
+    setStep(prev => {
+      const next = prev + 1;
+      // Skip step 9, go directly to step 10
+      return next === 9 ? 10 : next;
+    });
+  };
+  const prevStep = () => {
+    setStep(prev => {
+      const previous = prev - 1;
+      // Skip step 9, go directly to step 8
+      return previous === 9 ? 8 : Math.max(0, previous);
+    });
+  };
 
   return (
     <div className="space-y-8 min-h-[600px] flex flex-col items-center justify-center text-center relative">
@@ -3300,7 +3360,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                         <Button onClick={prevStep} variant="outline" className="flex items-center gap-2">
                             <ArrowLeft size={20} /> Back
                         </Button>
-                        <Button onClick={nextStep} className="text-lg px-8 py-4 flex items-center justify-center gap-2">
+                        <Button onClick={() => setStep(10)} className="text-lg px-8 py-4 flex items-center justify-center gap-2">
                         Enter the Command Center <ArrowRight />
                     </Button>
                     </div>
@@ -3308,9 +3368,10 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
             </motion.div>
         )}
 
+        {/* Step 9: Detailed Kubernetes Architecture Diagram - COMPLETELY REMOVED */}
 
-        {/* Step 9: The Grand Fleet Command (Ship Format - Detailed Flow) */}
-        {step === 9 && (
+        {/* Step 10: The Grand Fleet Command (Ship Format - Detailed Flow) */}
+        {step === 10 && (
             <GrandFleetCommandPage onNext={nextStep} onPrev={prevStep} />
         )}
         
@@ -3390,6 +3451,20 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                     <feGaussianBlur stdDeviation="3" result="blur" />
                                     <feComposite in="SourceGraphic" in2="blur" operator="over" />
                                 </filter>
+                                <filter id="apiGlowLarge">
+                                    <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                                <filter id="etcdGlowLarge">
+                                    <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
                             </defs>
 
                             {/* Ship Hull - Bottom aligns with water line */}
@@ -3401,7 +3476,16 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
 
                             {/* BRIDGE (API SERVER) */}
                             <g id="comp-api" transform="translate(450, 100)" className="transition-all duration-300">
-                                <rect x="0" y="0" width="140" height="140" rx="10" fill="#312e81" stroke="#818cf8" strokeWidth="2" />
+                                <rect 
+                                    x="0" 
+                                    y="0" 
+                                    width="140" 
+                                    height="140" 
+                                    rx="10" 
+                                    fill="#312e81" 
+                                    stroke="#818cf8" 
+                                    strokeWidth="2"
+                                />
                                 <rect x="10" y="20" width="120" height="60" rx="5" fill="#93c5fd" opacity="0.3" /> {/* Windows */}
                                 <text x="70" y="110" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">API BRIDGE</text>
                                 <text x="70" y="130" textAnchor="middle" fill="#a5b4fc" fontSize="10">Port 6443</text>
@@ -3416,7 +3500,16 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
 
                             {/* CARGO HOLD (ETCD) */}
                             <g id="comp-etcd" transform="translate(620, 160)" className="transition-all duration-300">
-                                <rect x="0" y="0" width="100" height="80" rx="5" fill="#064e3b" stroke="#10b981" strokeWidth="2" />
+                                <rect 
+                                    x="0" 
+                                    y="0" 
+                                    width="100" 
+                                    height="80" 
+                                    rx="5" 
+                                    fill="#064e3b" 
+                                    stroke="#10b981" 
+                                    strokeWidth="2"
+                                />
                                 <text x="50" y="40" textAnchor="middle" fill="#6ee7b7" fontSize="14" fontWeight="bold">etcd VAULT</text>
                                 <circle cx="20" cy="60" r="3" fill="#34d399"><animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" /></circle>
                                 <circle cx="50" cy="60" r="3" fill="#34d399"><animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" begin="0.2s" /></circle>
@@ -3593,10 +3686,13 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                                 els.manifest!.style.left = `${end.left + 20}px`;
                                             });
                                             
-                                            // Stop
+                                            // Stop - NO GLOW on step 1
                                             setTimeout(() => {
                                                 els.manifest!.style.transition = 'none';
-                                                els.api!.style.filter = 'drop-shadow(0 0 15px #4ade80)';
+                                                // Remove any glow from step 1
+                                                els.api!.style.filter = 'none';
+                                                els.api!.style.stroke = '#818cf8';
+                                                els.api!.style.strokeWidth = '2';
                                             }, 1500);
                                         }
                                     }
@@ -3609,17 +3705,14 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                         
                                         // FORCE STOP manifest at API Bridge - override everything
                                         els.manifest!.style.setProperty('transition', 'none', 'important');
-                                        els.manifest!.style.top = 'calc(100vh - 520px)';
-                                        els.manifest!.style.left = 'calc(100vw - 382px)';
+                                        els.manifest!.style.top = 'calc(100vh - 380px)';
+                                        els.manifest!.style.left = 'calc(100vw - 208px)';
                                         els.manifest!.style.opacity = '1';
                                         els.manifest!.style.display = 'flex';
                                         els.manifest!.style.visibility = 'visible';
                                         els.manifest!.style.transform = 'none';
                                         els.manifest!.style.position = 'absolute';
                                         els.manifest!.style.zIndex = '50';
-                                        
-                                        // API Bridge glows for 5 seconds
-                                        els.api!.style.filter = 'drop-shadow(0 0 20px #4ade80)';
                                         
                                         // Manifest stays for 2 seconds, then vanishes
                                         setTimeout(() => {
@@ -3630,9 +3723,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                             }, 500);
                                         }, 2000);
                                         
-                                        setTimeout(() => {
-                                            els.api!.style.filter = 'drop-shadow(0 0 15px #4ade80)';
-                                        }, 4000);
+                                        // API Bridge glow will be removed when step 3 starts
                                     }
 
                                     // 3. PERSISTENCE - API → etcd (Store Desired State)
@@ -3642,24 +3733,17 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                         
                                         // Continue manifest animation from API to etcd
                                         els.manifest!.style.opacity = '1';
-                                        els.manifest!.style.top = 'calc(100vh - 520px)'; // API (right side Master ship)
-                                        els.manifest!.style.left = 'calc(100vw - 382px)';
+                                        els.manifest!.style.top = 'calc(100vh - 380px)'; // API (right side Master ship)
+                                        els.manifest!.style.left = 'calc(100vw - 208px)';
                                         
                                         requestAnimationFrame(() => {
                                             els.manifest!.style.transition = 'all 1.5s ease-in-out';
-                                            els.manifest!.style.left = 'calc(100vw - 232px)'; // etcd (right side Master ship, further right)
-                                            els.manifest!.style.top = 'calc(100vh - 440px)';
+                                            els.manifest!.style.left = 'calc(100vw - 358px)'; // etcd (center-right Master ship)
+                                            els.manifest!.style.top = 'calc(100vh - 380px)';
                                         });
                                         
                                         setTimeout(() => {
-                                            // etcd glows for 5 seconds
-                                            els.etcd!.style.filter = 'drop-shadow(0 0 20px #34d399)';
-                                            els.api!.style.filter = 'none';
-                                            
-                                            setTimeout(() => {
-                                                els.etcd!.style.filter = 'drop-shadow(0 0 15px #34d399)';
                                                 els.manifest!.style.opacity = '0.7'; // Keep manifest visible but dimmed
-                                            }, 4000);
                                         }, 1500);
                                     }
 
@@ -3668,34 +3752,30 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                         els.title!.innerText = "4. Controller Manager";
                                         els.desc!.innerText = "Controller Manager watches etcd, sees new Pod spec, creates Pod object.";
                                         
-                                        // Show Controller Manager watching etcd (glow effect for 5 seconds)
-                                        els.controller!.style.filter = 'drop-shadow(0 0 20px #f87171)';
-                                        els.etcd!.style.filter = 'drop-shadow(0 0 15px #34d399)';
+                                        // Show Controller Manager watching etcd
                                         
                                         setTimeout(() => {
                                             // Controller creates Pod, updates via API Server → etcd
                                             els.packet!.style.opacity = '1';
-                                            els.packet!.style.left = 'calc(100vw - 432px)'; // Controller Manager
-                                            els.packet!.style.top = 'calc(100vh - 440px)';
+                                            els.packet!.style.left = 'calc(100vw - 338px)'; // Controller Manager
+                                            els.packet!.style.top = 'calc(100vh - 296px)';
                                             
                                             requestAnimationFrame(() => {
                                                 els.packet!.style.transition = 'all 1s linear';
-                                                els.packet!.style.left = 'calc(100vw - 382px)'; // API Server
-                                                els.packet!.style.top = 'calc(100vh - 520px)';
+                                                els.packet!.style.left = 'calc(100vw - 188px)'; // API Server
+                                                els.packet!.style.top = 'calc(100vh - 296px)';
                                             });
                                             
                                             setTimeout(() => {
                                                 requestAnimationFrame(() => {
                                                     els.packet!.style.transition = 'all 1s linear';
-                                                    els.packet!.style.left = 'calc(100vw - 232px)'; // etcd (update)
-                                                    els.packet!.style.top = 'calc(100vh - 440px)';
+                                                    els.packet!.style.left = 'calc(100vw - 338px)'; // etcd (update)
+                                                    els.packet!.style.top = 'calc(100vh - 296px)';
                                                 });
                                                 
                                                 setTimeout(() => {
                                                     // Keep glowing for 4 seconds total
                                                     setTimeout(() => {
-                                                        els.controller!.style.filter = 'drop-shadow(0 0 10px #f87171)';
-                                                        els.etcd!.style.filter = 'drop-shadow(0 0 10px #34d399)';
                                                         els.packet!.style.opacity = '0';
                                                     }, 4000);
                                                 }, 1000);
@@ -3708,34 +3788,30 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                         els.title!.innerText = "5. Scheduler";
                                         els.desc!.innerText = "Scheduler watches etcd for unscheduled Pods, selects best Worker Node, binds Pod.";
                                         
-                                        // Show Scheduler watching etcd (glow for 5 seconds)
-                                        els.sched!.style.filter = 'drop-shadow(0 0 20px #facc15)';
-                                        els.etcd!.style.filter = 'drop-shadow(0 0 15px #34d399)';
+                                        // Show Scheduler watching etcd
                                         
                                         setTimeout(() => {
                                             // Scheduler selects node and binds via API Server → etcd
                                             els.packet!.style.opacity = '1';
-                                            els.packet!.style.left = 'calc(100vw - 632px)'; // Scheduler Crane
-                                            els.packet!.style.top = 'calc(100vh - 360px)';
+                                            els.packet!.style.left = 'calc(100vw - 488px)'; // Scheduler Crane
+                                            els.packet!.style.top = 'calc(100vh - 296px)';
                                             
                                             requestAnimationFrame(() => {
                                                 els.packet!.style.transition = 'all 1s linear';
-                                                els.packet!.style.left = 'calc(100vw - 382px)'; // API Server
-                                                els.packet!.style.top = 'calc(100vh - 520px)';
+                                                els.packet!.style.left = 'calc(100vw - 188px)'; // API Server
+                                                els.packet!.style.top = 'calc(100vh - 296px)';
                                             });
                                             
                                             setTimeout(() => {
                                                 requestAnimationFrame(() => {
                                                     els.packet!.style.transition = 'all 1s linear';
-                                                    els.packet!.style.left = 'calc(100vw - 232px)'; // etcd (update binding)
-                                                    els.packet!.style.top = 'calc(100vh - 440px)';
+                                                    els.packet!.style.left = 'calc(100vw - 338px)'; // etcd (update binding)
+                                                    els.packet!.style.top = 'calc(100vh - 296px)';
                                                 });
                                                 
                                                 setTimeout(() => {
                                                     // Keep glowing for 4 seconds total
                                                     setTimeout(() => {
-                                                        els.sched!.style.filter = 'drop-shadow(0 0 10px #facc15)';
-                                                        els.etcd!.style.filter = 'drop-shadow(0 0 10px #34d399)';
                                                         els.packet!.style.opacity = '0';
                                                     }, 4000);
                                                 }, 1000);
@@ -3748,12 +3824,9 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                         els.title!.innerText = "6. Kubelet Watches";
                                         els.desc!.innerText = "Kubelet on Worker Node watches API Server, sees Pod assigned to its node.";
                                         
-                                        // API Server glows
-                                        els.api!.style.filter = 'drop-shadow(0 0 15px #4ade80)';
-                                        
                                         els.packet!.style.opacity = '1';
-                                        els.packet!.style.left = 'calc(100vw - 382px)'; // API Server (right side Master ship)
-                                        els.packet!.style.top = 'calc(100vh - 520px)';
+                                        els.packet!.style.left = 'calc(100vw - 188px)'; // API Server (right side Master ship)
+                                        els.packet!.style.top = 'calc(100vh - 296px)';
                                         
                                         requestAnimationFrame(() => {
                                             els.packet!.style.transition = 'all 1.5s linear';
@@ -3763,18 +3836,9 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                         });
                                         
                                         setTimeout(() => {
-                                            // Kubelet glows for 5 seconds
                                             els.kubelet1!.style.opacity = '1';
                                             els.kubelet1!.style.transform = 'scale(1.2)';
-                                            els.kubelet1!.style.filter = 'drop-shadow(0 0 20px #f97316)';
-                                            els.node1!.style.filter = 'drop-shadow(0 0 15px #f97316)';
-                                            els.api!.style.filter = 'none';
                                             els.packet!.style.opacity = '0';
-                                            
-                                            setTimeout(() => {
-                                                els.kubelet1!.style.filter = 'drop-shadow(0 0 10px #f97316)';
-                                                els.node1!.style.filter = 'drop-shadow(0 0 10px #f97316)';
-                                            }, 4000);
                                         }, 1500);
                                     }
 
@@ -3823,12 +3887,6 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                             els.pod!.style.display = 'none';
                                             els.pod!.style.opacity = '0';
                                             
-                                            els.node1!.style.filter = 'drop-shadow(0 0 20px #facc15)';
-                                            
-                                            // Keep scheduler glowing for 4 seconds
-                                            setTimeout(() => {
-                                                els.sched!.style.filter = 'drop-shadow(0 0 10px #facc15)';
-                                            }, 4000);
                                             
                                             // Retract thread back up
                                             setTimeout(() => {
@@ -3913,33 +3971,19 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                         
                                         requestAnimationFrame(() => {
                                             els.packet!.style.transition = 'all 1.5s linear';
-                                            els.packet!.style.top = 'calc(100vh - 520px)'; // API Server (right side Master ship)
-                                            els.packet!.style.left = 'calc(100vw - 382px)';
+                                            els.packet!.style.top = 'calc(100vh - 296px)'; // API Server (right side Master ship)
+                                            els.packet!.style.left = 'calc(100vw - 188px)';
                                             els.packet!.style.transform = 'none';
                                         });
-                                        
-                                        setTimeout(() => {
-                                            // API Server glows for 5 seconds
-                                            els.api!.style.filter = 'drop-shadow(0 0 20px #4ade80)';
                                             
                                             setTimeout(() => {
                                                 requestAnimationFrame(() => {
                                                     els.packet!.style.transition = 'all 1s linear';
-                                                    els.packet!.style.left = 'calc(100vw - 232px)'; // etcd (status update)
-                                                    els.packet!.style.top = 'calc(100vh - 440px)';
+                                                els.packet!.style.left = 'calc(100vw - 338px)'; // etcd (status update)
+                                                els.packet!.style.top = 'calc(100vh - 296px)';
                                                 });
                                                 
                                                 setTimeout(() => {
-                                                    // etcd glows for 5 seconds
-                                                    els.etcd!.style.filter = 'drop-shadow(0 0 20px #34d399)';
-                                                    
-                                                    setTimeout(() => {
-                                                        // Keep glowing for 5 seconds total, then dim
-                                                        setTimeout(() => {
-                                                            els.etcd!.style.filter = 'drop-shadow(0 0 10px #34d399)';
-                                                            els.api!.style.filter = 'drop-shadow(0 0 10px #4ade80)';
-                                                            els.pod!.style.filter = 'drop-shadow(0 0 15px #ec4899)';
-                                                            els.kubelet1!.style.filter = 'drop-shadow(0 0 10px #f97316)';
                                                             els.packet!.style.opacity = '0';
                                                             
                                                             if (els.btn) {
@@ -3948,10 +3992,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                                                 els.btn.style.opacity = '1';
                                                                 els.btn.style.pointerEvents = 'auto';
                                                             }
-                                                        }, 4000);
                                                     }, 1000);
-                                                }, 1000);
-                                            }, 500);
                                         }, 1500);
                                     }
                                     
@@ -3984,10 +4025,10 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
             </motion.div>
         )}
 
-        {/* Step 10: Container Runtimes - Visual Animated */}
-        {step === 10 && (
+        {/* Step 11: Container Runtimes - Visual Animated */}
+        {step === 11 && (
             <motion.div 
-                key="step10"
+                key="step11"
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
@@ -4242,20 +4283,20 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
         )}
 
 
-        {/* Step 11: ETCD - Interactive & Clean */}
-        {step === 11 && (
+        {/* Step 12: ETCD - Interactive & Clean */}
+        {step === 12 && (
             <ETCDInteractivePage onNext={nextStep} onPrev={prevStep} />
         )}
 
-        {/* Step 12: How etcd Powers Kubernetes */}
-        {step === 12 && (
-            <ETCDPowersK8sPage key="step12" onNext={nextStep} onPrev={prevStep} />
+        {/* Step 13: How etcd Powers Kubernetes */}
+        {step === 13 && (
+            <ETCDPowersK8sPage key="step13" onNext={nextStep} onPrev={prevStep} />
         )}
         
-        {/* Step 13: ETCD In Action (Old Step 12) */}
-        {step === 13 && (
+        {/* Step 14: ETCD In Action (Old Step 12) */}
+        {step === 14 && (
             <motion.div 
-                key="step13"
+                key="step14"
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
