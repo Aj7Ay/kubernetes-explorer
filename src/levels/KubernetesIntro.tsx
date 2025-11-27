@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../components/Button';
 import { ArrowRight, ArrowLeft, Eye, Heart, Zap, Shield, Sprout, Waves, Scroll, Activity, Dna, Book, Ghost, Globe, Lock, Layers, Sun, Ship, Database, Server, Anchor, Radio, Cpu, ClipboardList, Network, FileJson, Table, Terminal, Package, Repeat, Play, CheckCircle } from 'lucide-react';
@@ -9,7 +9,7 @@ interface KubernetesIntroProps {
 }
 
 // JSON Viewer Component - Clean and Simple
-const JSONViewer: React.FC<{ data: any }> = ({ data }) => {
+const JSONViewer: React.FC<{ data: unknown }> = ({ data }) => {
   const jsonString = JSON.stringify(data, null, 2);
   const lines = jsonString.split('\n');
 
@@ -79,7 +79,7 @@ const JSONViewer: React.FC<{ data: any }> = ({ data }) => {
 };
 
 // Animation Components for ETCD Flow with Detailed Explanations - Step by Step
-const StorageFlowAnimation: React.FC<{ dataKey: string; dataValue: any; onComplete?: () => void }> = ({ dataKey, dataValue, onComplete }) => {
+const StorageFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown; onComplete?: () => void }> = ({ dataKey, dataValue, onComplete }) => {
   const [step, setStep] = useState(-1); // -1 = not started, 0-3 = steps
   const [isStarted, setIsStarted] = useState(false);
 
@@ -446,7 +446,7 @@ const StorageFlowAnimation: React.FC<{ dataKey: string; dataValue: any; onComple
   );
 };
 
-const WatchFlowAnimation: React.FC<{ dataKey: string; dataValue: any }> = () => {
+const WatchFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown }> = () => {
   const [watchActive, setWatchActive] = useState(false);
   const [selectedComponent, setSelectedComponent] = useState<number | null>(null);
 
@@ -682,7 +682,7 @@ const WatchFlowAnimation: React.FC<{ dataKey: string; dataValue: any }> = () => 
   );
 };
 
-const ConsistencyFlowAnimation: React.FC<{ dataKey: string; dataValue: any }> = () => {
+const ConsistencyFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown }> = () => {
   const [replicateStep, setReplicateStep] = useState(0);
   const [showDetails, setShowDetails] = useState(true);
 
@@ -1816,7 +1816,7 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
   const [cranePodVisible, setCranePodVisible] = useState(false); // Control pod visibility on crane
   const autoStepTimeoutRef = React.useRef<number | null>(null);
 
-  const stepDescriptions = [
+  const stepDescriptions = useMemo(() => [
     {
       title: "1. The Request",
       description: "Captain (Dev) sends manifest to Bridge via kubectl.",
@@ -1873,7 +1873,23 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
       color: "green",
       component: "Kubelet → API Server → etcd"
     }
-  ];
+  ], []);
+
+  const handleNext = useCallback(() => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setTimeout(() => {
+      if (currentStep < 8) {
+        setCurrentStep(prev => {
+          setIsTransitioning(false);
+          return prev + 1;
+        });
+      } else {
+        setIsTransitioning(false);
+      }
+    }, 100);
+  }, [isTransitioning, currentStep]);
 
   // Trigger animations based on current step
   React.useEffect(() => {
@@ -1923,7 +1939,7 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
       setCraneThreadLength(18);
       setCraneHookY(18);
     }
-  }, [currentStep, isStarted]);
+  }, [currentStep, isStarted, stepDescriptions]);
 
   // Auto mode: automatically advance steps
   React.useEffect(() => {
@@ -1939,23 +1955,7 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
         window.clearTimeout(autoStepTimeoutRef.current);
       }
     };
-  }, [isAutoMode, isStarted, currentStep, isTransitioning]);
-
-  const handleNext = () => {
-    if (isTransitioning) return;
-    
-    setIsTransitioning(true);
-    setTimeout(() => {
-      if (currentStep < 8) {
-        setCurrentStep(prev => {
-          setIsTransitioning(false);
-          return prev + 1;
-        });
-      } else {
-        setIsTransitioning(false);
-      }
-    }, 100);
-  };
+  }, [isAutoMode, isStarted, currentStep, isTransitioning, handleNext]);
 
   const handleBack = () => {
     if (isTransitioning) return;
@@ -3376,7 +3376,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
         )}
         
         {/* Step 9 OLD: Original Ship Animation - Keeping for reference */}
-        {false && step === 99 && (
+        {step === 99 && (
             <motion.div 
                 key="step9"
                 initial={{ opacity: 0, scale: 0.95 }}
