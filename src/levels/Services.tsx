@@ -28,7 +28,7 @@ export const Services: React.FC<ServicesProps> = ({ onComplete }) => {
     <div className="space-y-8">
       <header className="space-y-4">
         <h2 className="text-4xl font-bold text-white">The Radio: Services</h2>
-        <p className="text-xl text-indigo-200 max-w-2xl">
+        <p className="text-xl text-pdso-200 max-w-2xl">
           Pods are ephemeral (they die). Their IP addresses change. 
           How do we talk to them reliably? We use a <strong>Service</strong>.
         </p>
@@ -36,13 +36,13 @@ export const Services: React.FC<ServicesProps> = ({ onComplete }) => {
 
       <div className="grid md:grid-cols-2 gap-12 items-center my-12">
         <div className="space-y-6">
-          <div className="bg-indigo-900/30 p-6 rounded-xl border border-indigo-800/50">
+          <div className="bg-pdso-900/30 p-6 rounded-xl border border-pdso-800/50">
             <h3 className="text-xl font-bold text-white mb-4">Stable Address</h3>
-            <p className="text-indigo-200 mb-4">
+            <p className="text-pdso-200 mb-4">
               A Service gives you a single, stable IP address and DNS name (e.g., <code>my-app.svc</code>).
               It doesn't matter if the Pods behind it change.
             </p>
-            <p className="text-indigo-200 mb-6">
+            <p className="text-pdso-200 mb-6">
               It acts as an internal Load Balancer, distributing traffic to all matching Pods.
             </p>
             
@@ -54,34 +54,34 @@ export const Services: React.FC<ServicesProps> = ({ onComplete }) => {
             </Button>
           </div>
           
-          <div className="bg-fuchsia-900/20 p-4 rounded-lg border border-fuchsia-500/30">
-             <h4 className="font-bold text-fuchsia-300 mb-2">Selector Magic</h4>
-             <p className="text-sm text-fuchsia-200">
+          <div className="bg-pdso-900/20 p-4 rounded-lg border border-pdso-500/30">
+             <h4 className="font-bold text-pdso-300 mb-2">Selector Magic</h4>
+             <p className="text-sm text-pdso-200">
                  The Service finds Pods using <strong>Labels</strong>. It says "Send traffic to anything with <code>app=web</code>".
              </p>
           </div>
         </div>
 
-        <div className="relative bg-indigo-950/50 rounded-2xl border border-indigo-800/50 p-8 min-h-[400px] flex flex-col items-center justify-center gap-12">
+        <div className="relative bg-pdso-950/50 rounded-2xl border border-pdso-800/50 p-8 min-h-[400px] flex flex-col items-center justify-center gap-12">
            
            {/* Client */}
            <div className="flex flex-col items-center gap-2 z-10">
-               <div className="w-16 h-16 bg-indigo-800 rounded-full flex items-center justify-center border-2 border-indigo-600">
-                   <User size={32} className="text-indigo-300" />
+               <div className="w-16 h-16 bg-pdso-800 rounded-full flex items-center justify-center border-2 border-pdso-600">
+                   <User size={32} className="text-pdso-300" />
                </div>
-               <span className="text-xs text-indigo-400">Other App / User</span>
+               <span className="text-xs text-pdso-400">Other App / User</span>
            </div>
 
            {/* Service Layer */}
-           <div className="w-full max-w-xs bg-fuchsia-600/20 border-2 border-fuchsia-500 rounded-xl p-4 flex items-center justify-between relative z-10">
+           <div className="w-full max-w-xs bg-pdso-600/20 border-2 border-pdso-500 rounded-xl p-4 flex items-center justify-between relative z-10">
                <div className="flex items-center gap-3">
-                   <Radio size={24} className="text-fuchsia-400" />
+                   <Radio size={24} className="text-pdso-400" />
                    <div>
-                       <span className="block font-bold text-fuchsia-100 text-sm">Service IP</span>
-                       <span className="block font-mono text-[10px] text-fuchsia-300">10.96.0.1</span>
+                       <span className="block font-bold text-pdso-100 text-sm">Service IP</span>
+                       <span className="block font-mono text-[10px] text-pdso-300">10.96.0.1</span>
                    </div>
                </div>
-               <div className="bg-fuchsia-500 text-white text-[10px] px-2 py-1 rounded font-mono">
+               <div className="bg-pdso-500 text-white text-[10px] px-2 py-1 rounded font-mono">
                    app=web
                </div>
            </div>
@@ -89,12 +89,12 @@ export const Services: React.FC<ServicesProps> = ({ onComplete }) => {
            {/* Pods Layer */}
            <div className="grid grid-cols-3 gap-4 w-full z-10">
                {[1, 2, 3].map(i => (
-                   <div key={i} className="bg-violet-600/20 border border-violet-500/50 rounded-lg p-3 flex flex-col items-center gap-2 relative">
-                       <Ship size={24} className="text-violet-400" />
-                       <span className="text-[10px] text-violet-300 font-mono">pod-{i}</span>
+                   <div key={i} className="bg-pdso-600/20 border border-pdso-500/50 rounded-lg p-3 flex flex-col items-center gap-2 relative">
+                       <Ship size={24} className="text-pdso-400" />
+                       <span className="text-[10px] text-pdso-300 font-mono">pod-{i}</span>
                        
                        {/* Selector Match Indicator */}
-                       <div className="absolute -top-2 -right-2 bg-fuchsia-500 text-white text-[8px] px-1.5 py-0.5 rounded-full">
+                       <div className="absolute -top-2 -right-2 bg-pdso-500 text-white text-[8px] px-1.5 py-0.5 rounded-full">
                            app=web
                        </div>
                    </div>

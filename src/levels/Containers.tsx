@@ -31,7 +31,7 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
       {scene === 0 && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 max-w-3xl mx-auto">
             <h2 className="text-5xl font-extrabold text-white">The Standard Shipping Container</h2>
-            <p className="text-xl text-indigo-200 leading-relaxed">
+            <p className="text-xl text-pdso-200 leading-relaxed">
                 Just as shipping containers standardized global trade, <strong>Docker</strong> standardized software delivery.
                 It bundles code, runtime, libraries, and settings into a single package.
             </p>
@@ -49,18 +49,18 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
                     <Terminal className="text-violet-400" /> 
                     Step 1: docker build
                 </h2>
-                <p className="text-indigo-200">
+                <p className="text-pdso-200">
                     A Docker image is an immutable file built from layers. Each instruction in a <code>Dockerfile</code> creates a new layer.
                 </p>
                 
-                <div className="bg-black/40 p-4 rounded-xl font-mono text-sm space-y-2 border border-indigo-800">
-                    <div className="mb-4 pb-2 border-b border-white/10 text-indigo-300 font-bold">
+                <div className="bg-black/40 p-4 rounded-xl font-mono text-sm space-y-2 border border-pdso-800">
+                    <div className="mb-4 pb-2 border-b border-white/10 text-pdso-300 font-bold">
                         $ docker build -t my-app:v1 .
                     </div>
                     {layers.map((layer, index) => (
                         <div 
                             key={index}
-                            className={`p-2 rounded transition-colors ${buildStep >= index ? 'text-white bg-indigo-900/50' : 'text-gray-500'}`}
+                            className={`p-2 rounded transition-colors ${buildStep >= index ? 'text-white bg-pdso-900/50' : 'text-gray-500'}`}
                         >
                             {layer.name}
                         </div>
@@ -87,7 +87,7 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
                 )}
             </div>
 
-            <div className="h-[400px] bg-indigo-950/50 rounded-2xl border-2 border-indigo-800 flex items-center justify-center p-8 relative overflow-hidden">
+            <div className="h-[400px] bg-pdso-950/50 rounded-2xl border-2 border-pdso-800 flex items-center justify-center p-8 relative overflow-hidden">
                 <AnimatePresence mode="wait">
                 {buildStep < layers.length ? (
                     <div className="flex flex-col-reverse items-center justify-start h-full w-full">
@@ -115,10 +115,10 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
                         transition={{ type: "spring", bounce: 0.5 }}
                         className="flex flex-col items-center justify-center"
                     >
-                        <div className="w-48 h-48 bg-indigo-600 rounded-xl border-4 border-indigo-400 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(99,102,241,0.5)] relative">
+                        <div className="w-48 h-48 bg-pdso-600 rounded-xl border-4 border-pdso-400 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(99,102,241,0.5)] relative">
                              <Package size={64} className="text-white mb-2" />
                              <span className="font-bold text-white text-lg">My App Image</span>
-                             <span className="text-xs text-indigo-200 font-mono mt-1">v1.0.0</span>
+                             <span className="text-xs text-pdso-200 font-mono mt-1">v1.0.0</span>
                              
                              <motion.div
                                 animate={{ rotate: 360 }}
@@ -130,7 +130,7 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
                              initial={{ opacity: 0, y: 10 }}
                              animate={{ opacity: 1, y: 0 }}
                              transition={{ delay: 0.5 }}
-                             className="mt-6 text-indigo-300 font-mono bg-indigo-900/50 px-4 py-2 rounded-lg"
+                             className="mt-6 text-pdso-300 font-mono bg-pdso-900/50 px-4 py-2 rounded-lg"
                         >
                              IMAGE ID: a1b2c3d4
                         </motion.div>
@@ -145,15 +145,15 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
       {scene === 2 && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full space-y-8">
             <h2 className="text-3xl font-bold text-white">Step 2: docker run</h2>
-            <p className="text-indigo-200 max-w-3xl mx-auto">
+            <p className="text-pdso-200 max-w-3xl mx-auto">
                 To run an image, we create a writable layer on top of the read-only image. 
                 This combination becomes the running <strong>Container</strong>.
             </p>
 
-            <div className="h-[400px] bg-indigo-950/50 rounded-2xl border-2 border-indigo-800 relative overflow-hidden p-8 flex items-center justify-center">
+            <div className="h-[400px] bg-pdso-950/50 rounded-2xl border-2 border-pdso-800 relative overflow-hidden p-8 flex items-center justify-center">
                 {!isRunExecuted ? (
                     <div className="text-center space-y-6">
-                         <div className="w-32 h-32 bg-indigo-600 rounded-xl border-4 border-indigo-400 flex flex-col items-center justify-center shadow-lg mx-auto opacity-50 grayscale">
+                         <div className="w-32 h-32 bg-pdso-600 rounded-xl border-4 border-pdso-400 flex flex-col items-center justify-center shadow-lg mx-auto opacity-50 grayscale">
                              <Package size={40} className="text-white mb-2" />
                              <span className="font-bold text-white text-sm">My App Image</span>
                         </div>
@@ -171,10 +171,10 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
                             initial={{ scale: 0, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ duration: 0.5 }}
-                            className="absolute z-10 w-48 h-48 bg-indigo-800 rounded-xl border-2 border-indigo-500 flex flex-col items-center justify-center"
+                            className="absolute z-10 w-48 h-48 bg-pdso-800 rounded-xl border-2 border-pdso-500 flex flex-col items-center justify-center"
                         >
-                            <Package size={48} className="text-indigo-300 mb-2" />
-                            <span className="text-indigo-200 font-bold">Read-Only Image</span>
+                            <Package size={48} className="text-pdso-300 mb-2" />
+                            <span className="text-pdso-200 font-bold">Read-Only Image</span>
                         </motion.div>
 
                         {/* Writable Layer */}
@@ -228,8 +228,8 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
                 )}
             </div>
 
-            <div className="bg-black/50 p-6 rounded-xl font-mono text-left border border-indigo-700 max-w-2xl mx-auto mt-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-2 bg-indigo-900/50 rounded-bl-lg text-xs text-indigo-300">Terminal</div>
+            <div className="bg-black/50 p-6 rounded-xl font-mono text-left border border-pdso-700 max-w-2xl mx-auto mt-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-2 bg-pdso-900/50 rounded-bl-lg text-xs text-pdso-300">Terminal</div>
                 <p className="text-gray-500"># The command we just visualized:</p>
                 <p className="text-white mt-2">
                     docker run -d \<br/>
@@ -254,7 +254,7 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
       {scene === 3 && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full space-y-8">
             <h2 className="text-3xl font-bold text-white">Step 3: The Lifecycle</h2>
-            <p className="text-indigo-200 max-w-3xl mx-auto">
+            <p className="text-pdso-200 max-w-3xl mx-auto">
                 Containers are transient. We stop them, remove them, and clean up dangling resources.
             </p>
 
@@ -293,7 +293,7 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
                     </Button>
                 </div>
 
-                <div className="bg-indigo-950/50 h-64 rounded-2xl border-2 border-indigo-800 flex items-center justify-center relative overflow-hidden">
+                <div className="bg-pdso-950/50 h-64 rounded-2xl border-2 border-pdso-800 flex items-center justify-center relative overflow-hidden">
                     <AnimatePresence mode="wait">
                         {lifecycleStep === 0 && (
                             <motion.div
@@ -335,11 +335,11 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
                             <motion.div
                                 key="prune"
                                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                                className="flex flex-col items-center text-fuchsia-400"
+                                className="flex flex-col items-center text-pdso-400"
                             >
                                 <Trash2 size={64} />
                                 <span className="font-bold mt-4">System Pruned!</span>
-                                <span className="text-xs text-indigo-400">All unused artifacts deleted</span>
+                                <span className="text-xs text-pdso-400">All unused artifacts deleted</span>
                             </motion.div>
                         )}
                         {lifecycleStep === 4 && (
@@ -360,7 +360,7 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
                                     </motion.div>
                                 </div>
                                 <span className="font-bold mt-4 text-white">Pulling nginx...</span>
-                                <div className="w-32 h-2 bg-indigo-900 rounded-full mt-2 overflow-hidden">
+                                <div className="w-32 h-2 bg-pdso-900 rounded-full mt-2 overflow-hidden">
                                     <motion.div 
                                         initial={{ width: "0%" }}
                                         animate={{ width: "100%" }}
@@ -389,15 +389,15 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
       {scene === 4 && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full space-y-8">
             <h2 className="text-3xl font-bold text-white">Step 4: Orchestration with Compose</h2>
-            <p className="text-indigo-200 max-w-3xl mx-auto">
+            <p className="text-pdso-200 max-w-3xl mx-auto">
                 We define multi-container apps in <code>docker-compose.yml</code>. 
                 Here, we set up a <strong>Traefik</strong> reverse proxy to handle HTTPS and route traffic to our services.
             </p>
 
             <div className="grid md:grid-cols-2 gap-12 items-start">
-                <div className="bg-black/40 p-6 rounded-xl font-mono text-sm text-left border border-indigo-800 h-full overflow-auto">
-                    <p className="text-fuchsia-400 mb-2"># docker-compose.yml</p>
-                    <div className="text-indigo-300">services:</div>
+                <div className="bg-black/40 p-6 rounded-xl font-mono text-sm text-left border border-pdso-800 h-full overflow-auto">
+                    <p className="text-pdso-400 mb-2"># docker-compose.yml</p>
+                    <div className="text-pdso-300">services:</div>
                     <div className="pl-4 text-orange-400">reverse-proxy:</div>
                     <div className="pl-8 text-white">image: traefik:v2</div>
                     <div className="pl-8 text-white">ports: ["443:443"]</div>
@@ -411,7 +411,7 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
                     <div className="pl-8 text-white">image: postgres</div>
                 </div>
 
-                <div className="relative h-[600px] bg-indigo-950/30 rounded-xl border border-indigo-800/50 flex flex-col items-center justify-center p-4 overflow-hidden">
+                <div className="relative h-[600px] bg-pdso-950/30 rounded-xl border border-pdso-800/50 flex flex-col items-center justify-center p-4 overflow-hidden">
                     {composeStep === 0 && (
                         <Button 
                             onClick={() => setComposeStep(1)} 
@@ -445,9 +445,9 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ delay: 2.2 }}
-                                    className="absolute top-[160px] bottom-[20px] left-[5%] right-[5%] border-2 border-dashed border-indigo-500/40 rounded-3xl bg-indigo-900/10 -z-10"
+                                    className="absolute top-[160px] bottom-[20px] left-[5%] right-[5%] border-2 border-dashed border-pdso-500/40 rounded-3xl bg-pdso-900/10 -z-10"
                                 >
-                                    <span className="absolute top-3 right-4 text-indigo-400 text-xs font-mono bg-indigo-950/50 px-2 py-1 rounded">
+                                    <span className="absolute top-3 right-4 text-pdso-400 text-xs font-mono bg-pdso-950/50 px-2 py-1 rounded">
                                         Network: app_default
                                     </span>
                                 </motion.div>
@@ -673,7 +673,7 @@ export const Containers: React.FC<ContainersProps> = ({ onComplete }) => {
             </div>
 
             <div className="pt-8">
-                <p className="text-xl text-indigo-200 mb-6">
+                <p className="text-xl text-pdso-200 mb-6">
                     Docker solves the "Package" problem. But who solves the "Management" problem?
                 </p>
                 <div className="flex justify-center gap-4">

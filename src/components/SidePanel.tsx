@@ -54,16 +54,16 @@ export const SidePanel: React.FC<SidePanelProps> = ({ currentStep, onNavigate })
               animate={{ x: 0 }}
               exit={{ x: -320 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed left-0 top-0 bottom-0 w-80 bg-gradient-to-b from-indigo-950/98 to-purple-950/98 backdrop-blur-xl border-r-2 border-indigo-500/50 z-[100] shadow-2xl"
+              className="fixed left-0 top-0 bottom-0 w-80 bg-gradient-to-b from-pdso-950/98 to-pdso-900/98 backdrop-blur-xl border-r-2 border-pdso-500/50 z-[100] shadow-2xl"
               onMouseLeave={() => setIsOpen(false)}
             >
-              {/* Header */}
-              <div className="p-6 border-b border-indigo-500/30">
-                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                  <Ship className="text-indigo-400" size={24} />
+              {/* Header — design.json purple */}
+              <div className="p-6 border-b border-pdso-500/30">
+                <h2 className="text-2xl font-bold text-pdso-50 flex items-center gap-2">
+                  <Ship className="text-pdso-400" size={24} />
                   Navigation
                 </h2>
-                <p className="text-xs text-indigo-300 mt-1">Jump to any section</p>
+                <p className="text-xs text-pdso-300 mt-1">Jump to any section</p>
               </div>
 
               {/* Navigation Items */}
@@ -72,7 +72,7 @@ export const SidePanel: React.FC<SidePanelProps> = ({ currentStep, onNavigate })
                   const Icon = item.icon;
                   const isActive = currentStep === item.id;
                   const isCompleted = currentStep > item.id;
-                  
+
                   return (
                     <motion.button
                       key={item.id}
@@ -82,18 +82,18 @@ export const SidePanel: React.FC<SidePanelProps> = ({ currentStep, onNavigate })
                       }}
                       className={`
                         w-full p-3 rounded-lg text-left transition-all flex items-center gap-3 group
-                        ${isActive 
-                          ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/50' 
+                        ${isActive
+                          ? 'bg-pdso-600 text-white shadow-lg shadow-pdso-500/50'
                           : isCompleted
-                          ? 'bg-indigo-900/40 text-indigo-200 hover:bg-indigo-800/60'
-                          : 'bg-indigo-950/30 text-indigo-400 hover:bg-indigo-900/40'
+                          ? 'bg-pdso-900/40 text-pdso-200 hover:bg-pdso-800/60'
+                          : 'bg-pdso-950/30 text-pdso-400 hover:bg-pdso-900/40'
                         }
                       `}
                       whileHover={{ x: 4 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <div className={`
-                        p-2 rounded ${isActive ? 'bg-white/20' : 'bg-indigo-800/30'}
+                        p-2 rounded ${isActive ? 'bg-white/20' : 'bg-pdso-800/30'}
                       `}>
                         <Icon size={18} />
                       </div>
@@ -116,8 +116,8 @@ export const SidePanel: React.FC<SidePanelProps> = ({ currentStep, onNavigate })
               </div>
 
               {/* Footer hint */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-indigo-950 to-transparent">
-                <div className="flex items-center justify-center gap-2 text-xs text-indigo-400">
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-pdso-950 to-transparent">
+                <div className="flex items-center justify-center gap-2 text-xs text-pdso-400">
                   <Ship size={14} />
                   <span>Navigate your Kubernetes journey</span>
                 </div>

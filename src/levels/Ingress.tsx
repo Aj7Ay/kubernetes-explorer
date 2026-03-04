@@ -14,7 +14,7 @@ export const Ingress: React.FC<IngressProps> = ({ onComplete }) => {
     <div className="space-y-8">
       <header className="space-y-4">
         <h2 className="text-4xl font-bold text-white">The Gateway: Ingress</h2>
-        <p className="text-xl text-indigo-200 max-w-2xl">
+        <p className="text-xl text-pdso-200 max-w-2xl">
           Services are great, but they are usually internal. To let the outside world in, 
           we need an <strong>Ingress</strong>.
         </p>
@@ -22,12 +22,12 @@ export const Ingress: React.FC<IngressProps> = ({ onComplete }) => {
 
       <div className="grid md:grid-cols-2 gap-12 items-center my-12">
         <div className="space-y-6">
-          <div className="bg-indigo-900/30 p-6 rounded-xl border border-indigo-800/50">
+          <div className="bg-pdso-900/30 p-6 rounded-xl border border-pdso-800/50">
             <h3 className="text-xl font-bold text-white mb-4">Routing Rules</h3>
-            <p className="text-indigo-200 mb-4">
+            <p className="text-pdso-200 mb-4">
               Ingress acts like a smart router or receptionist. It looks at the URL and decides where to go.
             </p>
-            <ul className="space-y-2 font-mono text-sm text-fuchsia-300 bg-indigo-950/50 p-4 rounded mb-6">
+            <ul className="space-y-2 font-mono text-sm text-pdso-300 bg-pdso-950/50 p-4 rounded mb-6">
                 <li>/web ➜ Web Service</li>
                 <li>/api ➜ API Service</li>
             </ul>
@@ -51,12 +51,12 @@ export const Ingress: React.FC<IngressProps> = ({ onComplete }) => {
           </div>
         </div>
 
-        <div className="relative bg-indigo-950/50 rounded-2xl border border-indigo-800/50 p-8 min-h-[400px] flex flex-col items-center justify-between">
+        <div className="relative bg-pdso-950/50 rounded-2xl border border-pdso-800/50 p-8 min-h-[400px] flex flex-col items-center justify-between">
            
            {/* Internet */}
            <div className="flex flex-col items-center gap-2 z-10">
-               <Globe size={48} className="text-violet-400 animate-pulse" />
-               <span className="text-sm font-bold text-violet-300">The Internet</span>
+               <Globe size={48} className="text-pdso-400 animate-pulse" />
+               <span className="text-sm font-bold text-pdso-300">The Internet</span>
            </div>
 
            {/* Traffic Particle */}
@@ -79,26 +79,26 @@ export const Ingress: React.FC<IngressProps> = ({ onComplete }) => {
            </AnimatePresence>
 
            {/* Ingress Controller */}
-           <div className="w-48 bg-fuchsia-600/20 border-2 border-fuchsia-500 rounded-xl p-4 flex flex-col items-center gap-2 relative z-10">
-               <DoorOpen size={32} className="text-fuchsia-400" />
-               <span className="font-bold text-fuchsia-100">Ingress</span>
+           <div className="w-48 bg-pdso-600/20 border-2 border-pdso-500 rounded-xl p-4 flex flex-col items-center gap-2 relative z-10">
+               <DoorOpen size={32} className="text-pdso-400" />
+               <span className="font-bold text-pdso-100">Ingress</span>
            </div>
 
            {/* Services */}
            <div className="flex justify-between w-full max-w-xs z-10">
                <motion.div 
-                 animate={activePath === '/web' ? { scale: 1.1, borderColor: 'rgb(139, 92, 246)' } : { scale: 1, borderColor: 'rgba(139, 92, 246, 0.5)' }}
-                 className="bg-indigo-900 border-2 border-violet-500/50 p-4 rounded-lg flex flex-col items-center w-32 transition-colors"
+                 animate={activePath === '/web' ? { scale: 1.1, borderColor: 'rgb(122, 112, 246)' } : { scale: 1, borderColor: 'rgba(122, 112, 246, 0.5)' }}
+                 className="bg-pdso-900 border-2 border-pdso-500/50 p-4 rounded-lg flex flex-col items-center w-32 transition-colors"
                >
-                   <Radio size={24} className="text-violet-400 mb-2" />
+                   <Radio size={24} className="text-pdso-400 mb-2" />
                    <span className="text-xs font-bold text-white">Web Service</span>
                </motion.div>
 
                <motion.div 
-                 animate={activePath === '/api' ? { scale: 1.1, borderColor: 'rgb(139, 92, 246)' } : { scale: 1, borderColor: 'rgba(139, 92, 246, 0.5)' }}
-                 className="bg-indigo-900 border-2 border-violet-500/50 p-4 rounded-lg flex flex-col items-center w-32 transition-colors"
+                 animate={activePath === '/api' ? { scale: 1.1, borderColor: 'rgb(122, 112, 246)' } : { scale: 1, borderColor: 'rgba(122, 112, 246, 0.5)' }}
+                 className="bg-pdso-900 border-2 border-pdso-500/50 p-4 rounded-lg flex flex-col items-center w-32 transition-colors"
                >
-                   <Radio size={24} className="text-violet-400 mb-2" />
+                   <Radio size={24} className="text-pdso-400 mb-2" />
                    <span className="text-xs font-bold text-white">API Service</span>
                </motion.div>
            </div>
@@ -110,18 +110,18 @@ export const Ingress: React.FC<IngressProps> = ({ onComplete }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-gradient-to-r from-violet-900/40 to-fuchsia-900/40 p-8 rounded-2xl border border-violet-500/30 text-center"
+        className="bg-gradient-to-r from-pdso-900/40 to-pdso-900/40 p-8 rounded-2xl border border-pdso-500/30 text-center"
       >
-          <div className="w-16 h-16 bg-fuchsia-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-fuchsia-500/20">
+          <div className="w-16 h-16 bg-pdso-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-pdso-500/20">
               <CheckCircle size={32} className="text-white" />
           </div>
           <h2 className="text-3xl font-bold text-white mb-4">Journey Complete!</h2>
-          <p className="text-lg text-indigo-200 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-pdso-200 mb-8 max-w-2xl mx-auto">
               You've mastered the basics: Containers, Pods, Nodes, ReplicaSets, Services, and Ingress.
               You are now ready to sail the seas of Kubernetes!
           </p>
           
-          <Button onClick={onComplete} className="bg-white text-violet-900 hover:bg-indigo-100">
+          <Button onClick={onComplete} className="bg-white text-pdso-900 hover:bg-pdso-100">
               Restart Adventure
           </Button>
       </motion.div>

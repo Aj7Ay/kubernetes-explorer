@@ -51,7 +51,7 @@ export const Nodes: React.FC<NodesProps> = ({ onComplete }) => {
     <div className="space-y-8">
       <header className="space-y-4">
         <h2 className="text-4xl font-bold text-white">The Fleet: Worker Nodes</h2>
-        <p className="text-xl text-indigo-200 max-w-2xl">
+        <p className="text-xl text-pdso-200 max-w-2xl">
           Pods need a place to live. They run on <strong>Nodes</strong>. 
           Think of Nodes as the ships in our fleet.
         </p>
@@ -59,12 +59,12 @@ export const Nodes: React.FC<NodesProps> = ({ onComplete }) => {
 
       <div className="grid md:grid-cols-2 gap-12 items-center my-12">
         <div className="space-y-6">
-          <div className="bg-indigo-900/30 p-6 rounded-xl border border-indigo-800/50">
+          <div className="bg-pdso-900/30 p-6 rounded-xl border border-pdso-800/50">
             <h3 className="text-xl font-bold text-white mb-4">The Scheduler</h3>
-            <p className="text-indigo-200 mb-4">
+            <p className="text-pdso-200 mb-4">
               Kubernetes has a component called the <strong>Scheduler</strong>. It watches for new Pods and assigns them to the best available Node.
             </p>
-            <p className="text-indigo-200 mb-6">
+            <p className="text-pdso-200 mb-6">
               If a Node fails (ship sinks), the Scheduler doesn't "move" the Pod. It <strong>reschedules</strong> (creates new copies) of them on a healthy Node.
             </p>
             
@@ -88,13 +88,13 @@ export const Nodes: React.FC<NodesProps> = ({ onComplete }) => {
           </div>
         </div>
 
-        <div className="relative bg-indigo-950/50 rounded-2xl border border-indigo-800/50 p-8 min-h-[400px] flex flex-col gap-8">
+        <div className="relative bg-pdso-950/50 rounded-2xl border border-pdso-800/50 p-8 min-h-[400px] flex flex-col gap-8">
            
            {/* Node 1 */}
-           <div className={`relative border-2 rounded-xl p-4 transition-colors duration-500 ${nodeStatus === 'failed' ? 'border-red-500 bg-red-500/10' : 'border-fuchsia-500 bg-fuchsia-500/10'}`}>
+           <div className={`relative border-2 rounded-xl p-4 transition-colors duration-500 ${nodeStatus === 'failed' ? 'border-red-500 bg-red-500/10' : 'border-pdso-500 bg-pdso-500/10'}`}>
                 <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center gap-2">
-                        <Server size={24} className={nodeStatus === 'failed' ? 'text-red-500' : 'text-fuchsia-500'} />
+                        <Server size={24} className={nodeStatus === 'failed' ? 'text-red-500' : 'text-pdso-500'} />
                         <span className="font-bold text-white">Node 1 (SS Worker)</span>
                     </div>
                     {nodeStatus === 'failed' && <span className="text-red-400 font-mono animate-pulse">OFFLINE</span>}
@@ -104,7 +104,7 @@ export const Nodes: React.FC<NodesProps> = ({ onComplete }) => {
                     {pods.filter(p => p.nodeId === 1).map(p => (
                         <motion.div
                             layoutId={`pod-${p.id}`}
-                            className="bg-violet-500 rounded-lg flex items-center justify-center"
+                            className="bg-pdso-500 rounded-lg flex items-center justify-center"
                         >
                             <Ship size={16} className="text-white" />
                         </motion.div>
@@ -113,13 +113,13 @@ export const Nodes: React.FC<NodesProps> = ({ onComplete }) => {
            </div>
 
            {/* Node 2 */}
-           <div className="relative border-2 border-fuchsia-500 bg-fuchsia-500/10 rounded-xl p-4">
+           <div className="relative border-2 border-pdso-500 bg-pdso-500/10 rounded-xl p-4">
                 <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center gap-2">
-                        <Server size={24} className="text-fuchsia-500" />
+                        <Server size={24} className="text-pdso-500" />
                         <span className="font-bold text-white">Node 2 (SS Backup)</span>
                     </div>
-                    <span className="text-fuchsia-400 font-mono">ONLINE</span>
+                    <span className="text-pdso-400 font-mono">ONLINE</span>
                 </div>
                 
                 <div className="grid grid-cols-4 gap-2 h-16">
@@ -129,7 +129,7 @@ export const Nodes: React.FC<NodesProps> = ({ onComplete }) => {
                             layoutId={p.id < 5 ? `pod-${p.id}` : undefined} // Only animate layout for existing pods
                             initial={p.id >= 5 ? { scale: 0, opacity: 0 } : undefined}
                             animate={{ scale: 1, opacity: 1 }}
-                            className="bg-violet-500 rounded-lg flex items-center justify-center shadow-lg"
+                            className="bg-pdso-500 rounded-lg flex items-center justify-center shadow-lg"
                         >
                              <Ship size={16} className="text-white" />
                         </motion.div>
@@ -141,10 +141,10 @@ export const Nodes: React.FC<NodesProps> = ({ onComplete }) => {
                <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="absolute inset-0 flex items-center justify-center bg-indigo-950/60 backdrop-blur-sm z-10 rounded-2xl"
+                className="absolute inset-0 flex items-center justify-center bg-pdso-950/60 backdrop-blur-sm z-10 rounded-2xl"
                >
-                   <div className="bg-indigo-900 p-4 rounded-lg border border-indigo-700 flex items-center gap-3">
-                       <RefreshCw className="animate-spin text-violet-400" />
+                   <div className="bg-pdso-900 p-4 rounded-lg border border-pdso-700 flex items-center gap-3">
+                       <RefreshCw className="animate-spin text-pdso-400" />
                        <span className="text-white font-mono">Rescheduling Pods...</span>
                    </div>
                </motion.div>

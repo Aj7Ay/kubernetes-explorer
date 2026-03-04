@@ -115,13 +115,13 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
                 transition={{ duration: 0.5 }}
                 className="text-center"
               >
-                <h1 className="text-7xl md:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400" style={{ fontFamily: 'Satoshi, system-ui, -apple-system, sans-serif' }}>
+                <h1 className="text-7xl md:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pdso-400 via-pdso-500 to-pdso-400" style={{ fontFamily: 'Satoshi, system-ui, -apple-system, sans-serif' }}>
                   {displayedTitle}
                   {isTypingTitle && (
                     <motion.span
                       animate={{ opacity: [1, 0] }}
                       transition={{ duration: 0.8, repeat: Infinity }}
-                      className="inline-block w-1 h-20 bg-fuchsia-400 ml-2"
+                      className="inline-block w-1 h-20 bg-pdso-400 ml-2"
                     />
                   )}
                 </h1>
@@ -139,13 +139,13 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
                   className="text-center"
                   style={{ fontFamily: 'Satoshi, system-ui, -apple-system, sans-serif' }}
                 >
-                  <h2 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-300">
+                  <h2 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pdso-300 to-pdso-400">
                     {displayedSubtitle}
                     {isTypingSubtitle && (
                       <motion.span
                         animate={{ opacity: [1, 0] }}
                         transition={{ duration: 0.8, repeat: Infinity }}
-                        className="inline-block w-0.5 h-8 bg-purple-300 ml-1"
+                        className="inline-block w-0.5 h-8 bg-pdso-300 ml-1"
                       />
                     )}
                   </h2>
@@ -188,15 +188,15 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
             exit={{ opacity: 0 }}
             className="space-y-8"
         >
-            <h2 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-violet-300 to-fuchsia-300">
+            <h2 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pdso-300 to-pdso-400">
                 Chapter 1: The Era of Giants
             </h2>
-            <p className="text-xl text-indigo-200 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-pdso-200 max-w-2xl mx-auto leading-relaxed">
                 Long ago, we built software as <strong>Monoliths</strong>. 
                 One giant code-base. One giant database. One giant server.
             </p>
             
-            <div className="relative h-64 w-64 mx-auto bg-indigo-950 rounded-3xl border-4 border-violet-500 shadow-[0_0_50px_rgba(139,92,246,0.3)] flex items-center justify-center overflow-hidden">
+            <div className="relative h-64 w-64 mx-auto bg-pdso-950 rounded-3xl border-4 border-violet-500 shadow-[0_0_50px_rgba(139,92,246,0.3)] flex items-center justify-center overflow-hidden">
                 <AnimatePresence>
                     {!isCrashing ? (
                         <motion.div 
@@ -210,8 +210,8 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
                                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse delay-75" />
                                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse delay-150" />
                             </div>
-                            <Server size={80} className="text-violet-200" />
-                            <span className="mt-4 font-bold text-violet-300 tracking-widest uppercase">Monolith v1.0</span>
+                            <Server size={80} className="text-pdso-200" />
+                            <span className="mt-4 font-bold text-pdso-300 tracking-widest uppercase">Monolith v1.0</span>
                         </motion.div>
                     ) : (
                         <motion.div
@@ -246,7 +246,7 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
                         <AlertOctagon size={32} />
                         <h3 className="text-2xl font-bold">One Tiny Bug...</h3>
                     </div>
-                    <p className="text-indigo-200 text-lg mb-6">
+                    <p className="text-pdso-200 text-lg mb-6">
                         A developer made a typo in the "User Profile" code. 
                         Just a small error. But because everything is connected...
                     </p>
@@ -286,7 +286,7 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
             className="space-y-8"
         >
              <h2 className="text-4xl font-bold text-white">Chapter 2: Microservices</h2>
-             <p className="text-xl text-indigo-200 max-w-2xl mx-auto">
+             <p className="text-xl text-pdso-200 max-w-2xl mx-auto">
                 We decided to break the Giant into pieces. Small, independent services.
                 If the "Profile" service breaks, the "Checkout" service keeps running!
             </p>
@@ -311,7 +311,7 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
                         {isDown ? (
                             <X className="text-red-400 mb-2" size={32} />
                         ) : (
-                            <Server className="text-violet-300 mb-2" size={24} />
+                            <Server className="text-pdso-300 mb-2" size={24} />
                         )}
                         
                         <span className={`text-sm font-bold ${isDown ? 'text-red-200' : 'text-white'}`}>{name}</span>
@@ -343,7 +343,7 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
                         But look! Others are still serving traffic! ✅
                     </p>
                 ) : (
-                    <p className="text-indigo-300 font-mono">System Status: All Systems Operational</p>
+                    <p className="text-pdso-300 font-mono">System Status: All Systems Operational</p>
                 )}
             </div>
 
@@ -391,7 +391,7 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
                  </div>
              </div>
 
-             <p className="text-xl text-indigo-200 max-w-2xl mx-auto">
+             <p className="text-xl text-pdso-200 max-w-2xl mx-auto">
                  The environments are different! Libraries are missing. Versions are wrong.
                  It's a nightmare to keep track of requirements for 100 different services.
              </p>
