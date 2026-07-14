@@ -24,7 +24,6 @@ import {
   Layers,
   Lock,
   Wifi,
-  HardDrive,
   RefreshCw,
   CheckCircle,
   XCircle,

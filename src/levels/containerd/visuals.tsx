@@ -196,14 +196,14 @@ export function VisualCarAnalogy() {
    6-layer stack with animated request dot flowing top→bottom
    ═══════════════════════════════════════════════════════════ */
 
-const runtimeLayers = [
+const runtimeLayers: readonly { id: string; label: string; sub: string; color: string; highlight?: boolean }[] = [
   { id: 'user', label: 'User / Client', sub: 'docker · nerdctl · kubectl', color: '#a78bfa' },
   { id: 'high', label: 'High-Level Runtime', sub: 'Docker Engine · kubelet', color: '#818cf8' },
   { id: 'containerd', label: 'containerd', sub: 'gRPC API · CRI · images · tasks', color: '#3b82f6', highlight: true },
   { id: 'shim', label: 'containerd-shim', sub: 'per-container process supervisor', color: '#06b6d4' },
   { id: 'runc', label: 'runc (OCI)', sub: 'namespaces · cgroups · exec', color: '#22c55e' },
   { id: 'kernel', label: 'Linux Kernel', sub: 'namespaces · cgroups · seccomp · overlayfs', color: '#64748b' },
-] as const;
+];
 
 export function VisualRuntimeFlow() {
   const [activeLayer, setActiveLayer] = useState<string | null>(null);
@@ -872,7 +872,7 @@ export function VisualShimSurvival() {
                 y1={daemonY + 32}
                 x2={sx}
                 y2={shimY}
-                stroke={linesConnected ? '#3b82f6' : phase === 'survived' ? '#22c55e' : '#ef4444'}
+                stroke={linesConnected ? '#3b82f6' : '#ef4444'}
                 strokeWidth="1.5"
                 strokeDasharray="4 3"
                 animate={{

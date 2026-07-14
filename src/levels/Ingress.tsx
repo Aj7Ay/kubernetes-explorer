@@ -10,7 +10,6 @@ import {
   CheckCircle,
   Shield,
   Lock,
-  Server,
   Cloud,
   Ship,
   DollarSign,

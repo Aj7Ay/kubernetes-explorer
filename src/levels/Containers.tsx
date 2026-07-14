@@ -20,21 +20,14 @@ import {
   Cloud,
   Lock,
   Route,
-  Layers,
   Shield,
-  Cpu,
   CheckCircle,
   XCircle,
-  Laptop,
-  Container,
   FileCode,
   Zap,
-  Copy,
   Eye,
   Play,
   Square,
-  RotateCcw,
-  Search,
 } from 'lucide-react';
 
 /* ── Typewriter terminal line component ── */

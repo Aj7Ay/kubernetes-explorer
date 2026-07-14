@@ -354,6 +354,231 @@ function CommandRow({ item, index }: { item: CommandItem; index: number }) {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   Block sub-components (hooks must be top-level, not in switch)
+   ═══════════════════════════════════════════════════════════ */
+function TerminalBlockView({ block }: { block: ContentBlock & { type: 'terminal' } }) {
+  const visCount = useTypewriterLines(block.lines, 50);
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ type: 'spring', stiffness: 180, damping: 22 }}
+      whileHover={{ boxShadow: '0 0 40px rgba(0,255,100,0.08)' }}
+      className="rounded-xl border border-mcb-700/50 bg-black/70 overflow-hidden text-left shadow-[0_0_30px_rgba(0,0,0,0.4)] relative group"
+    >
+      <motion.div
+        animate={{ top: ['0%', '100%'] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+        className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-green-400/10 to-transparent pointer-events-none z-10"
+      />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="flex items-center gap-2 px-3 py-2 border-b border-mcb-800 bg-mcb-950/80 relative"
+      >
+        {[{ c: 'bg-red-500/80', d: 0.1 }, { c: 'bg-yellow-500/80', d: 0.15 }, { c: 'bg-green-500/80', d: 0.2 }].map((dot, i) => (
+          <motion.span
+            key={i}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: dot.d, type: 'spring', stiffness: 400, damping: 15 }}
+            className={`w-2.5 h-2.5 rounded-full ${dot.c}`}
+          />
+        ))}
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="text-xs text-mcb-400 ml-2 font-mono"
+        >
+          {block.title || 'terminal'}
+        </motion.span>
+        <motion.div
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="ml-auto flex items-center gap-1"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_4px_rgba(34,197,94,0.8)]" />
+          <span className="text-[9px] text-green-400/70 font-mono">LIVE</span>
+        </motion.div>
+      </motion.div>
+      <pre className="p-4 text-xs md:text-sm font-mono text-green-300/95 whitespace-pre-wrap leading-relaxed relative">
+        {block.lines.slice(0, visCount).map((line, i) => (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, x: -4 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.12 }}
+            className="block"
+          >
+            {line}
+          </motion.span>
+        ))}
+        {visCount < block.lines.length && <BlinkCursor />}
+      </pre>
+    </motion.div>
+  );
+}
+
+function DiagramBlockView({ block }: { block: ContentBlock & { type: 'diagram' } }) {
+  const visCount = useTypewriterLines(block.lines, 70);
+  return (
+    <div className="text-left">
+      {block.title && (
+        <motion.h4
+          initial={{ opacity: 0, x: -8 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-sm font-bold text-mcb-300 mb-2 flex items-center gap-2"
+        >
+          {block.title}
+          <motion.span
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="text-[9px] text-mcb-500 font-mono"
+          >
+            ▪ diagram
+          </motion.span>
+        </motion.h4>
+      )}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: 'spring', stiffness: 180, damping: 22 }}
+        whileHover={{ boxShadow: '0 0 30px rgba(99,102,241,0.12)' }}
+        className="rounded-xl border border-mcb-700/40 bg-gradient-to-br from-mcb-950/80 to-black/60 overflow-hidden shadow-[0_0_20px_rgba(99,102,241,0.08)] relative"
+      >
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(99,102,241,0.5) 1px, transparent 0)`,
+            backgroundSize: '20px 20px',
+          }}
+        />
+        <pre className="p-4 text-[11px] md:text-xs font-mono text-mcb-200 overflow-x-auto leading-relaxed whitespace-pre relative z-10">
+          {block.lines.slice(0, visCount).map((line, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, x: -6 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.15 }}
+              className="block"
+            >
+              <DiagramLine text={line} />
+            </motion.span>
+          ))}
+          {visCount < block.lines.length && <BlinkCursor color="bg-mcb-400/70" />}
+        </pre>
+      </motion.div>
+    </div>
+  );
+}
+
+function TreeBlockView({ block }: { block: ContentBlock & { type: 'tree' } }) {
+  const visCount = useTypewriterLines(block.lines, 55);
+  return (
+    <div className="text-left">
+      {block.title && (
+        <motion.h4
+          initial={{ opacity: 0, x: -8 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-sm font-bold text-mcb-300 mb-2"
+        >
+          {block.title}
+        </motion.h4>
+      )}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: 'spring', stiffness: 180, damping: 22 }}
+        className="rounded-xl border border-mcb-700/40 bg-gradient-to-br from-mcb-950/80 to-black/60 overflow-hidden shadow-[0_0_20px_rgba(99,102,241,0.08)]"
+      >
+        <pre className="p-4 text-[11px] md:text-xs font-mono text-mcb-200 overflow-x-auto leading-relaxed whitespace-pre">
+          {block.lines.slice(0, visCount).map((line, i) => {
+            const indent = line.search(/[^\s│├└─┬┤┘]/);
+            return (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, x: -(indent > 0 ? indent * 1.5 : 6) }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.18, type: 'spring', stiffness: 250, damping: 22 }}
+                className="block"
+              >
+                <TreeLine text={line} />
+              </motion.span>
+            );
+          })}
+          {visCount < block.lines.length && <BlinkCursor color="bg-mcb-400/70" />}
+        </pre>
+      </motion.div>
+    </div>
+  );
+}
+
+function CodeBlockView({ block }: { block: ContentBlock & { type: 'code' } }) {
+  const codeLines = useMemo(() => block.code.split('\n'), [block.code]);
+  const visCount = useTypewriterLines(codeLines, 35);
+  return (
+    <div className="text-left">
+      {block.title && (
+        <motion.h4
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-sm font-bold text-mcb-300 mb-2"
+        >
+          {block.title}
+        </motion.h4>
+      )}
+      <motion.div
+        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ type: 'spring', stiffness: 180, damping: 22 }}
+        whileHover={{ boxShadow: '0 0 30px rgba(99,102,241,0.1)' }}
+        className="relative rounded-xl border border-mcb-700/40 bg-black/70 overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.3)] group"
+      >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="flex justify-between items-center px-3 py-1.5 border-b border-mcb-800/50 bg-mcb-950/60"
+        >
+          <div className="flex items-center gap-2">
+            <div className="flex gap-1.5">
+              {['bg-red-500/60', 'bg-yellow-500/60', 'bg-green-500/60'].map((c, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: i * 0.05, type: 'spring', stiffness: 400, damping: 15 }}
+                  className={`w-2 h-2 rounded-full ${c}`}
+                />
+              ))}
+            </div>
+            <span className="text-[10px] uppercase tracking-wider text-mcb-500 font-mono ml-1">
+              {block.lang || 'code'}
+            </span>
+          </div>
+          <CopyBtn text={block.code} />
+        </motion.div>
+        <pre className="p-4 text-xs font-mono text-mcb-100 overflow-x-auto leading-relaxed whitespace-pre relative">
+          {codeLines.slice(0, visCount).map((line, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, x: -3 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.1 }}
+              className="block hover:bg-mcb-800/20 transition-colors"
+            >
+              <span className="inline-block w-8 text-right mr-3 text-mcb-600 select-none text-[10px]">{i + 1}</span>
+              {line}
+            </motion.span>
+          ))}
+          {visCount < codeLines.length && <BlinkCursor color="bg-mcb-300/60" />}
+        </pre>
+      </motion.div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    BlockView - rich animations per type
    ═══════════════════════════════════════════════════════════ */
 export function BlockView({ block }: { block: ContentBlock }) {
@@ -523,72 +748,8 @@ export function BlockView({ block }: { block: ContentBlock }) {
       );
 
     /* ── terminal (typewriter + scanning line) ────────── */
-    case 'terminal': {
-      const visCount = useTypewriterLines(block.lines, 50);
-      return (
-        <motion.div
-          initial={{ opacity: 0, y: 10, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ type: 'spring', stiffness: 180, damping: 22 }}
-          whileHover={{ boxShadow: '0 0 40px rgba(0,255,100,0.08)' }}
-          className="rounded-xl border border-mcb-700/50 bg-black/70 overflow-hidden text-left shadow-[0_0_30px_rgba(0,0,0,0.4)] relative group"
-        >
-          {/* CRT scan line effect */}
-          <motion.div
-            animate={{ top: ['0%', '100%'] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-            className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-green-400/10 to-transparent pointer-events-none z-10"
-          />
-          {/* Terminal chrome */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex items-center gap-2 px-3 py-2 border-b border-mcb-800 bg-mcb-950/80 relative"
-          >
-            {[{ c: 'bg-red-500/80', d: 0.1 }, { c: 'bg-yellow-500/80', d: 0.15 }, { c: 'bg-green-500/80', d: 0.2 }].map((dot, i) => (
-              <motion.span
-                key={i}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: dot.d, type: 'spring', stiffness: 400, damping: 15 }}
-                className={`w-2.5 h-2.5 rounded-full ${dot.c}`}
-              />
-            ))}
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="text-xs text-mcb-400 ml-2 font-mono"
-            >
-              {block.title || 'terminal'}
-            </motion.span>
-            {/* Live indicator */}
-            <motion.div
-              animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="ml-auto flex items-center gap-1"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_4px_rgba(34,197,94,0.8)]" />
-              <span className="text-[9px] text-green-400/70 font-mono">LIVE</span>
-            </motion.div>
-          </motion.div>
-          <pre className="p-4 text-xs md:text-sm font-mono text-green-300/95 whitespace-pre-wrap leading-relaxed relative">
-            {block.lines.slice(0, visCount).map((line, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, x: -4 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.12 }}
-                className="block"
-              >
-                {line}
-              </motion.span>
-            ))}
-            {visCount < block.lines.length && <BlinkCursor />}
-          </pre>
-        </motion.div>
-      );
-    }
+    case 'terminal':
+      return <TerminalBlockView block={block} />;
 
     /* ── table (row stagger + hover highlight + count) ─── */
     case 'table':
@@ -667,101 +828,12 @@ export function BlockView({ block }: { block: ContentBlock }) {
       return <StepsView block={block} />;
 
     /* ── diagram (typewriter + keyword highlights + glow) ───── */
-    case 'diagram': {
-      const visCount = useTypewriterLines(block.lines, 70);
-      return (
-        <div className="text-left">
-          {block.title && (
-            <motion.h4
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-sm font-bold text-mcb-300 mb-2 flex items-center gap-2"
-            >
-              {block.title}
-              <motion.span
-                animate={{ opacity: [0.4, 1, 0.4] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="text-[9px] text-mcb-500 font-mono"
-              >
-                ▪ diagram
-              </motion.span>
-            </motion.h4>
-          )}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: 'spring', stiffness: 180, damping: 22 }}
-            whileHover={{ boxShadow: '0 0 30px rgba(99,102,241,0.12)' }}
-            className="rounded-xl border border-mcb-700/40 bg-gradient-to-br from-mcb-950/80 to-black/60 overflow-hidden shadow-[0_0_20px_rgba(99,102,241,0.08)] relative"
-          >
-            {/* Subtle grid background */}
-            <div
-              className="absolute inset-0 pointer-events-none opacity-[0.03]"
-              style={{
-                backgroundImage: `radial-gradient(circle at 1px 1px, rgba(99,102,241,0.5) 1px, transparent 0)`,
-                backgroundSize: '20px 20px',
-              }}
-            />
-            <pre className="p-4 text-[11px] md:text-xs font-mono text-mcb-200 overflow-x-auto leading-relaxed whitespace-pre relative z-10">
-              {block.lines.slice(0, visCount).map((line, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0, x: -6 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.15 }}
-                  className="block"
-                >
-                  <DiagramLine text={line} />
-                </motion.span>
-              ))}
-              {visCount < block.lines.length && <BlinkCursor color="bg-mcb-400/70" />}
-            </pre>
-          </motion.div>
-        </div>
-      );
-    }
+    case 'diagram':
+      return <DiagramBlockView block={block} />;
 
     /* ── tree (typewriter with indent-aware reveal) ──── */
-    case 'tree': {
-      const visCount = useTypewriterLines(block.lines, 55);
-      return (
-        <div className="text-left">
-          {block.title && (
-            <motion.h4
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-sm font-bold text-mcb-300 mb-2"
-            >
-              {block.title}
-            </motion.h4>
-          )}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: 'spring', stiffness: 180, damping: 22 }}
-            className="rounded-xl border border-mcb-700/40 bg-gradient-to-br from-mcb-950/80 to-black/60 overflow-hidden shadow-[0_0_20px_rgba(99,102,241,0.08)]"
-          >
-            <pre className="p-4 text-[11px] md:text-xs font-mono text-mcb-200 overflow-x-auto leading-relaxed whitespace-pre">
-              {block.lines.slice(0, visCount).map((line, i) => {
-                const indent = line.search(/[^\s│├└─┬┤┘]/);
-                return (
-                  <motion.span
-                    key={i}
-                    initial={{ opacity: 0, x: -(indent > 0 ? indent * 1.5 : 6) }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.18, type: 'spring', stiffness: 250, damping: 22 }}
-                    className="block"
-                  >
-                    <TreeLine text={line} />
-                  </motion.span>
-                );
-              })}
-              {visCount < block.lines.length && <BlinkCursor color="bg-mcb-400/70" />}
-            </pre>
-          </motion.div>
-        </div>
-      );
-    }
+    case 'tree':
+      return <TreeBlockView block={block} />;
 
     /* ── cards (spring physics + gradient border + glow + shine) ─ */
     case 'cards':
@@ -994,69 +1066,8 @@ export function BlockView({ block }: { block: ContentBlock }) {
       );
 
     /* ── code (typewriter + line numbers + scan) ────────── */
-    case 'code': {
-      const codeLines = useMemo(() => block.code.split('\n'), [block.code]);
-      const visCount = useTypewriterLines(codeLines, 35);
-      return (
-        <div className="text-left">
-          {block.title && (
-            <motion.h4
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-sm font-bold text-mcb-300 mb-2"
-            >
-              {block.title}
-            </motion.h4>
-          )}
-          <motion.div
-            initial={{ opacity: 0, y: 8, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ type: 'spring', stiffness: 180, damping: 22 }}
-            whileHover={{ boxShadow: '0 0 30px rgba(99,102,241,0.1)' }}
-            className="relative rounded-xl border border-mcb-700/40 bg-black/70 overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.3)] group"
-          >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="flex justify-between items-center px-3 py-1.5 border-b border-mcb-800/50 bg-mcb-950/60"
-            >
-              <div className="flex items-center gap-2">
-                <div className="flex gap-1.5">
-                  {['bg-red-500/60', 'bg-yellow-500/60', 'bg-green-500/60'].map((c, i) => (
-                    <motion.span
-                      key={i}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: i * 0.05, type: 'spring', stiffness: 400, damping: 15 }}
-                      className={`w-2 h-2 rounded-full ${c}`}
-                    />
-                  ))}
-                </div>
-                <span className="text-[10px] uppercase tracking-wider text-mcb-500 font-mono ml-1">
-                  {block.lang || 'code'}
-                </span>
-              </div>
-              <CopyBtn text={block.code} />
-            </motion.div>
-            <pre className="p-4 text-xs font-mono text-mcb-100 overflow-x-auto leading-relaxed whitespace-pre relative">
-              {codeLines.slice(0, visCount).map((line, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0, x: -3 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.1 }}
-                  className="block hover:bg-mcb-800/20 transition-colors"
-                >
-                  <span className="inline-block w-8 text-right mr-3 text-mcb-600 select-none text-[10px]">{i + 1}</span>
-                  {line}
-                </motion.span>
-              ))}
-              {visCount < codeLines.length && <BlinkCursor color="bg-mcb-300/60" />}
-            </pre>
-          </motion.div>
-        </div>
-      );
-    }
+    case 'code':
+      return <CodeBlockView block={block} />;
 
     /* ── checklist (slide-in + icon springs + glows) ─── */
     case 'checklist':
@@ -1315,8 +1326,8 @@ function DiagramLine({ text }: { text: string }) {
   while (remaining.length > 0) {
     let earliest: { idx: number; len: number; cls: string } | null = null;
     for (const [rx, cls] of keywordColors) {
-      rx.lastIndex = 0;
-      const m = rx.exec(remaining);
+      const pattern = new RegExp(rx.source, rx.flags);
+      const m = pattern.exec(remaining);
       if (m && (earliest === null || m.index < earliest.idx)) {
         earliest = { idx: m.index, len: m[0].length, cls };
       }
