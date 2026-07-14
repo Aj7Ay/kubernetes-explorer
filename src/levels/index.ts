@@ -1,5 +1,6 @@
 export * from './Intro';
 export * from './Containers';
+export * from './Containerd';
 export * from './KubernetesIntro';
 export * from './Pods';
 export * from './Nodes';

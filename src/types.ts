@@ -1,6 +1,7 @@
-export type LevelId = 
+export type LevelId =
   | 'intro'
   | 'containers'
+  | 'containerd'
   | 'kubernetes-intro'
   | 'pods'
   | 'nodes'

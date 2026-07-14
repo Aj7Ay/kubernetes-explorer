@@ -269,7 +269,7 @@ export const Chatbot: React.FC = () => {
       {/* Chat Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg flex items-center justify-center transition-colors"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-mcb-50 rounded-full shadow-lg flex items-center justify-center transition-colors"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         aria-label="Open chat"
@@ -284,27 +284,27 @@ export const Chatbot: React.FC = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 z-50 w-96 h-[600px] bg-indigo-950 border border-indigo-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-6 z-50 w-96 h-[600px] bg-blue-950 border border-blue-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             {/* Header */}
-            <div className="bg-indigo-900/50 border-b border-indigo-800 p-4 flex items-center justify-between">
+            <div className="bg-blue-900/50 border-b border-blue-800 p-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Bot className="text-indigo-300" size={20} />
-                <h3 className="text-white font-semibold" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+                <Bot className="text-blue-300" size={20} />
+                <h3 className="text-mcb-50 font-semibold" style={{ fontFamily: 'Satoshi, sans-serif' }}>
                   Ghost
                 </h3>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-indigo-300 hover:text-white transition-colors"
+                className="text-blue-300 hover:text-mcb-50 transition-colors"
               >
                 <X size={18} />
               </button>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-indigo-950/50">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-blue-950/50">
               {messages.map((message) => (
                 <div
                   key={message.id}
@@ -313,15 +313,15 @@ export const Chatbot: React.FC = () => {
                   }`}
                 >
                   {message.sender === 'bot' && (
-                    <div className="w-8 h-8 rounded-full bg-indigo-700 flex items-center justify-center flex-shrink-0">
-                      <Bot size={16} className="text-indigo-200" />
+                    <div className="w-8 h-8 rounded-full bg-blue-700 flex items-center justify-center flex-shrink-0">
+                      <Bot size={16} className="text-blue-200" />
                     </div>
                   )}
                   <div
                     className={`max-w-[80%] rounded-lg px-4 py-2 ${
                       message.sender === 'user'
-                        ? 'bg-indigo-600 text-white'
-                        : 'bg-indigo-800/50 text-indigo-100'
+                        ? 'bg-blue-600 text-mcb-50'
+                        : 'bg-blue-800/50 text-blue-100'
                     }`}
                     style={{ fontFamily: 'Satoshi, sans-serif' }}
                   >
@@ -334,19 +334,19 @@ export const Chatbot: React.FC = () => {
                     )}
                   </div>
                   {message.sender === 'user' && (
-                    <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0">
-                      <User size={16} className="text-white" />
+                    <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
+                      <User size={16} className="text-mcb-50" />
                     </div>
                   )}
                 </div>
               ))}
               {isLoading && (
                 <div className="flex gap-3 justify-start">
-                  <div className="w-8 h-8 rounded-full bg-indigo-700 flex items-center justify-center flex-shrink-0">
-                    <Bot size={16} className="text-indigo-200" />
+                  <div className="w-8 h-8 rounded-full bg-blue-700 flex items-center justify-center flex-shrink-0">
+                    <Bot size={16} className="text-blue-200" />
                   </div>
-                  <div className="bg-indigo-800/50 text-indigo-100 rounded-lg px-4 py-2">
-                    <Loader2 className="animate-spin text-indigo-300" size={16} />
+                  <div className="bg-blue-800/50 text-blue-100 rounded-lg px-4 py-2">
+                    <Loader2 className="animate-spin text-blue-300" size={16} />
                   </div>
                 </div>
               )}
@@ -354,7 +354,7 @@ export const Chatbot: React.FC = () => {
             </div>
 
             {/* Input */}
-            <div className="border-t border-indigo-800 p-4 bg-indigo-900/30">
+            <div className="border-t border-blue-800 p-4 bg-blue-900/30">
               <div className="flex gap-2">
                 <input
                   ref={inputRef}
@@ -364,13 +364,13 @@ export const Chatbot: React.FC = () => {
                   onKeyPress={handleKeyPress}
                   placeholder="Ask about Kubernetes..."
                   disabled={isLoading}
-                  className="flex-1 bg-indigo-800/50 border border-indigo-700 text-white placeholder-indigo-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent disabled:opacity-50"
+                  className="flex-1 bg-blue-800/50 border border-blue-700 text-mcb-50 placeholder-blue-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
                   style={{ fontFamily: 'Satoshi, sans-serif' }}
                 />
                 <button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
+                  className="bg-blue-600 hover:bg-blue-700 text-mcb-50 rounded-lg px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
                 >
                   {isLoading ? (
                     <Loader2 className="animate-spin" size={18} />
@@ -379,7 +379,7 @@ export const Chatbot: React.FC = () => {
                   )}
                 </button>
               </div>
-              <p className="text-xs text-indigo-400 mt-2 text-center" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+              <p className="text-xs text-blue-400 mt-2 text-center" style={{ fontFamily: 'Satoshi, sans-serif' }}>
                 mrcloudbook
               </p>
             </div>

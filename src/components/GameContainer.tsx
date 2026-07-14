@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import type { LevelId } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
-// import { Ship, Anchor, Box, Server, Copy, Radio, DoorOpen, BookOpen } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
+import { useTheme } from '../ThemeContext';
 
 interface GameContainerProps {
   currentLevel: LevelId;
@@ -9,20 +10,9 @@ interface GameContainerProps {
   onNavigate: (level: LevelId) => void;
 }
 
-// Levels metadata kept for potential future use or reference
-// const levels: { id: LevelId; label: string; icon: React.ElementType }[] = [
-//   { id: 'intro', label: 'The Old World', icon: BookOpen },
-//   { id: 'containers', label: 'Shipping Containers', icon: Box },
-//   { id: 'kubernetes-intro', label: 'The Captain', icon: Anchor },
-//   { id: 'pods', label: 'The Pods', icon: Ship },
-//   { id: 'nodes', label: 'The Ships (Nodes)', icon: Server },
-//   { id: 'replicasets', label: 'The Fleet', icon: Copy },
-//   { id: 'services', label: 'Communication', icon: Radio },
-//   { id: 'ingress', label: 'The Port', icon: DoorOpen },
-// ];
-
 export const GameContainer: React.FC<GameContainerProps> = ({ currentLevel, children }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     if (scrollContainerRef.current) {
@@ -31,12 +21,23 @@ export const GameContainer: React.FC<GameContainerProps> = ({ currentLevel, chil
   }, [currentLevel]);
 
   return (
-    <div className="min-h-screen bg-pdso-950 text-pdso-50 font-sans overflow-hidden flex flex-col">
-      {/* Top Bar — design.json purple */}
-      <div className="p-4 border-b border-pdso-800/50 bg-pdso-900/50 backdrop-blur-sm flex justify-between items-center z-20">
-          <h1 className="text-xl font-bold bg-gradient-to-r from-pdso-400 to-pdso-500 bg-clip-text text-transparent">
-            K8s Adventure
+    <div className="min-h-screen bg-mcb-950 text-mcb-50 font-sans overflow-hidden flex flex-col transition-colors duration-300">
+      {/* Top Bar */}
+      <div className="p-4 border-b border-mcb-800/50 bg-mcb-900/50 backdrop-blur-sm flex justify-between items-center z-20 transition-colors duration-300">
+          <h1 className="text-xl font-bold bg-gradient-to-r from-mcb-400 to-mcb-500 bg-clip-text text-transparent">
+            DevSecOps Explorer
           </h1>
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg border border-mcb-700/50 hover:border-mcb-500 bg-mcb-900/50 hover:bg-mcb-800/50 transition-all duration-200"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? (
+              <Sun size={18} className="text-mcb-300" />
+            ) : (
+              <Moon size={18} className="text-mcb-300" />
+            )}
+          </button>
       </div>
 
       {/* Main Content Area */}
@@ -61,9 +62,9 @@ export const GameContainer: React.FC<GameContainerProps> = ({ currentLevel, chil
           </div>
         </div>
 
-        {/* Background decorations — pdso purple glow (subtle pulse) */}
-        <div className="k8s-glow-orb absolute top-0 right-0 w-96 h-96 bg-pdso-500/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-        <div className="k8s-glow-orb absolute bottom-0 left-0 w-96 h-96 bg-pdso-400/15 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none [animation-delay:2s]" />
+        {/* Background decorations - blue glow (subtle pulse) */}
+        <div className="k8s-glow-orb absolute top-0 right-0 w-96 h-96 bg-mcb-500/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        <div className="k8s-glow-orb absolute bottom-0 left-0 w-96 h-96 bg-mcb-400/15 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none [animation-delay:2s]" />
       </div>
     </div>
   );

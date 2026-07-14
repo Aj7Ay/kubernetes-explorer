@@ -94,7 +94,7 @@ const StorageFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown; onCo
       title: "Step 2: API Server Processing",
       description: "API Server validates the request, authenticates you, and processes the pod specification.",
       icon: Server,
-      color: "purple"
+      color: "blue"
     },
     {
       title: "Step 3: Storing in etcd",
@@ -155,7 +155,7 @@ const StorageFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown; onCo
           {/* Background glow effects - only when active */}
           {step >= 0 && (
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-pdso-500/10 to-emerald-500/10 rounded-lg"
+              className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-mcb-500/10 to-emerald-500/10 rounded-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: step >= 0 ? 0.4 : 0 }}
               transition={{ duration: 0.5 }}
@@ -181,7 +181,7 @@ const StorageFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown; onCo
             className="bg-gradient-to-br from-blue-600 to-blue-700 p-4 rounded-xl border-2 border-blue-400 shadow-lg relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-transparent" />
-            <Terminal size={28} className="text-white relative z-10" />
+            <Terminal size={28} className="text-mcb-50 relative z-10" />
             {step === 0 && (
               <>
                 {[...Array(5)].map((_, i) => (
@@ -213,7 +213,7 @@ const StorageFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown; onCo
         {/* Arrow 1 with particles */}
         <div className="flex-1 relative h-2 mx-4 z-10">
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-blue-500 via-pdso-500 to-pdso-500 rounded-full"
+            className="absolute inset-0 bg-gradient-to-r from-blue-500 via-mcb-500 to-mcb-500 rounded-full"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: step >= 1 ? 1 : 0 }}
             transition={{ duration: 0.6 }}
@@ -254,13 +254,13 @@ const StorageFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown; onCo
               rotate: step === 1 ? [0, -5, 5, 0] : 0
             }}
             transition={{ duration: 0.6 }}
-            className="bg-gradient-to-br from-pdso-600 to-pdso-700 p-4 rounded-xl border-2 border-pdso-400 shadow-lg relative overflow-hidden"
+            className="bg-gradient-to-br from-mcb-600 to-mcb-700 p-4 rounded-xl border-2 border-mcb-400 shadow-lg relative overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-pdso-400/20 to-transparent" />
-            <Server size={28} className="text-white relative z-10" />
+            <div className="absolute inset-0 bg-gradient-to-br from-mcb-400/20 to-transparent" />
+            <Server size={28} className="text-mcb-50 relative z-10" />
             {step === 1 && (
               <motion.div
-                className="absolute inset-0 border-2 border-pdso-300 rounded-xl"
+                className="absolute inset-0 border-2 border-mcb-300 rounded-xl"
                 animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
                 transition={{ duration: 1, repeat: 2 }}
               />
@@ -275,7 +275,7 @@ const StorageFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown; onCo
         {/* Arrow 2 */}
         <div className="flex-1 relative h-2 mx-4 z-10">
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-pdso-500 via-emerald-500 to-emerald-500 rounded-full"
+            className="absolute inset-0 bg-gradient-to-r from-mcb-500 via-emerald-500 to-emerald-500 rounded-full"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: step >= 2 ? 1 : 0 }}
             transition={{ duration: 0.6 }}
@@ -286,7 +286,7 @@ const StorageFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown; onCo
               {[...Array(3)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-pdso-300 rounded-full shadow-lg shadow-pdso-400"
+                  className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-mcb-300 rounded-full shadow-lg shadow-mcb-400"
                   initial={{ left: 0, scale: 0 }}
                   animate={{ left: '100%', scale: [0, 1, 0.8, 0] }}
                   transition={{ 
@@ -318,7 +318,7 @@ const StorageFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown; onCo
             className="bg-gradient-to-br from-emerald-600 to-emerald-700 p-4 rounded-xl border-2 border-emerald-400 shadow-lg relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-transparent" />
-            <Database size={28} className="text-white relative z-10" />
+            <Database size={28} className="text-mcb-50 relative z-10" />
             {step === 3 && (
               <>
                 <motion.div
@@ -360,21 +360,19 @@ const StorageFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown; onCo
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-r from-slate-800/90 to-slate-900/90 backdrop-blur-lg rounded-xl border border-pdso-500/50 p-4 relative overflow-hidden"
+          className="bg-gradient-to-r from-slate-800/90 to-slate-900/90 backdrop-blur-lg rounded-xl border border-mcb-500/50 p-4 relative overflow-hidden"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-pdso-500/5 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-br from-mcb-500/5 to-transparent" />
           <div className="relative z-10">
             <div className="flex items-start justify-between mb-2">
               <div className="flex items-center gap-3">
-                {React.createElement(explanations[step].icon, { 
-                  size: 24, 
-                  className: explanations[step].color === 'blue' 
-                    ? 'text-blue-400' 
-                    : explanations[step].color === 'purple'
-                    ? 'text-pdso-400'
+                {React.createElement(explanations[step].icon, {
+                  size: 24,
+                  className: explanations[step].color === 'blue'
+                    ? 'text-blue-400'
                     : 'text-emerald-400'
                 })}
-                <h4 className="text-lg font-bold text-white">{explanations[step].title}</h4>
+                <h4 className="text-lg font-bold text-mcb-50">{explanations[step].title}</h4>
               </div>
             </div>
             <p className="text-sm text-gray-300 leading-relaxed ml-11 mb-4">
@@ -455,14 +453,14 @@ const WatchFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown }> = ()
       name: 'Controller Manager',
       description: 'Watches for Pod changes and ensures the desired state matches actual state. Creates/updates/deletes resources as needed.',
       icon: Activity,
-      color: 'pdso',
+      color: 'mcb',
       role: 'State Reconciliation'
     },
     {
       name: 'Scheduler',
       description: 'Watches for unscheduled Pods and assigns them to appropriate Worker Nodes based on resource availability and constraints.',
       icon: Cpu,
-      color: 'purple',
+      color: 'blue',
       role: 'Pod Placement'
     },
     {
@@ -484,7 +482,7 @@ const WatchFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown }> = ()
       <div className="flex flex-col md:flex-row items-center justify-around h-full gap-6 relative">
         {/* Background pulse effect */}
         <motion.div
-          className="absolute inset-0 bg-gradient-radial from-pdso-500/10 via-pdso-500/10 to-transparent rounded-lg"
+          className="absolute inset-0 bg-gradient-radial from-mcb-500/10 via-mcb-500/10 to-transparent rounded-lg"
           animate={{
             opacity: watchActive ? [0.3, 0.6, 0.3] : 0.3,
           }}
@@ -509,7 +507,7 @@ const WatchFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown }> = ()
             className="bg-gradient-to-br from-emerald-600 to-emerald-700 p-5 rounded-xl border-2 border-emerald-400 shadow-2xl relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-transparent" />
-            <Database size={36} className="text-white relative z-10" />
+            <Database size={36} className="text-mcb-50 relative z-10" />
             {watchActive && (
               <>
                 {[...Array(12)].map((_, i) => (
@@ -558,7 +556,7 @@ const WatchFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown }> = ()
                 transition={{ delay: 1 + idx * 0.3 }}
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-b from-pdso-400 to-pdso-400 rounded-full"
+                  className="absolute inset-0 bg-gradient-to-b from-mcb-400 to-mcb-400 rounded-full"
                   initial={{ scaleY: 0 }}
                   animate={{ scaleY: watchActive ? 1 : 0 }}
                   transition={{ delay: 1 + idx * 0.3, duration: 0.6 }}
@@ -569,7 +567,7 @@ const WatchFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown }> = ()
                     {[...Array(2)].map((_, i) => (
                       <motion.div
                         key={i}
-                        className="absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-pdso-300 rounded-full shadow-lg shadow-pdso-400"
+                        className="absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-mcb-300 rounded-full shadow-lg shadow-mcb-400"
                         initial={{ top: '100%', scale: 0 }}
                         animate={{ 
                           top: '0%',
@@ -591,38 +589,32 @@ const WatchFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown }> = ()
                 animate={{ 
                   scale: watchActive && selectedComponent === idx ? 1.1 : watchActive ? [1, 1.08, 1] : 1,
                   boxShadow: watchActive 
-                    ? ['0 0 0px #6366f1', '0 0 25px #6366f1', '0 0 0px #6366f1'] 
-                    : '0 0 0px #6366f1',
+                    ? ['0 0 0px #3b82f6', '0 0 25px #3b82f6', '0 0 0px #3b82f6'] 
+                    : '0 0 0px #3b82f6',
                   y: selectedComponent === idx ? -5 : 0
                 }}
                 transition={{ duration: 1.5, repeat: watchActive ? Infinity : 0, delay: idx * 0.2 }}
                 className={`p-4 rounded-xl border-2 shadow-lg mt-16 cursor-pointer relative overflow-hidden ${
-                  component.color === 'pdso' 
-                    ? 'bg-gradient-to-br from-pdso-600 to-pdso-700 border-pdso-400' 
-                    : component.color === 'purple'
-                    ? 'bg-gradient-to-br from-pdso-600 to-pdso-700 border-pdso-400'
-                    : 'bg-gradient-to-br from-cyan-600 to-cyan-700 border-cyan-400'
+                  component.color === 'cyan'
+                    ? 'bg-gradient-to-br from-cyan-600 to-cyan-700 border-cyan-400'
+                    : 'bg-gradient-to-br from-mcb-600 to-mcb-700 border-mcb-400'
                 }`}
               >
                 <div className={`absolute inset-0 ${
-                  component.color === 'pdso'
-                    ? 'bg-gradient-to-br from-pdso-400/20 to-transparent'
-                    : component.color === 'purple'
-                    ? 'bg-gradient-to-br from-pdso-400/20 to-transparent'
-                    : 'bg-gradient-to-br from-cyan-400/20 to-transparent'
+                  component.color === 'cyan'
+                    ? 'bg-gradient-to-br from-cyan-400/20 to-transparent'
+                    : 'bg-gradient-to-br from-mcb-400/20 to-transparent'
                 }`} />
-                {React.createElement(component.icon, { 
-                  size: 24, 
-                  className: "text-white relative z-10" 
+                {React.createElement(component.icon, {
+                  size: 24,
+                  className: "text-mcb-50 relative z-10"
                 })}
                 {watchActive && selectedComponent === idx && (
                   <motion.div
                     className={`absolute inset-0 border-2 rounded-xl ${
-                      component.color === 'pdso'
-                        ? 'border-pdso-300'
-                        : component.color === 'purple'
-                        ? 'border-pdso-300'
-                        : 'border-cyan-300'
+                      component.color === 'cyan'
+                        ? 'border-cyan-300'
+                        : 'border-mcb-300'
                     }`}
                     animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
                     transition={{ duration: 1, repeat: Infinity }}
@@ -643,36 +635,36 @@ const WatchFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown }> = ()
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: watchActive ? 1 : 0, y: watchActive ? 0 : 20 }}
         transition={{ delay: 2 }}
-        className="bg-gradient-to-r from-pdso-900/90 to-pdso-900/90 backdrop-blur-lg rounded-xl border border-pdso-500/50 p-4 relative overflow-hidden"
+        className="bg-gradient-to-r from-mcb-900/90 to-mcb-900/90 backdrop-blur-lg rounded-xl border border-mcb-500/50 p-4 relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-pdso-500/5 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-mcb-500/5 to-transparent" />
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-2">
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
             >
-              <Eye size={20} className="text-pdso-400" />
+              <Eye size={20} className="text-mcb-400" />
             </motion.div>
-            <h4 className="text-lg font-bold text-white">How Watching Works</h4>
+            <h4 className="text-lg font-bold text-mcb-50">How Watching Works</h4>
           </div>
           <p className="text-sm text-gray-300 leading-relaxed mb-3">
-            Kubernetes components use <strong className="text-pdso-300">etcd's watch API</strong> to monitor changes in real-time. 
+            Kubernetes components use <strong className="text-mcb-300">etcd's watch API</strong> to monitor changes in real-time. 
             When you update a Pod spec in etcd, all watching components are instantly notified through a stream of events.
           </p>
           {selectedComponent !== null && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
-              className="mt-3 p-3 bg-pdso-800/40 rounded border border-pdso-500/30"
+              className="mt-3 p-3 bg-mcb-800/40 rounded border border-mcb-500/30"
             >
-              <p className="text-xs text-pdso-200">
-                <strong className="text-pdso-300">{components[selectedComponent].name}:</strong>{' '}
+              <p className="text-xs text-mcb-200">
+                <strong className="text-mcb-300">{components[selectedComponent].name}:</strong>{' '}
                 {components[selectedComponent].description}
               </p>
             </motion.div>
           )}
-          <div className="mt-3 flex items-center gap-2 text-xs text-pdso-300">
+          <div className="mt-3 flex items-center gap-2 text-xs text-mcb-300">
             <Zap size={14} />
             <span>Hover over components to learn more about their watch behavior</span>
           </div>
@@ -755,7 +747,7 @@ const ConsistencyFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown }
               className="bg-gradient-to-br from-emerald-600 to-emerald-700 p-5 rounded-xl border-2 border-emerald-400 shadow-lg relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-transparent" />
-              <Database size={32} className="text-white relative z-10" />
+              <Database size={32} className="text-mcb-50 relative z-10" />
               {replicateStep === nodeIdx && (
                 <>
                   <motion.div
@@ -845,13 +837,13 @@ const ConsistencyFlowAnimation: React.FC<{ dataKey: string; dataValue: unknown }
             <div className="flex items-center gap-3">
               <Shield size={24} className="text-emerald-400" />
               <div>
-                <h4 className="text-lg font-bold text-white">Raft Consensus Algorithm</h4>
+                <h4 className="text-lg font-bold text-mcb-50">Raft Consensus Algorithm</h4>
                 <p className="text-xs text-gray-400">How etcd ensures consistency</p>
               </div>
             </div>
             <button
               onClick={() => setShowDetails(!showDetails)}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-mcb-50 transition-colors"
             >
               {showDetails ? '−' : '+'}
             </button>
@@ -966,7 +958,7 @@ const ETCDPowersK8sPage: React.FC<{ onNext: () => void; onPrev: () => void }> = 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-xl text-pdso-200 max-w-3xl mx-auto"
+          className="text-xl text-mcb-200 max-w-3xl mx-auto"
         >
           Explore three key ways etcd enables Kubernetes to function reliably at scale
         </motion.p>
@@ -977,14 +969,14 @@ const ETCDPowersK8sPage: React.FC<{ onNext: () => void; onPrev: () => void }> = 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-gradient-to-r from-pdso-950/60 to-pdso-950/60 backdrop-blur-lg rounded-xl border border-pdso-500/30 p-6"
+        className="bg-gradient-to-r from-mcb-950/60 to-mcb-950/60 backdrop-blur-lg rounded-xl border border-mcb-500/30 p-6"
       >
         <div className="flex items-start gap-4">
-          <div className="p-3 bg-pdso-600/20 rounded-lg">
-            <Book size={24} className="text-pdso-400" />
+          <div className="p-3 bg-mcb-600/20 rounded-lg">
+            <Book size={24} className="text-mcb-400" />
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-bold text-white mb-2">Why Kubernetes Chose etcd</h3>
+            <h3 className="text-lg font-bold text-mcb-50 mb-2">Why Kubernetes Chose etcd</h3>
             <p className="text-sm text-gray-300 leading-relaxed">
               Unlike SQL databases with rigid schemas, etcd's flexible key-value storage allows Kubernetes to store 
               diverse resource types (Pods, Services, Deployments) without schema conflicts. Each resource can have 
@@ -1000,15 +992,15 @@ const ETCDPowersK8sPage: React.FC<{ onNext: () => void; onPrev: () => void }> = 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-gradient-to-br from-pdso-950/50 to-pdso-950/50 rounded-2xl border border-pdso-500/30 p-6"
+        className="bg-gradient-to-br from-mcb-950/50 to-mcb-950/50 rounded-2xl border border-mcb-500/30 p-6"
       >
         <div className="flex items-center gap-3 mb-6">
-          <Database className="text-pdso-400" size={28} />
-          <h3 className="text-2xl font-bold text-white">Three Core Capabilities</h3>
+          <Database className="text-mcb-400" size={28} />
+          <h3 className="text-2xl font-bold text-mcb-50">Three Core Capabilities</h3>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6 border-b border-pdso-700/50">
+        <div className="flex gap-2 mb-6 border-b border-mcb-700/50">
           {(['storage', 'watch', 'consistency'] as const).map((tab) => (
             <button
               key={tab}
@@ -1018,15 +1010,15 @@ const ETCDPowersK8sPage: React.FC<{ onNext: () => void; onPrev: () => void }> = 
               }}
               className={`px-4 py-2 font-semibold transition-all duration-200 relative ${
                 selectedExample === tab
-                  ? 'text-pdso-300'
-                  : 'text-pdso-500 hover:text-pdso-400'
+                  ? 'text-mcb-300'
+                  : 'text-mcb-500 hover:text-mcb-400'
               }`}
             >
               {k8sExamples[tab].title}
               {selectedExample === tab && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-pdso-400"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-mcb-400"
                 />
               )}
             </button>
@@ -1042,11 +1034,11 @@ const ETCDPowersK8sPage: React.FC<{ onNext: () => void; onPrev: () => void }> = 
             exit={{ opacity: 0, x: -20 }}
             className="space-y-4"
           >
-            <div className="bg-black/40 rounded-lg p-4 border border-pdso-700/50">
+            <div className="bg-black/40 rounded-lg p-4 border border-mcb-700/50">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h4 className="text-lg font-bold text-white mb-1">{k8sExamples[selectedExample].title}</h4>
-                  <p className="text-sm text-pdso-200">{k8sExamples[selectedExample].description}</p>
+                  <h4 className="text-lg font-bold text-mcb-50 mb-1">{k8sExamples[selectedExample].title}</h4>
+                  <p className="text-sm text-mcb-200">{k8sExamples[selectedExample].description}</p>
                 </div>
                 <motion.div
                   initial={{ scale: 0 }}
@@ -1206,7 +1198,7 @@ const ETCDInteractivePage: React.FC<{ onNext: () => void; onPrev: () => void }> 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-xl text-pdso-200 max-w-3xl mx-auto relative z-10"
+          className="text-xl text-mcb-200 max-w-3xl mx-auto relative z-10"
         >
           Why Kubernetes chose etcd: See the difference between rigid SQL tables and flexible key-value storage
         </motion.p>
@@ -1353,7 +1345,7 @@ const ETCDInteractivePage: React.FC<{ onNext: () => void; onPrev: () => void }> 
                 disabled={isTransitioning}
                 whileHover={{ scale: isTransitioning ? 1 : 1.1 }}
                 whileTap={{ scale: isTransitioning ? 1 : 0.9 }}
-                className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-mcb-50 rounded-lg text-xs font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Try Adding Column
               </motion.button>
@@ -1368,9 +1360,9 @@ const ETCDInteractivePage: React.FC<{ onNext: () => void; onPrev: () => void }> 
               initial={{ scale: 1 }}
               animate={{ scale: step === 1 ? [1, 1.02, 1] : 1 }}
             >
-              <div className="bg-slate-600 p-2 text-center text-white font-semibold">Name</div>
-              <div className="bg-slate-600 p-2 text-center text-white font-semibold">Role</div>
-              <div className="bg-slate-600 p-2 text-center text-white font-semibold">Salary</div>
+              <div className="bg-slate-600 p-2 text-center text-mcb-50 font-semibold">Name</div>
+              <div className="bg-slate-600 p-2 text-center text-mcb-50 font-semibold">Role</div>
+              <div className="bg-slate-600 p-2 text-center text-mcb-50 font-semibold">Salary</div>
             </motion.div>
             
             {/* Data Rows */}
@@ -1401,13 +1393,13 @@ const ETCDInteractivePage: React.FC<{ onNext: () => void; onPrev: () => void }> 
                 animate={{ opacity: 1, x: 0 }}
                 className="grid grid-cols-4 gap-1 mt-2"
               >
-                <div className="bg-slate-600 p-2 text-center text-white font-semibold rounded">Name</div>
-                <div className="bg-slate-600 p-2 text-center text-white font-semibold rounded">Role</div>
-                <div className="bg-slate-600 p-2 text-center text-white font-semibold rounded">Salary</div>
+                <div className="bg-slate-600 p-2 text-center text-mcb-50 font-semibold rounded">Name</div>
+                <div className="bg-slate-600 p-2 text-center text-mcb-50 font-semibold rounded">Role</div>
+                <div className="bg-slate-600 p-2 text-center text-mcb-50 font-semibold rounded">Salary</div>
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="bg-red-600 p-2 text-center text-white font-semibold rounded border-2 border-red-400"
+                  className="bg-red-600 p-2 text-center text-mcb-50 font-semibold rounded border-2 border-red-400"
                 >
                   Grade ⚠️
                 </motion.div>
@@ -1587,7 +1579,7 @@ const ETCDInteractivePage: React.FC<{ onNext: () => void; onPrev: () => void }> 
                 disabled={isTransitioning}
                 whileHover={{ scale: isTransitioning ? 1 : 1.1 }}
                 whileTap={{ scale: isTransitioning ? 1 : 0.9 }}
-                className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-mcb-50 rounded-lg text-xs font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Add Field
               </motion.button>
@@ -1627,20 +1619,20 @@ const ETCDInteractivePage: React.FC<{ onNext: () => void; onPrev: () => void }> 
             
             <motion.div
               whileHover={{ scale: 1.02, x: 5 }}
-              className="bg-black/40 p-4 rounded-lg border-l-4 border-pdso-500 font-mono text-xs relative overflow-hidden"
+              className="bg-black/40 p-4 rounded-lg border-l-4 border-mcb-500 font-mono text-xs relative overflow-hidden"
             >
               {step === 2 && (
                 <motion.div
-                  className="absolute inset-0 bg-pdso-500/10 pointer-events-none"
+                  className="absolute inset-0 bg-mcb-500/10 pointer-events-none"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: step === 2 ? 0.2 : 0 }}
                   transition={{ duration: 0.3, delay: 0.2 }}
                 />
               )}
-              <div className="text-pdso-400 mb-2 font-semibold flex items-center gap-2">
+              <div className="text-mcb-400 mb-2 font-semibold flex items-center gap-2">
                 <span>Key: /registry/sasuke</span>
                 {step === 2 && (
-                  <span className="text-xs bg-pdso-500/20 px-2 py-0.5 rounded">
+                  <span className="text-xs bg-mcb-500/20 px-2 py-0.5 rounded">
                     ✓
                   </span>
                 )}
@@ -1733,16 +1725,16 @@ const ETCDInteractivePage: React.FC<{ onNext: () => void; onPrev: () => void }> 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             key={step}
-            className="bg-gradient-to-r from-pdso-900/50 to-pdso-900/50 rounded-lg p-4 border border-pdso-500/30 w-full max-w-2xl"
+            className="bg-gradient-to-r from-mcb-900/50 to-mcb-900/50 rounded-lg p-4 border border-mcb-500/30 w-full max-w-2xl"
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-semibold text-pdso-300">Current Step: {step + 1} of 4</span>
+              <span className="text-sm font-semibold text-mcb-300">Current Step: {step + 1} of 4</span>
               <div className="flex gap-1">
                 {[0, 1, 2, 3].map((s) => (
                   <motion.div
                     key={s}
                     className={`h-2 rounded-full transition-all ${
-                      s < step ? 'bg-emerald-400' : s === step ? 'bg-pdso-400' : 'bg-gray-600'
+                      s < step ? 'bg-emerald-400' : s === step ? 'bg-mcb-400' : 'bg-gray-600'
                     }`}
                     animate={{ width: s === step ? 24 : s < step ? 24 : 8 }}
                     transition={{ duration: 0.3 }}
@@ -1751,7 +1743,7 @@ const ETCDInteractivePage: React.FC<{ onNext: () => void; onPrev: () => void }> 
               </div>
             </div>
             <p className="text-sm text-gray-300 mb-1">
-              <strong className="text-white">{stepDescriptions[step].title}:</strong> {stepDescriptions[step].description}
+              <strong className="text-mcb-50">{stepDescriptions[step].title}:</strong> {stepDescriptions[step].description}
             </p>
           </motion.div>
 
@@ -1863,7 +1855,7 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
       title: "7. Pod Placement & Container Creation",
       description: "Scheduler places Pod on Worker Node, then Kubelet uses CRI to create the container.",
       icon: Package,
-      color: "purple",
+      color: "blue",
       component: "Scheduler → Worker Node → CRI"
     },
     {
@@ -1994,7 +1986,7 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
         <motion.h2
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-black text-white tracking-tight drop-shadow-lg"
+          className="text-5xl font-black text-mcb-50 tracking-tight drop-shadow-lg"
         >
           The Grand Fleet Command
         </motion.h2>
@@ -2002,7 +1994,7 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-xl text-pdso-200 max-w-4xl mx-auto"
+          className="text-xl text-mcb-200 max-w-4xl mx-auto"
         >
           Watch the <strong>Ship's Crew</strong> (Control Plane) coordinate the deployment of a new container to the <strong>Worker Barges</strong>.
         </motion.p>
@@ -2020,8 +2012,8 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
               onClick={() => setIsAutoMode(true)}
               className={`px-4 py-2 rounded-lg font-semibold transition-all ${
                 isAutoMode
-                  ? 'bg-blue-600 text-white shadow-lg'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'bg-blue-600 text-mcb-50 shadow-lg'
+                  : 'text-gray-400 hover:text-mcb-50'
               }`}
             >
               <Radio className="inline mr-2" size={18} />
@@ -2031,8 +2023,8 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
               onClick={() => setIsAutoMode(false)}
               className={`px-4 py-2 rounded-lg font-semibold transition-all ${
                 !isAutoMode
-                  ? 'bg-emerald-600 text-white shadow-lg'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'bg-emerald-600 text-mcb-50 shadow-lg'
+                  : 'text-gray-400 hover:text-mcb-50'
               }`}
             >
               <Play className="inline mr-2" size={18} />
@@ -2109,7 +2101,7 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                   initial={{ opacity: 0, scale: 0.92, y: -8 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-                  className="absolute top-6 right-1/2 translate-x-1/2 z-30 px-4 py-2 rounded-lg bg-black/80 backdrop-blur border-2 border-pdso-400 text-pdso-200 text-sm font-bold shadow-lg shadow-pdso-500/30"
+                  className="absolute top-6 right-1/2 translate-x-1/2 z-30 px-4 py-2 rounded-lg bg-black/80 backdrop-blur border-2 border-mcb-400 text-mcb-200 text-sm font-bold shadow-lg shadow-mcb-500/30"
                 >
                   Step {currentStep}: {currentStep === 8 ? 'Complete' : stepDescriptions[currentStep - 1]?.component}
                 </motion.div>
@@ -2180,13 +2172,13 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                   </defs>
 
                   {/* Ship Hull - Larger, positioned in water */}
-                  <path d="M 50 250 L 750 250 L 700 380 Q 400 420 100 380 Z" fill="url(#hullGradient)" stroke="#6366f1" strokeWidth="3" filter="url(#glow)" />
+                  <path d="M 50 250 L 750 250 L 700 380 Q 400 420 100 380 Z" fill="url(#hullGradient)" stroke="#3b82f6" strokeWidth="3" filter="url(#glow)" />
                   {/* Water reflection under ship */}
                   <ellipse cx="400" cy="380" rx="350" ry="15" fill="#1e3a8a" opacity="0.3" />
                   <text x="400" y="360" textAnchor="middle" fill="rgba(255,255,255,0.15)" fontSize="36" fontWeight="900" letterSpacing="10">K8S-MASTER</text>
 
                   {/* Deck */}
-                  <rect x="80" y="240" width="640" height="20" fill="#3730a3" stroke="#6366f1" rx="5" />
+                  <rect x="80" y="240" width="640" height="20" fill="#1e40af" stroke="#3b82f6" rx="5" />
 
                   {/* CRANE (SCHEDULER) - Positioned ON DECK - Left side; glows + pulse at steps 5 & 7 */}
                   <g id="comp-scheduler" transform="translate(150, 240)" style={{ transition: 'filter 0.4s ease-out' }} filter={(currentStep === 5 || currentStep === 7) ? 'url(#glowScheduler)' : undefined}>
@@ -2337,14 +2329,14 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                     animate={{ opacity: currentStep === 6 ? 1 : 0.6, scale: currentStep === 6 ? 1.08 : 1 }}
                     transition={{ type: 'spring', stiffness: 320, damping: 22 }}
                   >
-                    <Server size={20} className="text-white" />
-                    <span className="text-[9px] text-white font-bold mt-0.5">Kubelet</span>
+                    <Server size={20} className="text-mcb-50" />
+                    <span className="text-[9px] text-mcb-50 font-bold mt-0.5">Kubelet</span>
                   </motion.div>
 
                   {/* KubeProxy - Positioned ON DECK */}
-                  <div className="absolute top-[40px] right-12 bg-pdso-600 rounded-lg p-2 border-2 border-pdso-400 shadow-lg opacity-60 flex flex-col items-center w-16" title="KubeProxy">
-                    <Network size={20} className="text-white" />
-                    <span className="text-[9px] text-white font-bold mt-0.5">KubeProxy</span>
+                  <div className="absolute top-[40px] right-12 bg-mcb-600 rounded-lg p-2 border-2 border-mcb-400 shadow-lg opacity-60 flex flex-col items-center w-16" title="KubeProxy">
+                    <Network size={20} className="text-mcb-50" />
+                    <span className="text-[9px] text-mcb-50 font-bold mt-0.5">KubeProxy</span>
                   </div>
 
                   {/* CRI Engine - springs to highlight at step 7 */}
@@ -2355,15 +2347,15 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                     animate={{ opacity: currentStep === 7 ? 1 : 0.6, scale: currentStep === 7 ? 1.08 : 1 }}
                     transition={{ type: 'spring', stiffness: 320, damping: 22 }}
                   >
-                    <Cpu size={18} className="text-white" />
-                    <span className="text-[9px] text-white font-bold mt-0.5">CRI</span>
+                    <Cpu size={18} className="text-mcb-50" />
+                    <span className="text-[9px] text-mcb-50 font-bold mt-0.5">CRI</span>
                   </motion.div>
 
                   {/* Pod on Worker Node Deck - bouncy land when scheduler places it */}
                   {currentStep >= 7 && isStarted && (
                     <motion.div
                       id="final-pod"
-                      className="absolute w-8 h-8 bg-gradient-to-br from-pink-500 to-pdso-600 rounded-lg border border-white shadow-[0_0_12px_rgba(236,72,153,0.5)] flex items-center justify-center z-[100]"
+                      className="absolute w-8 h-8 bg-gradient-to-br from-pink-500 to-mcb-600 rounded-lg border border-white shadow-[0_0_12px_rgba(236,72,153,0.5)] flex items-center justify-center z-[100]"
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{
@@ -2377,7 +2369,7 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                         top: 'calc(100% - 65px)'
                       }}
                     >
-                      <Package size={14} className={`text-white ${currentStep >= 7 ? 'animate-pulse' : ''}`} />
+                      <Package size={14} className={`text-mcb-50 ${currentStep >= 7 ? 'animate-pulse' : ''}`} />
                     </motion.div>
                   )}
                 </div>
@@ -2423,9 +2415,9 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                   initial={{ opacity: 0, x: 16 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                  className="bg-black/80 backdrop-blur-md rounded-xl p-4 border-l-4 border-pdso-500 shadow-2xl"
+                  className="bg-black/80 backdrop-blur-md rounded-xl p-4 border-l-4 border-mcb-500 shadow-2xl"
                 >
-                  <h3 className="text-pdso-400 font-bold mb-2 text-sm flex items-center gap-2">
+                  <h3 className="text-mcb-400 font-bold mb-2 text-sm flex items-center gap-2">
                     {currentStep === 8 ? <CheckCircle size={18} className="text-emerald-400" /> : React.createElement(stepData?.icon || Terminal, { size: 18, className: `text-${stepData?.color}-400` })}
                     {currentStep === 0 ? 'Waiting for deployment...' : 
                      currentStep === 8 ? '✅ Deployment Complete!' : 
@@ -2450,12 +2442,12 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                   initial={{ opacity: 0, x: 16 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                  className="bg-gradient-to-br from-pdso-900/80 to-pdso-900/80 rounded-xl p-5 border border-pdso-500/30 shadow-xl"
+                  className="bg-gradient-to-br from-mcb-900/80 to-mcb-900/80 rounded-xl p-5 border border-mcb-500/30 shadow-xl"
                 >
                   <div className="flex items-center gap-3 mb-3">
                     {currentStep === 8 ? <CheckCircle size={24} className="text-emerald-400" /> : React.createElement(stepData?.icon || Terminal, { size: 24, className: `text-${stepData?.color}-400` })}
                     <div>
-                      <h3 className="text-lg font-bold text-white">
+                      <h3 className="text-lg font-bold text-mcb-50">
                         {currentStep === 8 ? '8. Status Reporting' : stepData?.title}
                       </h3>
                       <p className="text-xs text-gray-400">
@@ -2466,49 +2458,49 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                   <p className="text-sm text-gray-300 mb-3 leading-relaxed">
                     {currentStep === 8 ? 'Pod is now running! Kubelet reports status back to API Server, which updates etcd.' : stepData?.description}
                   </p>
-                  <div className="bg-black/30 rounded-lg p-3 border border-pdso-500/20">
-                    <p className="text-xs text-pdso-300 font-semibold mb-2">Data Flow:</p>
-                    <p className="text-xs text-pdso-200 font-mono mb-2">
+                  <div className="bg-black/30 rounded-lg p-3 border border-mcb-500/20">
+                    <p className="text-xs text-mcb-300 font-semibold mb-2">Data Flow:</p>
+                    <p className="text-xs text-mcb-200 font-mono mb-2">
                       {currentStep === 8 ? 'Kubelet → API Server → etcd' : stepData?.component}
                     </p>
                 {/* Additional details based on step */}
                 {currentStep === 1 && (
-                  <p className="text-xs text-pdso-300/80 mt-2">
+                  <p className="text-xs text-mcb-300/80 mt-2">
                     The manifest contains pod specifications (image, resources, etc.)
                   </p>
                 )}
                 {currentStep === 2 && (
-                  <p className="text-xs text-pdso-300/80 mt-2">
+                  <p className="text-xs text-mcb-300/80 mt-2">
                     API Server checks authentication, authorization, and resource limits
                   </p>
                 )}
                 {currentStep === 3 && (
-                  <p className="text-xs text-pdso-300/80 mt-2">
+                  <p className="text-xs text-mcb-300/80 mt-2">
                     etcd stores this as the desired state - single source of truth
                   </p>
                 )}
                 {currentStep === 4 && (
-                  <p className="text-xs text-pdso-300/80 mt-2">
+                  <p className="text-xs text-mcb-300/80 mt-2">
                     Controller Manager watches for changes and creates Pod objects
                   </p>
                 )}
                 {currentStep === 5 && (
-                  <p className="text-xs text-pdso-300/80 mt-2">
+                  <p className="text-xs text-mcb-300/80 mt-2">
                     Scheduler evaluates node resources and selects best fit
                   </p>
                 )}
                 {currentStep === 6 && (
-                  <p className="text-xs text-pdso-300/80 mt-2">
+                  <p className="text-xs text-mcb-300/80 mt-2">
                     Kubelet receives assignment and prepares to create container
                   </p>
                 )}
                 {currentStep === 7 && (
-                  <p className="text-xs text-pdso-300/80 mt-2">
+                  <p className="text-xs text-mcb-300/80 mt-2">
                     CRI (containerd/docker) creates the actual container runtime
                   </p>
                 )}
                 {currentStep === 8 && (
-                  <p className="text-xs text-pdso-300/80 mt-2">
+                  <p className="text-xs text-mcb-300/80 mt-2">
                     Status propagates back through API Server to etcd for consistency
                   </p>
                 )}
@@ -2528,7 +2520,7 @@ const GrandFleetCommandPage: React.FC<{ onNext: () => void; onPrev: () => void }
                   <motion.div
                     key={s}
                     className={`h-2 rounded-full flex-1 ${
-                      s < currentStep ? 'bg-emerald-400' : s === currentStep ? 'bg-pdso-400' : 'bg-gray-600'
+                      s < currentStep ? 'bg-emerald-400' : s === currentStep ? 'bg-mcb-400' : 'bg-gray-600'
                     }`}
                     animate={{
                       opacity: s === currentStep ? [0.85, 1, 0.85] : 1
@@ -2659,7 +2651,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                 <h2 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">
                     The Era of Chaos
                 </h2>
-                <p className="text-xl text-pdso-200 max-w-2xl mx-auto leading-relaxed">
+                <p className="text-xl text-mcb-200 max-w-2xl mx-auto leading-relaxed">
                     Before Kubernetes, managing containers was like the <strong>Great Ninja War</strong>. 
                     Uncoordinated, chaotic, and destructive.
                 </p>
@@ -2696,7 +2688,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                 exit={{ opacity: 0, x: -100 }}
                 className="space-y-8 w-full max-w-5xl"
             >
-                <h2 className="text-4xl font-bold text-white">The Foundation of Order</h2>
+                <h2 className="text-4xl font-bold text-mcb-50">The Foundation of Order</h2>
                 <div className="grid md:grid-cols-2 gap-12 items-center text-left">
                     {/* Hashirama Card */}
                     <motion.div 
@@ -2709,12 +2701,12 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                 <Sprout size={48} className="text-emerald-400" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-white">Hashirama</h3>
+                                <h3 className="text-2xl font-bold text-mcb-50">Hashirama</h3>
                                 <span className="text-emerald-400 font-mono text-sm">The First Hokage</span>
                             </div>
                         </div>
                         <div className="space-y-4 relative z-10">
-                            <p className="text-pdso-200">
+                            <p className="text-mcb-200">
                                 <strong>Wood Style: Deep Forest Emergence!</strong><br/>
                                 Just as Hashirama created the village foundation from nothing, Kubernetes creates the <strong>Cluster</strong> infrastructure to house your applications.
                             </p>
@@ -2741,12 +2733,12 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                 <Waves size={48} className="text-blue-400" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-white">Tobirama</h3>
+                                <h3 className="text-2xl font-bold text-mcb-50">Tobirama</h3>
                                 <span className="text-blue-400 font-mono text-sm">The Second Hokage</span>
                             </div>
                         </div>
                         <div className="space-y-4 relative z-10">
-                            <p className="text-pdso-200">
+                            <p className="text-mcb-200">
                                 <strong>Water Style: System Architecture!</strong><br/>
                                 Tobirama built the village's systems. Kubernetes provides the <strong>API Server, Scheduler, and Controller</strong> to organize pods efficiently.
                             </p>
@@ -2782,7 +2774,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                 exit={{ opacity: 0, x: -100 }}
                 className="space-y-8 w-full max-w-5xl"
             >
-                <h2 className="text-4xl font-bold text-white">The Era of Innovation</h2>
+                <h2 className="text-4xl font-bold text-mcb-50">The Era of Innovation</h2>
                 <div className="grid md:grid-cols-2 gap-12 items-center text-left">
                     {/* Hiruzen Card */}
                     <motion.div 
@@ -2795,12 +2787,12 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                 <Book size={48} className="text-amber-400" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-white">Hiruzen</h3>
+                                <h3 className="text-2xl font-bold text-mcb-50">Hiruzen</h3>
                                 <span className="text-amber-400 font-mono text-sm">The Professor</span>
                             </div>
                         </div>
                         <div className="space-y-4 relative z-10">
-                            <p className="text-pdso-200">
+                            <p className="text-mcb-200">
                                 <strong>Master of All Jutsu!</strong><br/>
                                 Hiruzen symbolizes Kubernetes' maturity. It masters the fundamentals, balancing complex scenarios while maintaining stability for all applications.
                             </p>
@@ -2827,12 +2819,12 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                 <Zap size={48} className="text-yellow-400" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-white">Minato</h3>
+                                <h3 className="text-2xl font-bold text-mcb-50">Minato</h3>
                                 <span className="text-yellow-400 font-mono text-sm">The Yellow Flash</span>
                             </div>
                         </div>
                         <div className="space-y-4 relative z-10">
-                            <p className="text-pdso-200">
+                            <p className="text-mcb-200">
                                 <strong>Flying Thunder God!</strong><br/>
                                 Minato represents <strong>Rolling Updates & Fast Recovery</strong>. K8s updates apps without downtime and instantly recovers from failures, faster than the eye can see.
                             </p>
@@ -2868,8 +2860,8 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                 exit={{ opacity: 0, x: -100 }}
                 className="space-y-8 w-full max-w-6xl"
             >
-                <h2 className="text-4xl font-bold text-white">The Legendary Sannin</h2>
-                <p className="text-xl text-pdso-200 max-w-2xl mx-auto">
+                <h2 className="text-4xl font-bold text-mcb-50">The Legendary Sannin</h2>
+                <p className="text-xl text-mcb-200 max-w-2xl mx-auto">
                     The three pillars of system reliability.
                 </p>
 
@@ -2882,9 +2874,9 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                         <div className="p-4 bg-orange-800/50 rounded-full border border-orange-500/30 mb-4">
                             <Scroll size={40} className="text-orange-400" />
                         </div>
-                        <h3 className="text-2xl font-bold text-white mb-1">Jiraiya</h3>
+                        <h3 className="text-2xl font-bold text-mcb-50 mb-1">Jiraiya</h3>
                         <span className="text-orange-400 font-mono text-xs mb-4">THE SAGE OF MONITORING</span>
-                        <p className="text-pdso-200 text-sm text-center mb-4">
+                        <p className="text-mcb-200 text-sm text-center mb-4">
                             <strong>Sage Art: Radar Mode!</strong><br/>
                             Like a spy network, K8s <strong>Monitoring</strong> tracks every pod, log, and metric to detect threats instantly.
                         </p>
@@ -2906,9 +2898,9 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                         <div className="p-4 bg-green-800/50 rounded-full border border-green-500/30 mb-4">
                             <Heart size={40} className="text-green-400" />
                         </div>
-                        <h3 className="text-2xl font-bold text-white mb-1">Tsunade</h3>
+                        <h3 className="text-2xl font-bold text-mcb-50 mb-1">Tsunade</h3>
                         <span className="text-green-400 font-mono text-xs mb-4">THE LEGENDARY HEALER</span>
-                        <p className="text-pdso-200 text-sm text-center mb-4">
+                        <p className="text-mcb-200 text-sm text-center mb-4">
                             <strong>Creation Rebirth!</strong><br/>
                             If a pod dies, K8s <strong>Self-Healing</strong> restarts containers instantly, keeping the system alive forever.
                         </p>
@@ -2925,19 +2917,19 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                     {/* Orochimaru Card */}
                     <motion.div 
                         whileHover={{ scale: 1.05 }}
-                        className="bg-pdso-900/20 p-6 rounded-xl border-2 border-pdso-500/50 flex flex-col items-center group"
+                        className="bg-mcb-900/20 p-6 rounded-xl border-2 border-mcb-500/50 flex flex-col items-center group"
                     >
-                        <div className="p-4 bg-pdso-800/50 rounded-full border border-pdso-500/30 mb-4">
-                            <Dna size={40} className="text-pdso-400" />
+                        <div className="p-4 bg-mcb-800/50 rounded-full border border-mcb-500/30 mb-4">
+                            <Dna size={40} className="text-mcb-400" />
                         </div>
-                        <h3 className="text-2xl font-bold text-white mb-1">Orochimaru</h3>
-                        <span className="text-pdso-400 font-mono text-xs mb-4">THE INNOVATOR</span>
-                        <p className="text-pdso-200 text-sm text-center mb-4">
+                        <h3 className="text-2xl font-bold text-mcb-50 mb-1">Orochimaru</h3>
+                        <span className="text-mcb-400 font-mono text-xs mb-4">THE INNOVATOR</span>
+                        <p className="text-mcb-200 text-sm text-center mb-4">
                             <strong>Forbidden Jutsu: Operators!</strong><br/>
                             K8s allows <strong>Custom Resources (CRDs)</strong> and Operators to teach the cluster new, complex tricks.
                         </p>
-                        <div className="bg-pdso-950/50 p-3 rounded-lg text-xs text-pdso-200 w-full text-left">
-                             <strong className="block mb-1 text-pdso-400">Extensibility:</strong>
+                        <div className="bg-mcb-950/50 p-3 rounded-lg text-xs text-mcb-200 w-full text-left">
+                             <strong className="block mb-1 text-mcb-400">Extensibility:</strong>
                             <ul className="list-disc list-inside space-y-1">
                                 <li><strong>CRDs:</strong> Define new API objects (e.g., "PostgresCluster").</li>
                                 <li><strong>Custom Controllers:</strong> Logic to handle these new objects.</li>
@@ -2967,7 +2959,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                 exit={{ opacity: 0, x: -100 }}
                 className="space-y-8 w-full max-w-5xl"
             >
-                <h2 className="text-4xl font-bold text-white">The Uchiha: Advanced Operations</h2>
+                <h2 className="text-4xl font-bold text-mcb-50">The Uchiha: Advanced Operations</h2>
                 <div className="grid md:grid-cols-2 gap-12 items-center text-left">
                     {/* Itachi Card */}
                     <motion.div 
@@ -2980,12 +2972,12 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                 <Eye size={48} className="text-red-400" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-white">Itachi</h3>
+                                <h3 className="text-2xl font-bold text-mcb-50">Itachi</h3>
                                 <span className="text-red-400 font-mono text-sm">The Operator</span>
                             </div>
                         </div>
                         <div className="space-y-4 relative z-10">
-                            <p className="text-pdso-200">
+                            <p className="text-mcb-200">
                                 <strong>Sharingan: Prediction!</strong><br/>
                                 Itachi symbolizes <strong>Kubernetes Operators</strong>. They automate complex tasks (like managing databases) by predicting and responding to system states, just like the Sharingan.
                             </p>
@@ -3012,12 +3004,12 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                 <Ghost size={48} className="text-slate-400" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-white">Obito</h3>
+                                <h3 className="text-2xl font-bold text-mcb-50">Obito</h3>
                                 <span className="text-slate-400 font-mono text-sm">The Runtime Shifter</span>
                             </div>
                         </div>
                         <div className="space-y-4 relative z-10">
-                            <p className="text-pdso-200">
+                            <p className="text-mcb-200">
                                 <strong>Kamui: Dimension Shift!</strong><br/>
                                 Obito represents <strong>Container Runtimes</strong> (Docker, containerd, CRI-O). The ability to switch between underlying technologies seamlessly, shifting dimensions of execution.
                             </p>
@@ -3053,30 +3045,30 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                 exit={{ opacity: 0, x: -100 }}
                 className="space-y-8 w-full max-w-5xl"
             >
-                <h2 className="text-4xl font-bold text-white">The Modern Architecture</h2>
+                <h2 className="text-4xl font-bold text-mcb-50">The Modern Architecture</h2>
                 <div className="grid md:grid-cols-2 gap-12 items-center text-left">
                     {/* Madara Card */}
                     <motion.div 
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
-                        className="bg-pdso-950/60 p-8 rounded-2xl border-2 border-pdso-500/50 relative overflow-hidden"
+                        className="bg-mcb-950/60 p-8 rounded-2xl border-2 border-mcb-500/50 relative overflow-hidden"
                     >
                         <div className="flex items-center gap-4 mb-6 relative z-10">
-                             <div className="p-4 bg-pdso-800/50 rounded-xl border border-pdso-500/30">
-                                <Globe size={48} className="text-pdso-400" />
+                             <div className="p-4 bg-mcb-800/50 rounded-xl border border-mcb-500/30">
+                                <Globe size={48} className="text-mcb-400" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-white">Madara</h3>
-                                <span className="text-pdso-400 font-mono text-sm">The Visionary</span>
+                                <h3 className="text-2xl font-bold text-mcb-50">Madara</h3>
+                                <span className="text-mcb-400 font-mono text-sm">The Visionary</span>
                             </div>
                         </div>
                         <div className="space-y-4 relative z-10">
-                            <p className="text-pdso-200">
+                            <p className="text-mcb-200">
                                 <strong>Infinite Tsukuyomi: Unified World!</strong><br/>
                                 Madara's vision of a unified world parallels <strong>Multi-Cluster Management & Service Mesh</strong>. A single control plane managing workloads across the entire globe.
                             </p>
-                            <div className="bg-pdso-950/50 p-4 rounded-lg text-sm text-pdso-200 border border-pdso-500/20">
-                                <strong className="block mb-2 text-pdso-400">Technical Deep Dive: Service Mesh</strong>
+                            <div className="bg-mcb-950/50 p-4 rounded-lg text-sm text-mcb-200 border border-mcb-500/20">
+                                <strong className="block mb-2 text-mcb-400">Technical Deep Dive: Service Mesh</strong>
                                 <ul className="list-disc list-inside space-y-1 text-xs">
                                     <li><strong>Istio/Linkerd:</strong> Provides mTLS security, observability, and traffic control without code changes.</li>
                                     <li><strong>Federation:</strong> Syncs resources across clusters for high availability and disaster recovery.</li>
@@ -3098,12 +3090,12 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                 <Lock size={48} className="text-teal-400" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-white">Shisui</h3>
+                                <h3 className="text-2xl font-bold text-mcb-50">Shisui</h3>
                                 <span className="text-teal-400 font-mono text-sm">The Teleporter</span>
                             </div>
                         </div>
                          <div className="space-y-4 relative z-10">
-                            <p className="text-pdso-200">
+                            <p className="text-mcb-200">
                                 <strong>Kotoamatsukami: Subtle Control!</strong><br/>
                                 Shisui symbolizes <strong>Security & Automation</strong>. Managing complex operations and policies (RBAC, Network Policies) seamlessly without disrupting the system.
                             </p>
@@ -3139,7 +3131,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                 exit={{ opacity: 0, x: -100 }}
                 className="space-y-8 w-full max-w-5xl"
             >
-                <h2 className="text-4xl font-bold text-white">The Hero Who United All</h2>
+                <h2 className="text-4xl font-bold text-mcb-50">The Hero Who United All</h2>
                 <div className="flex justify-center">
                     <motion.div 
                         initial={{ scale: 0.8, opacity: 0 }}
@@ -3148,15 +3140,15 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                     >
                         <div className="flex items-center gap-6 mb-6 relative z-10">
                             <div className="p-6 bg-orange-500 rounded-full shadow-[0_0_30px_rgba(249,115,22,0.6)]">
-                                <Sun size={64} className="text-white animate-spin-slow" />
+                                <Sun size={64} className="text-mcb-50 animate-spin-slow" />
                             </div>
                             <div className="text-left">
-                                <h3 className="text-3xl font-bold text-white">Naruto Uzumaki</h3>
+                                <h3 className="text-3xl font-bold text-mcb-50">Naruto Uzumaki</h3>
                                 <span className="text-orange-400 font-mono text-lg">The Seventh Hokage</span>
                             </div>
                         </div>
                         <div className="space-y-6 relative z-10 text-left">
-                            <p className="text-xl text-pdso-100 leading-relaxed">
+                            <p className="text-xl text-mcb-100 leading-relaxed">
                                 <strong>The Shinobi Alliance!</strong><br/>
                                 Just as Naruto united all Five Great Nations to fight as one, the <strong>Cloud Native Computing Foundation (CNCF)</strong> unites thousands of open-source projects to build the modern cloud ecosystem.
                             </p>
@@ -3192,34 +3184,34 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                 exit={{ opacity: 0 }}
                 className="space-y-8 max-w-4xl mx-auto"
             >
-                <h2 className="text-4xl font-bold text-white">The Path Forward</h2>
-                <p className="text-xl text-pdso-200 leading-relaxed">
+                <h2 className="text-4xl font-bold text-mcb-50">The Path Forward</h2>
+                <p className="text-xl text-mcb-200 leading-relaxed">
                     Just as the ninja world progressed from war to cooperation, the container landscape evolved from chaos to coordination under Kubernetes.
                 </p>
 
                 <div className="grid md:grid-cols-3 gap-6 text-left">
-                    <div className="bg-pdso-900/30 p-4 rounded-xl border border-pdso-700">
-                        <h4 className="font-bold text-white flex items-center gap-2 mb-2">
-                            <Layers className="text-pdso-400" /> Infrastructure
+                    <div className="bg-mcb-900/30 p-4 rounded-xl border border-mcb-700">
+                        <h4 className="font-bold text-mcb-50 flex items-center gap-2 mb-2">
+                            <Layers className="text-mcb-400" /> Infrastructure
                         </h4>
-                        <p className="text-xs text-pdso-300">Managing nodes (Ninja Squads) and namespaces (Village Districts).</p>
+                        <p className="text-xs text-mcb-300">Managing nodes (Ninja Squads) and namespaces (Village Districts).</p>
                     </div>
-                    <div className="bg-pdso-900/30 p-4 rounded-xl border border-pdso-700">
-                        <h4 className="font-bold text-white flex items-center gap-2 mb-2">
+                    <div className="bg-mcb-900/30 p-4 rounded-xl border border-mcb-700">
+                        <h4 className="font-bold text-mcb-50 flex items-center gap-2 mb-2">
                             <Shield className="text-red-400" /> Security
                         </h4>
-                        <p className="text-xs text-pdso-300">RBAC and Network Policies acting as the ANBU Black Ops.</p>
+                        <p className="text-xs text-mcb-300">RBAC and Network Policies acting as the ANBU Black Ops.</p>
                     </div>
-                    <div className="bg-pdso-900/30 p-4 rounded-xl border border-pdso-700">
-                        <h4 className="font-bold text-white flex items-center gap-2 mb-2">
+                    <div className="bg-mcb-900/30 p-4 rounded-xl border border-mcb-700">
+                        <h4 className="font-bold text-mcb-50 flex items-center gap-2 mb-2">
                             <Activity className="text-green-400" /> Observability
                         </h4>
-                        <p className="text-xs text-pdso-300">Comprehensive monitoring like the village surveillance system.</p>
+                        <p className="text-xs text-mcb-300">Comprehensive monitoring like the village surveillance system.</p>
                     </div>
                 </div>
 
                 <div className="pt-8">
-                    <p className="text-lg text-pdso-200 mb-6 italic">
+                    <p className="text-lg text-mcb-200 mb-6 italic">
                         "This is the way of the Cloud Native ninja – believe it! 🍜"
                     </p>
                     <div className="flex justify-center gap-4">
@@ -3243,8 +3235,8 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                 exit={{ opacity: 0 }}
                 className="space-y-8 w-full max-w-6xl"
             >
-                <h2 className="text-4xl font-bold text-white">The Grand Fleet: Architecture Overview</h2>
-                <p className="text-xl text-pdso-200 max-w-3xl mx-auto">
+                <h2 className="text-4xl font-bold text-mcb-50">The Grand Fleet: Architecture Overview</h2>
+                <p className="text-xl text-mcb-200 max-w-3xl mx-auto">
                     To truly understand the scale, imagine Kubernetes as a massive shipping fleet navigating the ocean of the cloud.
                 </p>
 
@@ -3254,44 +3246,44 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                         <motion.div 
                             initial={{ x: -50, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
-                            className="bg-pdso-900/40 p-6 rounded-2xl border-2 border-pdso-500 relative overflow-hidden"
+                            className="bg-mcb-900/40 p-6 rounded-2xl border-2 border-mcb-500 relative overflow-hidden"
                         >
-                            <div className="absolute top-0 right-0 p-2 bg-pdso-600 rounded-bl-xl text-xs font-bold text-white">MASTER NODE</div>
+                            <div className="absolute top-0 right-0 p-2 bg-mcb-600 rounded-bl-xl text-xs font-bold text-mcb-50">MASTER NODE</div>
                             <div className="flex items-center gap-4 mb-4">
-                                <Ship size={48} className="text-pdso-300" />
+                                <Ship size={48} className="text-mcb-300" />
                                 <div>
-                                    <h3 className="text-2xl font-bold text-white">The Command Ship</h3>
-                                    <span className="text-pdso-400 text-sm">Control Plane</span>
+                                    <h3 className="text-2xl font-bold text-mcb-50">The Command Ship</h3>
+                                    <span className="text-mcb-400 text-sm">Control Plane</span>
                                 </div>
                             </div>
                             
                             <div className="space-y-3">
-                                <div className="flex items-start gap-3 bg-pdso-950/50 p-3 rounded-lg">
+                                <div className="flex items-start gap-3 bg-mcb-950/50 p-3 rounded-lg">
                                     <Anchor className="text-blue-400 shrink-0 mt-1" size={18} />
                                     <div>
                                         <strong className="text-blue-300 text-sm">API Server (Port 6443)</strong>
-                                        <p className="text-xs text-pdso-300">The cluster's front desk. Validates and processes REST requests.</p>
+                                        <p className="text-xs text-mcb-300">The cluster's front desk. Validates and processes REST requests.</p>
                                     </div>
                                 </div>
-                                <div className="flex items-start gap-3 bg-pdso-950/50 p-3 rounded-lg">
+                                <div className="flex items-start gap-3 bg-mcb-950/50 p-3 rounded-lg">
                                     <Database className="text-emerald-400 shrink-0 mt-1" size={18} />
                                     <div>
                                         <strong className="text-emerald-300 text-sm">etcd (Port 2379)</strong>
-                                        <p className="text-xs text-pdso-300">Key-value store. The "Single Source of Truth" for cluster data.</p>
+                                        <p className="text-xs text-mcb-300">Key-value store. The "Single Source of Truth" for cluster data.</p>
                                     </div>
                                 </div>
-                                <div className="flex items-start gap-3 bg-pdso-950/50 p-3 rounded-lg">
+                                <div className="flex items-start gap-3 bg-mcb-950/50 p-3 rounded-lg">
                                     <ClipboardList className="text-yellow-400 shrink-0 mt-1" size={18} />
                                     <div>
                                         <strong className="text-yellow-300 text-sm">The Cranes (Scheduler) <span className="text-xs text-yellow-200">(Port 10259)</span></strong>
-                                        <p className="text-xs text-pdso-300">Like cranes, it identifies the right ship based on capacity, size, and destination policies (Taints & Tolerations).</p>
+                                        <p className="text-xs text-mcb-300">Like cranes, it identifies the right ship based on capacity, size, and destination policies (Taints & Tolerations).</p>
                                     </div>
                                 </div>
-                                <div className="flex items-start gap-3 bg-pdso-950/50 p-3 rounded-lg">
+                                <div className="flex items-start gap-3 bg-mcb-950/50 p-3 rounded-lg">
                                     <Radio className="text-red-400 shrink-0 mt-1" size={18} />
                                     <div>
                                         <strong className="text-red-300 text-sm">The Fleet Offices (Controllers) <span className="text-xs text-red-200">(Port 10257)</span></strong>
-                                        <p className="text-xs text-pdso-300">
+                                        <p className="text-xs text-mcb-300">
                                             <strong>Ops Team (Node Controller):</strong> Handles ship traffic & failures.<br/>
                                             <strong>Cargo Team (Replication Controller):</strong> Replaces damaged containers instantly.
                                         </p>
@@ -3307,9 +3299,9 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                             <svg className="w-full h-20 overflow-visible">
                                 <defs>
                                     <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" stopColor="#6366f1" stopOpacity="0.2" />
+                                        <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2" />
                                         <stop offset="50%" stopColor="#818cf8" stopOpacity="1" />
-                                        <stop offset="100%" stopColor="#6366f1" stopOpacity="0.2" />
+                                        <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.2" />
                                     </linearGradient>
                                 </defs>
                                 {/* Main Data Pipe */}
@@ -3323,7 +3315,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                     transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                                 />
                                 {/* Moving Packets */}
-                                <motion.circle r="6" fill="#c7d2fe" filter="drop-shadow(0 0 4px #6366f1)">
+                                <motion.circle r="6" fill="#bfdbfe" filter="drop-shadow(0 0 4px #3b82f6)">
                                     <animateMotion 
                                         dur="2s" 
                                         repeatCount="indefinite"
@@ -3336,20 +3328,20 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                             </svg>
                             {/* CSS-based responsive particles */}
                             <motion.div 
-                                className="absolute left-0 w-3 h-3 bg-white rounded-full shadow-[0_0_10px_#6366f1] z-10"
+                                className="absolute left-0 w-3 h-3 bg-white rounded-full shadow-[0_0_10px_#3b82f6] z-10"
                                 animate={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
                                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                                 style={{ top: '50%', marginTop: '-6px' }}
                             />
                             <motion.div 
-                                className="absolute left-0 w-3 h-3 bg-pdso-300 rounded-full shadow-[0_0_10px_#818cf8] z-10"
+                                className="absolute left-0 w-3 h-3 bg-mcb-300 rounded-full shadow-[0_0_10px_#818cf8] z-10"
                                 animate={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
                                 transition={{ duration: 2, delay: 1, repeat: Infinity, ease: "linear" }}
                                 style={{ top: '50%', marginTop: '-6px' }}
                             />
                         </div>
                         
-                        <div className="bg-pdso-950/90 px-3 py-1.5 rounded-full text-[10px] text-pdso-200 font-mono border border-pdso-500/50 z-20 backdrop-blur shadow-lg flex items-center gap-2">
+                        <div className="bg-mcb-950/90 px-3 py-1.5 rounded-full text-[10px] text-mcb-200 font-mono border border-mcb-500/50 z-20 backdrop-blur shadow-lg flex items-center gap-2">
                             <Activity size={10} className="text-green-400 animate-pulse" />
                             JSON/HTTPS
                         </div>
@@ -3363,11 +3355,11 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                              transition={{ delay: 0.3 }}
                              className="bg-slate-900/40 p-6 rounded-2xl border-2 border-slate-500 relative overflow-hidden"
                         >
-                            <div className="absolute top-0 right-0 p-2 bg-slate-600 rounded-bl-xl text-xs font-bold text-white">WORKER NODE</div>
+                            <div className="absolute top-0 right-0 p-2 bg-slate-600 rounded-bl-xl text-xs font-bold text-mcb-50">WORKER NODE</div>
                             <div className="flex items-center gap-4 mb-4">
                                 <Ship size={48} className="text-slate-300" />
                                 <div>
-                                    <h3 className="text-2xl font-bold text-white">The Cargo Ship</h3>
+                                    <h3 className="text-2xl font-bold text-mcb-50">The Cargo Ship</h3>
                                     <span className="text-slate-400 text-sm">Worker Node</span>
                                 </div>
                             </div>
@@ -3388,9 +3380,9 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3 bg-slate-950/50 p-3 rounded-lg">
-                                    <Network className="text-pdso-400 shrink-0 mt-1" size={18} />
+                                    <Network className="text-mcb-400 shrink-0 mt-1" size={18} />
                                     <div>
-                                        <strong className="text-pdso-300 text-sm">Kube Proxy (Network)</strong>
+                                        <strong className="text-mcb-300 text-sm">Kube Proxy (Network)</strong>
                                         <p className="text-xs text-slate-300">Maintains network rules (iptables/IPVS) for Pod communication.</p>
                                     </div>
                                 </div>
@@ -3448,10 +3440,10 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                 className="space-y-8 w-full max-w-7xl"
             >
                 <div className="text-center space-y-4">
-                    <h2 className="text-5xl font-black text-white tracking-tight drop-shadow-lg">
+                    <h2 className="text-5xl font-black text-mcb-50 tracking-tight drop-shadow-lg">
                         The Grand Fleet Command
                     </h2>
-                    <p className="text-xl text-pdso-200 max-w-4xl mx-auto">
+                    <p className="text-xl text-mcb-200 max-w-4xl mx-auto">
                         Watch the <strong>Ship's Crew</strong> (Control Plane) coordinate the deployment of a new container to the <strong>Worker Barges</strong>.
                     </p>
                 </div>
@@ -3496,8 +3488,8 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
 
                     {/* 2. Info / Explainer Box (Below Developer Console) */}
                     <div className="absolute top-36 left-8 z-30 max-w-xs">
-                        <div id="step-explainer" className="bg-black/80 backdrop-blur-md p-4 rounded-xl border-l-4 border-pdso-500 shadow-2xl opacity-0 transition-opacity duration-300">
-                            <h3 id="step-title" className="text-pdso-400 font-bold mb-1 text-sm">Waiting...</h3>
+                        <div id="step-explainer" className="bg-black/80 backdrop-blur-md p-4 rounded-xl border-l-4 border-mcb-500 shadow-2xl opacity-0 transition-opacity duration-300">
+                            <h3 id="step-title" className="text-mcb-400 font-bold mb-1 text-sm">Waiting...</h3>
                             <p id="step-desc" className="text-slate-300 text-xs leading-relaxed">Ready to deploy.</p>
                         </div>
                     </div>
@@ -3531,11 +3523,11 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                             </defs>
 
                             {/* Ship Hull - Bottom aligns with water line */}
-                            <path d="M 50 250 L 750 250 L 700 380 Q 400 420 100 380 Z" fill="url(#hullGradient)" stroke="#6366f1" strokeWidth="3" filter="url(#glow)" />
+                            <path d="M 50 250 L 750 250 L 700 380 Q 400 420 100 380 Z" fill="url(#hullGradient)" stroke="#3b82f6" strokeWidth="3" filter="url(#glow)" />
                             <text x="400" y="360" textAnchor="middle" fill="rgba(255,255,255,0.1)" fontSize="40" fontWeight="900" letterSpacing="10">K8S-MASTER</text>
 
                             {/* Deck */}
-                            <rect x="80" y="240" width="640" height="20" fill="#3730a3" stroke="#6366f1" rx="5" />
+                            <rect x="80" y="240" width="640" height="20" fill="#1e40af" stroke="#3b82f6" rx="5" />
 
                             {/* BRIDGE (API SERVER) */}
                             <g id="comp-api" transform="translate(450, 100)" className="transition-all duration-300">
@@ -3646,26 +3638,26 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                             
                             {/* Kubelet Captain */}
                             <div id="kubelet-1" className="absolute -top-6 left-16 bg-orange-600 rounded-lg p-3 border-2 border-orange-400 shadow-lg opacity-60 transition-all duration-300 flex flex-col items-center w-20" title="Kubelet Captain">
-                                <Server size={28} className="text-white" />
-                                <span className="text-[10px] text-white font-bold mt-1">Kubelet</span>
+                                <Server size={28} className="text-mcb-50" />
+                                <span className="text-[10px] text-mcb-50 font-bold mt-1">Kubelet</span>
                             </div>
 
                             {/* KubeProxy */}
-                            <div className="absolute -top-6 right-16 bg-pdso-600 rounded-lg p-3 border-2 border-pdso-400 shadow-lg opacity-60 flex flex-col items-center w-20" title="KubeProxy">
-                                <Network size={28} className="text-white" />
-                                <span className="text-[10px] text-white font-bold mt-1">KubeProxy</span>
+                            <div className="absolute -top-6 right-16 bg-mcb-600 rounded-lg p-3 border-2 border-mcb-400 shadow-lg opacity-60 flex flex-col items-center w-20" title="KubeProxy">
+                                <Network size={28} className="text-mcb-50" />
+                                <span className="text-[10px] text-mcb-50 font-bold mt-1">KubeProxy</span>
                             </div>
 
                             {/* CRI Engine */}
                             <div id="cri-1" className="absolute top-12 left-1/2 -translate-x-1/2 bg-blue-600 rounded-lg p-2 border-2 border-blue-400 shadow-lg opacity-60 transition-all duration-300 flex flex-col items-center w-16" title="CRI Engine">
-                                <Cpu size={24} className="text-white" />
-                                <span className="text-[10px] text-white font-bold mt-1">CRI</span>
+                                <Cpu size={24} className="text-mcb-50" />
+                                <span className="text-[10px] text-mcb-50 font-bold mt-1">CRI</span>
                             </div>
 
                             {/* Pod Slot - Small unit positioned below components inside worker node */}
                             <div className="absolute bottom-10 left-[30%] z-[100]" style={{ display: 'block', opacity: 1, visibility: 'visible' }}>
-                                <div id="final-pod" className="w-10 h-10 bg-gradient-to-br from-pink-500 to-pdso-600 rounded-lg border border-white shadow-[0_0_12px_rgba(236,72,153,0.5)] flex items-center justify-center transition-all duration-500" style={{ opacity: 0, transform: 'scale(0)', display: 'flex' }}>
-                                    <Package size={16} className="text-white animate-pulse" />
+                                <div id="final-pod" className="w-10 h-10 bg-gradient-to-br from-pink-500 to-mcb-600 rounded-lg border border-white shadow-[0_0_12px_rgba(236,72,153,0.5)] flex items-center justify-center transition-all duration-500" style={{ opacity: 0, transform: 'scale(0)', display: 'flex' }}>
+                                    <Package size={16} className="text-mcb-50 animate-pulse" />
                                 </div>
                             </div>
                         </div>
@@ -3689,7 +3681,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                             id="deploy-btn"
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
-                            className="bg-gradient-to-r from-blue-600 to-pdso-600 text-white px-8 py-4 rounded-full font-bold shadow-xl border border-blue-400/50 flex items-center gap-3 text-lg"
+                            className="bg-gradient-to-r from-blue-600 to-mcb-600 text-mcb-50 px-8 py-4 rounded-full font-bold shadow-xl border border-blue-400/50 flex items-center gap-3 text-lg"
                             onClick={() => {
                                 // SEQUENCER
                                 const runStep = (step: number, delay: number) => setTimeout(() => {
@@ -4097,13 +4089,13 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                 exit={{ opacity: 0, x: -100 }}
                 className="space-y-8 w-full max-w-6xl"
             >
-                <h2 className="text-4xl font-bold text-white">The Engine Room: Container Runtimes</h2>
-                <p className="text-xl text-pdso-200 max-w-3xl mx-auto">
+                <h2 className="text-4xl font-bold text-mcb-50">The Engine Room: Container Runtimes</h2>
+                <p className="text-xl text-mcb-200 max-w-3xl mx-auto">
                     Watch the evolution: From Docker's monolithic approach to CRI's modular power.
                 </p>
 
                 {/* Animated Evolution Timeline - Flexbox Layout */}
-                <div className="relative min-h-[500px] bg-gradient-to-b from-slate-950 to-pdso-950 rounded-2xl border border-pdso-500/30 p-8 flex flex-col justify-center gap-16">
+                <div className="relative min-h-[500px] bg-gradient-to-b from-slate-950 to-mcb-950 rounded-2xl border border-mcb-500/30 p-8 flex flex-col justify-center gap-16">
                     
                     {/* ---------------- TOP ROW: The Old Way (Docker) ---------------- */}
                     <div className="flex items-center justify-between relative z-20">
@@ -4114,8 +4106,8 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                             transition={{ delay: 0.5 }}
                             className="w-48 bg-blue-600 p-4 rounded-xl shadow-2xl text-center border-2 border-blue-400 shrink-0"
                         >
-                            <Ship className="mx-auto mb-2 text-white" size={32} />
-                            <div className="text-white font-bold">Kubernetes</div>
+                            <Ship className="mx-auto mb-2 text-mcb-50" size={32} />
+                            <div className="text-mcb-50 font-bold">Kubernetes</div>
                             <div className="text-xs text-blue-200">v1.23 & Earlier</div>
                         </motion.div>
 
@@ -4154,7 +4146,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 3.5 }}
-                                className="absolute -top-4 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[10px] px-2 py-0.5 rounded-full font-bold shadow-lg whitespace-nowrap"
+                                className="absolute -top-4 left-1/2 -translate-x-1/2 bg-red-600 text-mcb-50 text-[10px] px-2 py-0.5 rounded-full font-bold shadow-lg whitespace-nowrap"
                             >
                                 REMOVED v1.24
                             </motion.div>
@@ -4202,11 +4194,11 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 5.5 }}
-                            className="w-48 bg-pdso-600 p-4 rounded-xl shadow-2xl text-center border-2 border-pdso-400 shrink-0 z-10"
+                            className="w-48 bg-mcb-600 p-4 rounded-xl shadow-2xl text-center border-2 border-mcb-400 shrink-0 z-10"
                         >
-                            <Ship className="mx-auto mb-2 text-white" size={32} />
-                            <div className="text-white font-bold">Kubernetes</div>
-                            <div className="text-xs text-pdso-200">v1.24+</div>
+                            <Ship className="mx-auto mb-2 text-mcb-50" size={32} />
+                            <div className="text-mcb-50 font-bold">Kubernetes</div>
+                            <div className="text-xs text-mcb-200">v1.24+</div>
                         </motion.div>
 
                         {/* Connection 1 */}
@@ -4232,8 +4224,8 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                             transition={{ delay: 6.0 }}
                             className="w-24 bg-green-600 p-3 rounded-lg border-2 border-green-400 shadow-lg shadow-green-500/20 shrink-0 z-10 relative"
                         >
-                            <Repeat size={28} className="text-white mx-auto" />
-                            <div className="text-[10px] text-white font-bold mt-1 text-center">CRI</div>
+                            <Repeat size={28} className="text-mcb-50 mx-auto" />
+                            <div className="text-[10px] text-mcb-50 font-bold mt-1 text-center">CRI</div>
                         </motion.div>
 
                         {/* Connection 2 (Branching) - CSS Div connections for perfect alignment */}
@@ -4328,8 +4320,8 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                     >
                         <div className="flex gap-2 bg-slate-900/90 p-2 rounded-full border border-slate-600 shadow-xl">
                             <div className="px-2 py-1 bg-slate-700 rounded text-[10px] text-gray-300 font-mono">ctr</div>
-                            <div className="px-2 py-1 bg-blue-600 rounded text-[10px] text-white font-mono">nerdctl</div>
-                            <div className="px-2 py-1 bg-pdso-600 rounded text-[10px] text-white font-mono">crictl</div>
+                            <div className="px-2 py-1 bg-blue-600 rounded text-[10px] text-mcb-50 font-mono">nerdctl</div>
+                            <div className="px-2 py-1 bg-mcb-600 rounded text-[10px] text-mcb-50 font-mono">crictl</div>
                         </div>
                     </motion.div>
                 </div>
@@ -4365,13 +4357,13 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                 exit={{ opacity: 0, x: -100 }}
                 className="space-y-8 w-full max-w-6xl"
             >
-                <h2 className="text-4xl font-bold text-white">ETCD in Action: Kubernetes' Brain</h2>
-                <p className="text-xl text-pdso-200 max-w-3xl mx-auto">
+                <h2 className="text-4xl font-bold text-mcb-50">ETCD in Action: Kubernetes' Brain</h2>
+                <p className="text-xl text-mcb-200 max-w-3xl mx-auto">
                     Watch how `kubectl` commands interact with ETCD through the API Server.
                 </p>
 
                 {/* Animated kubectl -> API -> ETCD flow */}
-                <div className="relative h-[500px] bg-gradient-to-br from-pdso-950 to-pdso-950/50 rounded-2xl border border-pdso-500/30 p-8 overflow-hidden">
+                <div className="relative h-[500px] bg-gradient-to-br from-mcb-950 to-mcb-950/50 rounded-2xl border border-mcb-500/30 p-8 overflow-hidden">
                     
                     {/* Developer/User */}
                     <motion.div
@@ -4381,7 +4373,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                         className="absolute top-8 left-[5%]"
                     >
                         <div className="bg-blue-600 p-4 rounded-full">
-                            <Globe size={32} className="text-white" />
+                            <Globe size={32} className="text-mcb-50" />
                         </div>
                         <div className="text-xs text-blue-300 mt-2 text-center font-bold">Developer</div>
                     </motion.div>
@@ -4403,10 +4395,10 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                         transition={{ delay: 1.2, type: 'spring' }}
                         className="absolute top-[50px] left-1/2 -translate-x-1/2"
                     >
-                        <div className="bg-pdso-600 p-6 rounded-xl border-2 border-pdso-400 shadow-2xl">
-                            <Server size={40} className="text-white mb-2" />
-                            <div className="text-white font-bold text-center">API Server</div>
-                            <div className="text-xs text-pdso-200 text-center">Port 6443</div>
+                        <div className="bg-mcb-600 p-6 rounded-xl border-2 border-mcb-400 shadow-2xl">
+                            <Server size={40} className="text-mcb-50 mb-2" />
+                            <div className="text-mcb-50 font-bold text-center">API Server</div>
+                            <div className="text-xs text-mcb-200 text-center">Port 6443</div>
                         </div>
                     </motion.div>
 
@@ -4418,8 +4410,8 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                         className="absolute top-[50px] right-[10%]"
                     >
                         <div className="bg-emerald-600 p-6 rounded-xl border-2 border-emerald-400 shadow-2xl">
-                            <Database size={40} className="text-white mb-2" />
-                            <div className="text-white font-bold text-center">ETCD</div>
+                            <Database size={40} className="text-mcb-50 mb-2" />
+                            <div className="text-mcb-50 font-bold text-center">ETCD</div>
                             <div className="text-xs text-emerald-200 text-center">Port 2379</div>
                         </div>
                     </motion.div>
@@ -4467,7 +4459,7 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                             repeat: Infinity,
                             repeatDelay: 3
                         }}
-                        className="absolute top-[105px] w-3 h-3 bg-pdso-400 rounded-full shadow-[0_0_10px_#a855f7]"
+                        className="absolute top-[105px] w-3 h-3 bg-mcb-400 rounded-full shadow-[0_0_10px_#a855f7]"
                     />
                     <motion.div
                         initial={{ left: "52%", opacity: 0 }}
@@ -4508,9 +4500,9 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
                                 transition={{ delay: 3.4, type: 'spring' }}
-                                className="bg-pdso-900/50 p-3 rounded border border-pdso-500"
+                                className="bg-mcb-900/50 p-3 rounded border border-mcb-500"
                             >
-                                <div className="text-pdso-400 mb-1">📂 deployments/</div>
+                                <div className="text-mcb-400 mb-1">📂 deployments/</div>
                                 <div className="text-gray-400 text-[10px]">frontend</div>
                             </motion.div>
                             <motion.div
@@ -4538,13 +4530,13 @@ export const KubernetesIntro: React.FC<KubernetesIntroProps> = ({ onComplete, in
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 4.2 }}
-                            className="mt-4 pt-4 border-t border-pdso-700 grid grid-cols-2 gap-4 text-xs"
+                            className="mt-4 pt-4 border-t border-mcb-700 grid grid-cols-2 gap-4 text-xs"
                         >
-                            <div className="bg-pdso-900/40 p-2 rounded">
-                                <strong className="text-pdso-300">kubeadm:</strong> <span className="text-gray-400">Static Pod in kube-system</span>
+                            <div className="bg-mcb-900/40 p-2 rounded">
+                                <strong className="text-mcb-300">kubeadm:</strong> <span className="text-gray-400">Static Pod in kube-system</span>
                             </div>
-                            <div className="bg-pdso-900/40 p-2 rounded">
-                                <strong className="text-pdso-300">Manual:</strong> <span className="text-gray-400">Binary + systemd service</span>
+                            <div className="bg-mcb-900/40 p-2 rounded">
+                                <strong className="text-mcb-300">Manual:</strong> <span className="text-gray-400">Binary + systemd service</span>
                             </div>
                         </motion.div>
                     </motion.div>

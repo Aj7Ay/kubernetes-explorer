@@ -1,41 +1,68 @@
 @import "tailwindcss";
 
-/* design.json — Harmony / PDSO purple theme */
+/* design.json - White & Blue theme */
 @theme {
-  /* pdso-purple scale */
-  --color-pdso-50: rgb(246 245 254);
-  --color-pdso-100: rgb(231 229 253);
-  --color-pdso-200: rgb(193 189 250);
-  --color-pdso-300: rgb(160 153 248);
-  --color-pdso-400: rgb(122 112 246);
-  --color-pdso-500: rgb(89 77 246);
-  --color-pdso-600: rgb(28 11 245);
-  --color-pdso-700: rgb(15 1 191);
-  --color-pdso-800: rgb(9 0 127);
-  --color-pdso-900: rgb(5 0 63);
-  --color-pdso-950: rgb(2 0 29);
+  /* mcb-blue scale */
+  --color-mcb-50: rgb(239 246 255);
+  --color-mcb-100: rgb(219 234 254);
+  --color-mcb-200: rgb(191 219 254);
+  --color-mcb-300: rgb(147 197 253);
+  --color-mcb-400: rgb(96 165 250);
+  --color-mcb-500: rgb(59 130 246);
+  --color-mcb-600: rgb(37 99 235);
+  --color-mcb-700: rgb(29 78 216);
+  --color-mcb-800: rgb(30 64 175);
+  --color-mcb-900: rgb(15 29 58);
+  --color-mcb-950: rgb(8 15 31);
   /* background.primary */
-  --color-bg-primary: rgb(89 77 246);
+  --color-bg-primary: rgb(59 130 246);
   /* text */
-  --color-text-default: rgb(2 0 29);
+  --color-text-default: rgb(8 15 31);
   --color-text-muted: rgb(82 82 91);
   --color-text-inverse: rgb(243 244 246);
   /* border */
   --color-border-default: rgb(228 228 231);
-  --color-border-magic: rgb(124 58 237);
-  --color-border-magic-muted: rgb(196 181 253);
+  --color-border-magic: rgb(37 99 235);
+  --color-border-magic-muted: rgb(147 197 253);
 }
 
-/* Primary button gradient from design.json */
+/* Light theme - flip mcb scale endpoints, keep accent blues */
+[data-theme="light"] {
+  --color-mcb-50: rgb(15 23 42);
+  --color-mcb-100: rgb(30 41 59);
+  --color-mcb-200: rgb(51 65 85);
+  --color-mcb-300: rgb(71 85 105);
+  /* 400-600 stay the same (accent/primary blues) */
+  --color-mcb-700: rgb(203 213 225);
+  --color-mcb-800: rgb(226 232 240);
+  --color-mcb-900: rgb(241 245 249);
+  --color-mcb-950: rgb(255 255 255);
+  --color-text-default: rgb(15 23 42);
+  --color-text-muted: rgb(71 85 105);
+  --color-text-inverse: rgb(255 255 255);
+}
+
+/* Primary button gradient */
 .btn-primary-gradient {
-  background: linear-gradient(to bottom, #7f65f2 14.64%, #7154f2 87.97%);
-  box-shadow: 0 1px 2px #381fa350;
+  background: linear-gradient(to bottom, #4d8ef7 14.64%, #3b82f6 87.97%);
+  box-shadow: 0 1px 2px #1e40af50;
 }
 .btn-primary-gradient:hover {
-  background: linear-gradient(180deg, #866ef2 14.64%, #7154f2 87.97%);
+  background: linear-gradient(180deg, #5c9bf8 14.64%, #3b82f6 87.97%);
 }
 .btn-primary-gradient:active {
-  background: linear-gradient(180deg, #7154f2 6.03%, #7f65f2 94.44%);
+  background: linear-gradient(180deg, #3b82f6 6.03%, #4d8ef7 94.44%);
+}
+
+/* Keep code/terminal blocks always dark in light theme */
+[data-theme="light"] .bg-black\/30,
+[data-theme="light"] .bg-black\/40,
+[data-theme="light"] .bg-black\/50,
+[data-theme="light"] .bg-black\/60,
+[data-theme="light"] .bg-black\/70,
+[data-theme="light"] .bg-black\/80,
+[data-theme="light"] .bg-black\/90 {
+  background-color: rgb(15 23 42) !important;
 }
 
 /* Subtle background glow pulse for depth */
