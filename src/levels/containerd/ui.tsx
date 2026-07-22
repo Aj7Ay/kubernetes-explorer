@@ -1139,9 +1139,22 @@ export function BlockView({ block }: { block: ContentBlock }) {
    ═══════════════════════════════════════════════════════════ */
 function StepsView({ block }: { block: Extract<ContentBlock, { type: 'steps' }> }) {
   const [active, setActive] = useState(0);
+  const isLab = block.kind === 'lab';
 
   return (
-    <div className="space-y-3 text-left">
+    <div className={`space-y-3 text-left ${isLab ? 'rounded-2xl border border-green-700/40 bg-green-950/10 p-4 shadow-[0_0_30px_rgba(34,197,94,0.08)]' : ''}`}>
+      {isLab && (
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-2"
+        >
+          <span className="text-[10px] font-bold tracking-wider uppercase text-green-300 bg-green-500/15 border border-green-500/40 rounded-full px-2.5 py-1">
+            Hands-on Lab
+          </span>
+        </motion.div>
+      )}
+
       {block.title && (
         <motion.h4
           initial={{ opacity: 0, x: -12 }}
@@ -1153,12 +1166,23 @@ function StepsView({ block }: { block: Extract<ContentBlock, { type: 'steps' }> 
         </motion.h4>
       )}
 
+      {isLab && block.goal && (
+        <p className="text-sm text-green-200/80 leading-relaxed">
+          <span className="font-semibold text-green-300">Goal: </span>
+          {block.goal}
+        </p>
+      )}
+
       {/* Progress bar + nav */}
       <div className="relative">
         <div className="h-1.5 bg-mcb-800/50 rounded-full overflow-hidden">
           <motion.div
             animate={{ width: `${((active + 1) / block.steps.length) * 100}%` }}
-            className="h-full bg-gradient-to-r from-mcb-500 via-blue-400 to-green-400 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+            className={`h-full rounded-full ${
+              isLab
+                ? 'bg-gradient-to-r from-green-500 via-emerald-400 to-teal-400 shadow-[0_0_8px_rgba(34,197,94,0.5)]'
+                : 'bg-gradient-to-r from-mcb-500 via-blue-400 to-green-400 shadow-[0_0_8px_rgba(59,130,246,0.5)]'
+            }`}
             transition={{ type: 'spring', stiffness: 100, damping: 20 }}
           />
         </div>

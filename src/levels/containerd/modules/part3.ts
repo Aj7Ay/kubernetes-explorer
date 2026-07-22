@@ -130,6 +130,20 @@ ctr --help
 ctr images --help
 ctr images pull --help`,
           },
+          {
+            type: 'steps',
+            kind: 'lab',
+            title: 'Lab: wrong vs right pull, container vs task',
+            goal: 'Do a wrong-vs-right image pull, then tell a container apart from a task.',
+            steps: [
+              { title: 'Wrong pull', detail: 'Try the Docker-style shorthand - ctr has no default registry/namespace, so this fails.', cmd: 'sudo ctr images pull nginx' },
+              { title: 'Right pull', detail: 'Retry with the full reference: registry/namespace/image:tag.', cmd: 'sudo ctr images pull docker.io/library/nginx:latest' },
+              { title: 'Create container', detail: 'Metadata only is written - no process exists yet.', cmd: 'sudo ctr containers create docker.io/library/nginx:latest lab-nginx' },
+              { title: 'Confirm no task yet', detail: 'The container exists but nothing is running.', cmd: 'sudo ctr tasks list' },
+              { title: 'Start the task', detail: 'Now a real process is spawned for the container.', cmd: 'sudo ctr tasks start -d lab-nginx' },
+              { title: 'Verify', detail: 'tasks list now shows a PID for lab-nginx - proof that container (metadata) and task (running process) are separate objects.', cmd: 'sudo ctr tasks list | grep lab-nginx' },
+            ],
+          },
         ],
       },
     ],
@@ -211,6 +225,20 @@ ctr images pull --help`,
               {
                 cmd: 'sudo ctr images label nginx:latest maintainer=admin@example.com environment=production',
               },
+            ],
+          },
+          {
+            type: 'steps',
+            kind: 'lab',
+            title: 'Lab: pull, tag, export, re-import',
+            goal: 'Pull, tag, export, and re-import a real image using ctr.',
+            steps: [
+              { title: 'Pull', detail: 'Get the image into the local content store.', cmd: 'sudo ctr images pull docker.io/library/nginx:alpine' },
+              { title: 'Tag', detail: 'Give the same content an additional, friendlier reference.', cmd: 'sudo ctr images tag docker.io/library/nginx:alpine nginx:lab' },
+              { title: 'Export', detail: 'Serialize the image (all its layers + manifest) into a portable tar file.', cmd: 'sudo ctr images export nginx-lab.tar nginx:lab' },
+              { title: 'Remove originals', detail: 'Delete both references so nothing is left locally.', cmd: 'sudo ctr images rm docker.io/library/nginx:alpine nginx:lab' },
+              { title: 'Re-import', detail: 'Load the image back in from the tar file alone.', cmd: 'sudo ctr images import nginx-lab.tar' },
+              { title: 'Verify', detail: 'images list shows the re-imported image, and it starts a task normally - the tar round-tripped it intact.', cmd: 'sudo ctr images list | grep nginx' },
             ],
           },
         ],
@@ -322,7 +350,9 @@ ctr images pull --help`,
           },
           {
             type: 'steps',
+            kind: 'lab',
             title: 'Full 3-step workflow (from ctr2 video)',
+            goal: 'Run the full pull → create → start → verify → cleanup lifecycle for a real container using only ctr.',
             steps: [
               { title: 'Pull', detail: 'Get layers into content store', cmd: 'sudo ctr images pull docker.io/library/nginx:alpine' },
               { title: 'Create', detail: 'Metadata only', cmd: 'sudo ctr containers create docker.io/library/nginx:alpine web-app' },
@@ -392,219 +422,6 @@ sudo ctr namespaces list > "$BACKUP_DIR/namespaces.txt"`,
               {
                 cmd: 'sudo ctr run -d --net-ns /var/run/netns/my-netns docker.io/library/nginx:latest custom-net-nginx',
               },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'features',
-    part: 'Part 4 · Features & Future',
-    title: 'Key Features',
-    short: 'Features',
-    icon: 'Zap',
-    lessons: [
-      {
-        id: 'feat-advanced',
-        title: 'Encryption, Lazy Pull, CNI, CRIU, Metrics',
-        blocks: [
-          {
-            type: 'commands',
-            title: 'Image encryption (nerdctl)',
-            items: [
-              {
-                cmd: 'nerdctl image encrypt --recipient=jwe:pubkey.pem myapp:latest myapp:encrypted',
-              },
-              { cmd: 'nerdctl push myapp:encrypted' },
-              { cmd: 'nerdctl pull myapp:encrypted' },
-              { cmd: 'nerdctl run --decrypt=privkey.pem myapp:encrypted' },
-            ],
-          },
-          {
-            type: 'commands',
-            title: 'Lazy pulling (stargz)',
-            items: [
-              {
-                cmd: 'nerdctl run --snapshotter=stargz nginx:latest',
-                note: 'starts immediately; layers pull on demand - up to ~80% faster cold start in ideal cases',
-              },
-            ],
-          },
-          {
-            type: 'code',
-            title: 'CNI example /etc/cni/net.d/10-mynet.conf',
-            lang: 'json',
-            code: `{
-  "cniVersion": "0.4.0",
-  "name": "mynet",
-  "type": "bridge",
-  "bridge": "cni0",
-  "isGateway": true,
-  "ipMasq": true,
-  "ipam": {
-    "type": "host-local",
-    "subnet": "10.88.0.0/16"
-  }
-}`,
-          },
-          {
-            type: 'list',
-            title: 'CNI plugins you will meet',
-            items: ['bridge', 'ipvlan/macvlan', 'flannel', 'Calico', 'Cilium (eBPF)', 'Weave'],
-          },
-          {
-            type: 'commands',
-            title: 'Checkpoint/restore (nerdctl)',
-            items: [
-              { cmd: 'nerdctl checkpoint create mycontainer checkpoint1' },
-              { cmd: 'nerdctl start --checkpoint=checkpoint1 mycontainer' },
-            ],
-          },
-          {
-            type: 'list',
-            title: 'CRIU use cases',
-            items: ['Live migration', 'Debug freeze/thaw', 'Disaster recovery drills', 'Faster warm starts'],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'usecases',
-    part: 'Part 4 · Features & Future',
-    title: 'Real-World Use Cases',
-    short: 'Use cases',
-    icon: 'Globe',
-    lessons: [
-      {
-        id: 'use-all',
-        title: 'Where containerd shines',
-        blocks: [
-          {
-            type: 'cards',
-            items: [
-              {
-                title: 'Large-scale Kubernetes',
-                body: 'Default on EKS/GKE/AKS. Direct CRI, low overhead, millions of nodes.',
-                tag: 'K8s',
-                color: 'mcb',
-              },
-              {
-                title: 'Edge / IoT',
-                body: 'Small binary (~30MB), low idle RAM, ARM-friendly.',
-                tag: 'Edge',
-                color: 'green',
-              },
-              {
-                title: 'CI/CD runners',
-                body: 'Fast pull + start; clean namespaces per job; easy wipe of content store.',
-                tag: 'CI',
-                color: 'blue',
-              },
-              {
-                title: 'Multi-tenant platforms',
-                body: 'ctr namespaces per customer/team; resource isolation for accounting.',
-                tag: 'SaaS',
-                color: 'orange',
-              },
-              {
-                title: 'Serverless',
-                body: 'Firecracker/microVM runtimes; CRIU warm starts; stargz lazy images.',
-                tag: 'FaaS',
-                color: 'yellow',
-              },
-            ],
-          },
-          {
-            type: 'table',
-            title: 'Why it matters (efficiency)',
-            headers: ['Metric', 'Docker Engine', 'ContainerD'],
-            rows: [
-              ['Memory idle', '150 MB', '30 MB'],
-              ['Memory / container', '+5 MB', '+1 MB'],
-              ['Startup', '2–3s', '<1s'],
-              ['Launch', '800ms', '500ms'],
-              ['CPU idle', '1–2%', '<0.5%'],
-            ],
-          },
-          {
-            type: 'diagram',
-            title: 'K8s market share (approx.)',
-            lines: [
-              'ContainerD  ████████████████████████████  75%',
-              'CRI-O       ███████                      20%',
-              'Others      ██                            5%',
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'future',
-    part: 'Part 4 · Features & Future',
-    title: 'Future & Bridge to Kubernetes',
-    short: 'Future',
-    icon: 'Award',
-    lessons: [
-      {
-        id: 'future-trends',
-        title: 'Trends & Emerging Tech',
-        blocks: [
-          {
-            type: 'list',
-            title: 'Current trends',
-            items: [
-              'Rootless containers by default more often',
-              'WASM workloads beside Linux containers',
-              'Stronger sandboxing (gVisor/Kata/confidential)',
-              'Faster startup + lower overhead',
-              'Better Windows parity',
-            ],
-          },
-          {
-            type: 'list',
-            title: 'Emerging',
-            items: [
-              'Lazy pull evolution: HTTP/3, P2P layers, CDN',
-              'eBPF security policies + hardware isolation',
-              'CSI / distributed storage backends',
-              'Edge offline modes + ARM64 optimization',
-              'Confidential computing / TEE integration',
-              'AI/ML GPU container workloads',
-            ],
-          },
-          {
-            type: 'code',
-            title: 'Go client sketch (gRPC API)',
-            lang: 'go',
-            code: `client, _ := containerd.New("/run/containerd/containerd.sock")
-defer client.Close()
-ctx := namespaces.WithNamespace(context.Background(), "default")
-image, _ := client.Pull(ctx, "docker.io/library/nginx:latest")
-container, _ := client.NewContainer(ctx, "nginx-1",
-  containerd.WithNewSnapshot("nginx-1-snapshot", image),
-  containerd.WithNewSpec(),
-)
-task, _ := container.NewTask(ctx, cio.NewCreator())
-task.Start(ctx)`,
-          },
-          {
-            type: 'callout',
-            variant: 'success',
-            title: 'Key takeaways',
-            body: 'containerd is the engine under Docker and most Kubernetes clusters. Efficient, graduated CNCF project, multi-runtime, production battle-tested. Next chapter of this adventure: Kubernetes orchestration on top of this engine.',
-          },
-          {
-            type: 'list',
-            title: 'Part 3 video topics (K8s/CRI - next in your series)',
-            items: [
-              'CRI plugin architecture',
-              'kubelet ↔ containerd gRPC flow',
-              'Pod sandbox (pause container)',
-              'Kubernetes 1.24 dockershim removal details',
-              'containerd on EKS / GKE / AKS',
             ],
           },
         ],

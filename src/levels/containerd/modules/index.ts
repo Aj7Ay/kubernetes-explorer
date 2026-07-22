@@ -2,11 +2,13 @@ import type { Module } from '../types';
 import { part1Modules } from './part1';
 import { part2Modules } from './part2';
 import { part3Modules } from './part3';
+import { part4Modules } from './part4';
 
 export const containerdCourse: Module[] = [
   ...part1Modules,
   ...part2Modules,
   ...part3Modules,
+  ...part4Modules,
 ];
 
 export function findLesson(moduleId: string, lessonId: string) {

@@ -56,6 +56,8 @@ export interface TableBlock {
 export interface StepsBlock {
   type: 'steps';
   title?: string;
+  kind?: 'lab';
+  goal?: string;
   steps: { title: string; detail: string; cmd?: string }[];
 }
 
